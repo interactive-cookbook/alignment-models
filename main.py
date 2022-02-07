@@ -54,13 +54,18 @@ flair.device = device
 def main():
     
     parser = argparse.ArgumentParser(description = """Automatic Alignment model""")
-    parser.add_argument('model_name', type=str, help="""Model Name; one of {'Simple', 'Naive', 'Alignment-no-feature', 'Alignment-with-feature'}""")
+    parser.add_argument('model_name', type=str, help="""Model Name; one of {'Simple', 'Naive', 'Alignment-no-feature', 'Alignment-with-feature'}""") # TODO: add options for fat graphs (with parents and grandparents)
     parser.add_argument('--embedding_name', type=str, default='bert', help='Embedding Name (Default is bert, alternative: elmo)')
+    parser.add_argument('--cuda-device', type=str, help="""Select cuda; default: cuda:0""")
     args = parser.parse_args()
 
     model_name = args.model_name
     
     embedding_name = args.embedding_name
+
+    if args.cuda_device:
+        device = torch.device("cuda:"+args.cuda_device if torch.cuda.is_available() else "cpu")
+        flair.device = device 
 
     print("-------Loading Model-------")
 
@@ -106,7 +111,7 @@ def main():
         optimizer = optim.Adam(model.parameters(), lr=LR)  # optimizer for training
         criterion = nn.CrossEntropyLoss()  # Loss function
 
-        print("-------Cross Validation Folds-------")
+        ################ Cross Validation Folds #################
 
         TT.run_folds(
             embedding_name, 
@@ -125,8 +130,6 @@ def main():
 
         optimizer = optim.Adam(model.parameters(), lr=LR)  # optimizer for training
         criterion = nn.CrossEntropyLoss()  # Loss function
-
-        print("-------Cross Validation Folds-------")
 
         TT.run_folds(
             embedding_name,
@@ -149,7 +152,7 @@ def main():
 
         print("-------Testing (Simple Baseline) -------")
 
-        TT.test_simple_model(embedding_name, emb_model, tokenizer, simple_model, device)
+        TT.test_simple_model(embedding_name, emb_model, tokenizer, cosine_similarity_model, device)
         
         
     elif model_name == 'Naive':
@@ -158,7 +161,7 @@ def main():
         
         print('Common Action Pair Heuristics Model')
         
-        print("-------Cross Validation Folds-------")
+        ################ Cross Validation Folds #################
         
         TT.run_naive_folds(
             naive_model,

@@ -1,4 +1,5 @@
-# Author : Debanjali Biswas
+# Authors : Debanjali Biswas
+#           Theresa Schmidt (theresas@lst.uni-saarland.de)
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -35,6 +36,7 @@ from constants import (
 )
 from utils import (
     fetch_recipe,
+    fetch_dish,
     save_metrics,
     save_checkpoint,
     load_checkpoint,
@@ -49,7 +51,8 @@ from utils import (
 class Folds:
     def run_model(
         self,
-        dish,
+        dish_dict,
+        dish_group_alignments,
         emb_model,
         tokenizer,
         model,
@@ -69,8 +72,10 @@ class Folds:
 
         Parameters
         ----------
-        dish : String
-            Dish.
+        dish_dict : dict
+            Contains all information for one dish. Keys: recipe names. Values: dictionaries with keys "Embedding_Vectors", "Vector_Lookup_Lists", "Action_Dicts_List" and values according to fetch_recipe().
+        dish_group_alignments : pd.DataFrame
+            All alignments (token ID's) for one dish, grouped by pairs of recipe names.
         emb_model : Embedding Model object
             Model.
         tokenizer : Tokenizer object
@@ -99,13 +104,14 @@ class Folds:
 
         """
 
+        """
         data_folder = os.path.join(folder, dish)  # dish folder
-        recipe_folder = os.path.join(data_folder, recipe_folder_name)  # recipe folder
+        recipe_folder = os.path.join(data_folder, recipe_folder_name)  # recipe folder, e.g. data/dish-name/recipes
         
 
         alignment_file_path = os.path.join(
             data_folder, alignment_file
-        )  # alignment file
+        )  # alignment file, e.g. data/dish-name/alignments.tsv
 
         # Gold Standard Alignments between all recipes for dish
         alignments = pd.read_csv(
@@ -114,17 +120,19 @@ class Folds:
         
 
         # Group by Recipe pairs
-        group_alignments = alignments.groupby(["file1", "file2"])
+        dish_group_alignments = alignments.groupby(["file1", "file2"])
 
         if mode == "Testing":
             results_df = pd.DataFrame(
                 columns=["Action1_id", "True_Label", "Predicted_Label"]
             )
 
-        for key in group_alignments.groups.keys():
+        for key in dish_group_alignments.groups.keys():
 
             recipe1_filename = os.path.join(recipe_folder, key[0] + ".conllu")
             recipe2_filename = os.path.join(recipe_folder, key[1] + ".conllu")
+
+
 
             embedding_vector1, vector_lookup_list1, recipe_dict1 = fetch_recipe(
                 recipe1_filename, emb_model, tokenizer, device, embedding_name,
@@ -132,10 +140,22 @@ class Folds:
             embedding_vector2, vector_lookup_list2, recipe_dict2 = fetch_recipe(
                 recipe2_filename, emb_model, tokenizer, device, embedding_name,
             )
+        """
+        
+        if mode == "Testing":
+            results_df = pd.DataFrame(
+                columns=["Action1_id", "True_Label", "Predicted_Label"]
+            )
 
-            recipe_pair_alignment = group_alignments.get_group(key)
+        for key in dish_group_alignments.groups.keys():
+            
+            recipe1 = dish_dict[key[0]] 
+            recipe2 = dish_dict[key[1]] 
 
-            for node in recipe_dict1[1:]:
+            recipe_pair_alignment = dish_group_alignments.get_group(key)
+
+            #for node in action_dicts_list1[1:]:
+            for node in recipe1["Action_Dicts_List"][1:]:
 
                 if mode == "Training":
                     optimizer.zero_grad()
@@ -152,7 +172,7 @@ class Folds:
                     # True Action Id index
                     labels = [
                         i
-                        for i, node in enumerate(recipe_dict2)
+                        for i, node in enumerate(recipe2["Action_Dicts_List"])
                         if node["Action_id"] == true_label
                     ]
                     labels_tensor = torch.LongTensor([labels[0]]).to(device)
@@ -168,21 +188,21 @@ class Folds:
                             action1.to(device),
                             parent_list1,
                             child_list1,
-                            embedding_vector1,
-                            vector_lookup_list1,
-                            recipe_dict2,
-                            embedding_vector2,
-                            vector_lookup_list2,
+                            recipe1["Embedding_Vectors"],
+                            recipe1["Vector_Lookup_Lists"],
+                            recipe2["Action_Dicts_List"],
+                            recipe2["Embedding_Vectors"],
+                            recipe2["Vector_Lookup_Lists"],
                         )
 
                     elif model_name == "Simple Model":
                         prediction = model(
                             action1.to(device),
-                            embedding_vector1,
-                            vector_lookup_list1,
-                            recipe_dict2,
-                            embedding_vector2,
-                            vector_lookup_list2,
+                            recipe1["Embedding_Vectors"],
+                            recipe1["Vector_Lookup_Lists"],
+                            recipe2["Action_Dicts_List"],
+                            recipe2["Embedding_Vectors"],
+                            recipe2["Vector_Lookup_Lists"],
                         )
 
                     # print(prediction)
@@ -190,7 +210,7 @@ class Folds:
                     num_actions += 1
 
                     # Predicted Action Id
-                    pred_label = recipe_dict2[torch.argmax(prediction).item()][
+                    pred_label = recipe2["Action_Dicts_List"][torch.argmax(prediction).item()][
                         "Action_id"
                     ]
 
@@ -239,7 +259,7 @@ class Folds:
         Parameters
         ----------
         dish_list : List
-            List of dishes.
+            List of dish names.
         emb_model : Embedding Model object
             Model.
         tokenizer : Tokenizer object
@@ -267,7 +287,8 @@ class Folds:
         for dish in dish_list:
 
             correct_predictions, num_actions, train_loss, step = self.run_model(
-                dish=dish,
+                self.dish_dicts[dish], 
+                self.gold_alignments[dish], 
                 embedding_name = embedding_name,
                 emb_model=emb_model,
                 tokenizer=tokenizer,
@@ -296,7 +317,7 @@ class Folds:
         Parameters
         ----------
         dish : String
-            Dish.
+            Dish name.
         emb_model : Embedding Model object
             Model.
         tokenizer : Tokenizer object
@@ -323,7 +344,8 @@ class Folds:
         with torch.no_grad():
 
             correct_predictions, num_actions, valid_loss, step = self.run_model(
-                dish=dish,
+                self.dish_dicts[dish], 
+                self.gold_alignments[dish], 
                 embedding_name = embedding_name,
                 emb_model=emb_model,
                 tokenizer=tokenizer,
@@ -351,7 +373,7 @@ class Folds:
         Parameters
         ----------
         dish_list : List
-            List of dishes.
+            List of dish names (typically, the list holds just one element).
         emb_model : Embedding Model object
             Model.
         tokenizer : Tokenizer object
@@ -362,20 +384,26 @@ class Folds:
             Destination folder.
         device : object
             torch device where model tensors are saved.
+
+        Parameters
+        ----------
+        accuracy_list : List
+            List of tuples (#correct predictions, #actions, dish accuracy) for each dish in dish_list.
         """
 
         mode = "Testing"
 
         accuracy_list = (
             []
-        )  # List of tuples (#correct predictions, #actions) for each dish in dish_list.
+        )  # List of tuples (#correct predictions, #actions, dish accuracy) for each dish in dish_list.
 
         for dish in dish_list:
 
             with torch.no_grad():
 
                 correct_predictions, num_actions, results_df = self.run_model(
-                    dish=dish,
+                    self.dish_dicts[dish], 
+                    self.gold_alignments[dish], 
                     embedding_name = embedding_name,
                     emb_model=emb_model,
                     tokenizer=tokenizer,
@@ -562,7 +590,7 @@ class Folds:
         Parameters
         ----------
         dish_list : List
-            List of all recipes in testing set
+            List of all recipes in testing set (usually just 1).
         emb_model : Embedding Model object
             Model.
         tokenizer : Tokenizer object
@@ -602,11 +630,12 @@ class Folds:
             total_correct_predictions += accuracy_line[0]
             total_actions += accuracy_line[1]
 
-            print("Accuracy of Dish {} : {:.2f}".format(dish_list[i], dish_accuracy))
+            print("Accuracy on dish {} : {:.2f}".format(dish_list[i], dish_accuracy))
 
         model_accuracy = total_correct_predictions * 100 / total_actions
 
-        print("Model Accuracy: {:.2f}".format(model_accuracy))
+        print("Accuracy on full test set: {:.2f}".format(model_accuracy))
+        print(f"Test set: {dish_list}")
 
         return accuracy_list, model_accuracy, total_correct_predictions, total_actions
     
@@ -632,6 +661,8 @@ class Folds:
 
         Parameters
         ----------
+        embedding_name : String
+            Either 'elmo' or 'bert'.
         emb_model : Embedding Model object
             Model.
         tokenizer : Tokenizer object
@@ -650,10 +681,25 @@ class Folds:
 
         """
 
+        print("-------Loading Data-------")
+
         dish_list = os.listdir(folder)
 
         dish_list = [dish for dish in dish_list if not dish.startswith(".")]
-        dish_list.sort()
+        dish_list.sort() # TODO: why though? (see GitHub issue)
+
+        self.dish_dicts = dict()
+        self.gold_alignments = dict()
+
+        for dish in dish_list:
+        
+            dish_dict, dish_group_alignments = fetch_dish(dish, folder, alignment_file, recipe_folder_name, emb_model, tokenizer, device, embedding_name)
+        
+            self.dish_dicts[dish] = dish_dict
+        
+            self.gold_alignments[dish] = dish_group_alignments
+
+        print("Data successfully loaded for dishes ", dish_list)
 
         fold_result_df = pd.DataFrame(
             columns=[
@@ -670,13 +716,15 @@ class Folds:
             ]
         )  # , "Test_Dish1_accuracy", "Test_Dish2_accuracy"])
 
-        test_dish_id = len(dish_list) - 1 
+        test_dish_id = len(dish_list) - 1 # TODO: why though? Why not iterate over dish_list 5 lines later or use `test_dish_id = fold`?
 
         if with_feature:
             destination_folder = destination_folder1
 
         else:
             destination_folder = destination_folder2
+
+        print("-------Cross Validation Folds-------")
 
         for fold in range(num_folds):
 
@@ -693,13 +741,13 @@ class Folds:
             train_dish_list = dish_list.copy()
             test_dish_list = [
                 train_dish_list.pop(test_dish_id)
-            ]  # , train_dish_list.pop(test_dish_id - 1)]
+            ]  # train_dish_list contains 9 dish names, test_dish_list contains 1 dish name
 
             test_dish_id -= 1
 
             if test_dish_id == -1:
 
-                test_dish_id = len(dish_list) - 1
+                test_dish_id = len(dish_list) - 1 # TODO: why? shouldn't it be 0, if anything? or maybe just move the line ```test_dish_id -= 1``` to the end of the loop?
 
             print("Fold [{}/{}]".format(fold + 1, num_folds))
 
@@ -755,26 +803,43 @@ class Folds:
                     elapsed_duration[0], elapsed_duration[1]
                 )
             )
-
-            fold_result = {
-                "Fold": fold + 1,
-                "Train_Loss": train_loss,
-                "Train_Accuracy": train_accuracy,
-                "Valid_Loss": valid_loss,
-                "Valid_Accuracy": valid_accuracy,
-                "Test_Accuracy": test_accuracy,
-                "Correct_Predictions": total_correct_predictions,
-                "Num_Actions": total_actions,
-                "Test_Dish": dish_list[test_dish_id+1],
-                "Fold_Timelapse_Minutes": elapsed_duration[0]
-            }  # ,
-            # "Test_Dish1_accuracy" : test_accuracy_list[0][2],
-            # "Test_Dish2_accuracy" : test_accuracy_list[1][2]}
+            #print("test_dish_id +1, dish_list[test_dish_id] ", test_dish_id +1, dish_list[test_dish_id])
+            try:
+                fold_result = {
+                    "Fold": fold + 1,
+                    "Train_Loss": train_loss,
+                    "Train_Accuracy": train_accuracy,
+                    "Valid_Loss": valid_loss,
+                    "Valid_Accuracy": valid_accuracy,
+                    "Test_Accuracy": test_accuracy,
+                    "Correct_Predictions": total_correct_predictions,
+                    "Num_Actions": total_actions,
+                    "Test_Dish": dish_list[test_dish_id+1],
+                    "Fold_Timelapse_Minutes": elapsed_duration[0]
+                }  # ,
+                # "Test_Dish1_accuracy" : test_accuracy_list[0][2],
+                # "Test_Dish2_accuracy" : test_accuracy_list[1][2]}
+            except IndexError:
+                fold_result = {
+                    "Fold": fold + 1,
+                    "Train_Loss": train_loss,
+                    "Train_Accuracy": train_accuracy,
+                    "Valid_Loss": valid_loss,
+                    "Valid_Accuracy": valid_accuracy,
+                    "Test_Accuracy": test_accuracy,
+                    "Correct_Predictions": total_correct_predictions,
+                    "Num_Actions": total_actions,
+                    "Test_Dish": dish_list[0],
+                    "Fold_Timelapse_Minutes": elapsed_duration[0]
+                }
 
             fold_result_df = fold_result_df.append(fold_result, ignore_index=True)
 
             
             print("--------------")
+
+
+        print("-------Training Finished-------\n")
 
         save_result_path = os.path.join(destination_folder, "fold_results.tsv")
 
@@ -782,6 +847,20 @@ class Folds:
         fold_result_df.to_csv(save_result_path, sep="\t", index=False, encoding="utf-8")
 
         print("Fold Results saved in ==>" + save_result_path)
+
+        # Print final model statistics
+
+        total_duration = fold_result_df["Fold_Timelapse_Minutes"].sum()
+        total_duration = divmod(total_duration, 60) 
+        print(f"Total training time for {num_folds} folds: {total_duration[0]}h {total_duration[1]}min" )
+
+        total_num_correct = fold_result_df["Correct_Predictions"].sum()
+        total_num_actions = fold_result_df["Num_Actions"].sum()
+        avg_model_accuracy = total_num_correct / total_num_actions
+        print("Total correct predictions: ", total_num_correct)
+        print("Total actions: ", total_num_actions)
+        print("Total model accuracy: ", avg_model_accuracy)
+
         
 
 #####################################
@@ -823,7 +902,8 @@ class Folds:
         for dish in dish_list:
 
             correct_predictions, num_actions, results_df = self.run_model(
-                dish,
+                self.dish_dicts[dish], 
+                self.gold_alignments[dish], 
                 emb_model,
                 tokenizer,
                 simple_model,
@@ -894,14 +974,14 @@ class Folds:
                     )
     
                 # Group by Recipe pairs
-                group_alignments = alignments.groupby(["file1", "file2"])
+                dish_group_alignments = alignments.groupby(["file1", "file2"])
             
-                for key in group_alignments.groups.keys():
+                for key in dish_group_alignments.groups.keys():
 
                     recipe1_filename = os.path.join(recipe_folder, key[0] + ".conllu")
                     recipe2_filename = os.path.join(recipe_folder, key[1] + ".conllu")
                     
-                    recipe_pair_alignment = group_alignments.get_group(key)
+                    recipe_pair_alignment = dish_group_alignments.get_group(key)
                 
                     # Generate action pairs in text format 
                     _, _, action_pairs = model.generate_action_pairs(recipe_pair_alignment, recipe1_filename, recipe2_filename)
@@ -949,7 +1029,7 @@ class Folds:
             )
     
             # Group by Recipe pairs
-            group_alignments = alignments.groupby(["file1", "file2"])
+            dish_group_alignments = alignments.groupby(["file1", "file2"])
             
             num_actions = 0
             correct_predictions = 0
@@ -958,12 +1038,12 @@ class Folds:
                 columns=["Action", "True_Label", "Predicted_Label"]
             )
             
-            for key in group_alignments.groups.keys():
+            for key in dish_group_alignments.groups.keys():
 
                recipe1_filename = os.path.join(recipe_folder, key[0] + ".conllu")
                recipe2_filename = os.path.join(recipe_folder, key[1] + ".conllu")
                 
-               recipe_pair_alignment = group_alignments.get_group(key)
+               recipe_pair_alignment = dish_group_alignments.get_group(key)
                
                _, parsed_recipe2, action_pairs = model.generate_action_pairs(recipe_pair_alignment, recipe1_filename, recipe2_filename)
                

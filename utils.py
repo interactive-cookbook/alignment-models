@@ -1,4 +1,5 @@
-# Author : Debanjali Biswas
+# Authors : Debanjali Biswas
+#           Theresa Schmidt (theresas@lst.uni-saarland.de)
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,6 +28,7 @@ from conllu import parse
 from matplotlib import style
 from constants import prediction_file
 from ast import literal_eval
+import pandas as pd
 
 
 style.use("ggplot")
@@ -169,7 +171,7 @@ def generate_bert_embeddings(emb_model, tokenizer, recipe, device):
             where keys are vector_lookup_list token_ids and values are their corresponding BERT embeddings.
     vector_lookup_list : Dict
         Look up dictionary for a particular Recipe embeddings;
-            where key is the Conllu file token 'id' and values are list of token_ids generated using BERT.
+            where key is the Conllu file token 'id' and values are list of token_ids generated using BERT tokenizer.
 
     """
 
@@ -264,6 +266,74 @@ def fetch_parsed_recipe(recipe_filename):
 #####################################
 
 
+def fetch_dish(dish, folder, alignment_file, recipe_folder_name, emb_model, tokenizer, device, embedding_name):
+        """
+        Reads in the data.
+        Author: Theresa Schmidt
+
+        Parameters
+        ----------
+        dish : String
+            Dish name.
+        folder : String
+            Path to data folder.
+        alignment_file : String
+            Filename of the alignment files.
+        recipe_folder_name : String
+            What the subfolder with the recipes is called in the dish folder.
+        emb_model : Embedding Model object
+            Model.
+        tokenizer : Tokenizer object
+            Tokenizer.
+        device : object
+            torch device where model tensors are saved.
+        embedding_name : String
+            Either 'elmo' or 'bert'.
+
+        Returns
+        ----------
+        dish_dict : dict
+            Contains all information from this dish. Keys: recipe names. Values: dictionaries with keys "Embedding_Vectors", "Vector_Lookup_Lists", "Action_Dicts_List" and values according to fetch_recipe().
+
+        dish_group_alignments : pd.DataFrame
+            All alignments (token ID's) for the dish, grouped by pairs of recipe names.
+        """
+
+        # Recipe names for the dish
+        data_folder = os.path.join(folder, dish)  # dish folder
+        recipe_folder = os.path.join(data_folder, recipe_folder_name)  # recipe folder, e.g. data/dish-name/recipes
+        recipe_list = os.listdir(recipe_folder)
+        recipe_list = [recipe for recipe in recipe_list if not recipe.startswith(".")]
+
+        # Read in recipes of the dish
+        dish_dict = dict()
+        for recipe in recipe_list:
+
+            recipe_filename = os.path.join(recipe_folder, recipe)
+
+            embedding_vectors, vector_lookup_lists, action_dicts_list = fetch_recipe(
+                recipe_filename, emb_model, tokenizer, device, embedding_name,
+            )
+
+            recipe_name = recipe.split(".")[0]
+            dish_dict[recipe_name] = {"Embedding_Vectors" : embedding_vectors, "Vector_Lookup_Lists" : vector_lookup_lists, "Action_Dicts_List" : action_dicts_list}
+
+        # Gold Standard Alignments between all recipes for dish
+        alignment_file_path = os.path.join(
+            data_folder, alignment_file
+        )  # alignment file, e.g. data/dish-name/alignments.tsv
+        alignments = pd.read_csv(
+            alignment_file_path, sep="\t", header=0, skiprows=0, encoding="utf-8"
+        )
+        # Group by Recipe pairs
+        dish_group_alignments = alignments.groupby(["file1", "file2"])
+
+        return dish_dict, dish_group_alignments
+
+
+#####################################
+
+
 def fetch_recipe(recipe_filename, emb_model, tokenizer, device, embedding_name):
     """
     Fetch List of recipe dictionary and Embedding vector dictionary
@@ -271,7 +341,7 @@ def fetch_recipe(recipe_filename, emb_model, tokenizer, device, embedding_name):
     Parameters
     ----------
     recipe_filename : String
-        Recipe Filename.
+        Recipe filename (relative path).
     emb_model : Embedding object
         Model.
     tokenizer : Tokenizer object
@@ -286,10 +356,10 @@ def fetch_recipe(recipe_filename, emb_model, tokenizer, device, embedding_name):
             where keys are vector_lookup_list token_ids and values are their corresponding word embeddings (BERT/ELMO).
     vector_lookup_list : Dict
         Look up dictionary for a particular Recipe embeddings;
-            where key is the Conllu file token 'id' and values are list of token_ids generated using BERT/ELMO.
-    recipe_dict_list : List of Dict
+            where key is the Conllu file token 'id' and values are list of token_ids generated using BERT/ELMO tokenizer.
+    action_dicts_list : List of Dict
         List of Dictionary for every action in the recipe.
-        Dictionary contains Action_id, Action, Parent_List, Child_List
+        Dictionary contains Action_id, Action, Parent_List, Child_List.
 
     """
 
@@ -309,11 +379,11 @@ def fetch_recipe(recipe_filename, emb_model, tokenizer, device, embedding_name):
 
     action_list = fetch_action_ids(parsed_recipe)  # List of actions in recipe
 
-    recipe_dict_list = generate_recipe_dict(
+    action_dicts_list = generate_recipe_dict(
         parsed_recipe, action_list, device
     )  # List of Recipe dictionary
 
-    return embedding_vector, vector_lookup_list, recipe_dict_list
+    return embedding_vector, vector_lookup_list, action_dicts_list
 
 
 #####################################
