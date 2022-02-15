@@ -20,7 +20,7 @@ Main Function
 Usage: python main.py model_name embedding_name
 
 (model_name: ['Sequence' : Sequential ordering of alignments, 
-              'Simple' : Cosine model, 
+              'Cosine_similarity' : Cosine model, 
               'Naive' : Common Action Pair Heuristics model,
               'Alignment-no-feature' : Base Alignment model, 
               'Alignment-with-feature' : Extended Alignment model])
