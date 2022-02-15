@@ -144,7 +144,7 @@ def main():
             False,
         )
 
-    elif model_name == "Simple":
+    elif model_name == "Cosine_similarity":
 
         cosine_similarity_model = SimpleModel(embedding_dim, device).to(device) # Simple Cosine Similarity Baseline
 
@@ -179,7 +179,7 @@ def main():
     else:
 
         print(
-            "Incorrect Argument: Model_name should be ['Simple', 'Naive', 'Alignment-no-feature', 'Alignment-with-feature']"
+            "Incorrect Argument: Model_name should be ['Cosine_similarity', 'Naive', 'Alignment-no-feature', 'Alignment-with-feature']"
         )
 
 
