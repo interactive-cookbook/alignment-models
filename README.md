@@ -14,7 +14,7 @@ You can find all the requirements in the file `requirement.txt`.
 
 ## Usage
 
-Download the corpus from [here](https://github.com/interactive-cookbook/alignment-models/tree/main/data/alignment) into `./alignment-models/data/alignment` folder for reproducing our experiment results. Additionally, create the results folder where the trained models and their test results will be saved (**Notes:** You can change the hyperparameters and the path names in the file `constants.py`). Per default, the script looks for the following results folders:
+Download the corpus from [here](https://github.com/interactive-cookbook/alignment-models/tree/main/data/alignment) into `./alignment-models/data/` folder for reproducing our experiment results. The data should be structured in one directory (/data), containing subdirectories corresponding to the different dishes, each of them including the recipes of the dish regrouped under a /recipes directory, and an "alignments.tsv" file. This file shows the crowsourced golden standard alignments of the correspoding recipes. Additionally, create the results folder where the trained models and their test results will be saved (**Notes:** You can change the hyperparameters and the path names in the file `constants.py`). Per default, the script looks for the following results folders:
 
 Model Name | Saves To
 --- | ---
