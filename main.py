@@ -52,6 +52,9 @@ flair.device = device
 
 
 def main():
+  
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    flair.device = device
     
     parser = argparse.ArgumentParser(description = """Automatic Alignment model""")
     parser.add_argument('model_name', type=str, help="""Model Name; one of {'Simple', 'Naive', 'Alignment-no-feature', 'Alignment-with-feature'}""") # TODO: add options for fat graphs (with parents and grandparents)
