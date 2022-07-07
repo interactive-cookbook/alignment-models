@@ -26,6 +26,7 @@ OUTPUT_DIM = 1  # Classifier output_dim
 LR = 0.0001  # Learning rate for optimizer
 EPOCHS = 70  # Training Epochs
 FOLDS = 1  # Cross Validation Folds
+CUDA_DEVICE = "cuda:0"  # GPU 
 
 #####################################
 
@@ -44,6 +45,6 @@ prediction_file = "prediction.tsv"  # Testing results
 
 # Data file paths and names
 
-folder = "./data"  # Dataset folder
+folder = "./data/alignment"  # Dataset folder
 recipe_folder_name = "recipes"  # Folder containing recipes
 alignment_file = "alignments.tsv"  # Alignment file

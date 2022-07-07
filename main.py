@@ -45,15 +45,15 @@ from transformers import BertTokenizer, BertModel
 from flair.data import Sentence
 from flair.embeddings import ELMoEmbeddings
 from training_testing import Folds
-from constants import OUTPUT_DIM, LR, EPOCHS, FOLDS, HIDDEN_DIM1, HIDDEN_DIM2
+from constants import OUTPUT_DIM, LR, EPOCHS, FOLDS, HIDDEN_DIM1, HIDDEN_DIM2, CUDA_DEVICE
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device(CUDA_DEVICE if torch.cuda.is_available() else "cpu")
 flair.device = device
 
 
 def main():
   
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    device = torch.device(CUDA_DEVICE if torch.cuda.is_available() else "cpu")
     flair.device = device
     
     parser = argparse.ArgumentParser(description = """Automatic Alignment model""")
