@@ -1,5 +1,6 @@
 # Automatic Alignment Model
 Implementation of the automatic alignment model from the paper **"Aligning Actions Across Recipe Graphs"**. In this paper we present two automatic alignment models (base, extended) and a simple baseline (cosine similarity).
+*Internal note*:If you are searching for the version of the alignment model implied in our crowdsourcing task, please visit this [private repository](https://github.com/interactive-cookbook/crowdsourcing/tree/main/topk-alignments/alignment-model-topk).
 
 ## Requirements
 You can find all the requirements in the file `requirement.txt`.
