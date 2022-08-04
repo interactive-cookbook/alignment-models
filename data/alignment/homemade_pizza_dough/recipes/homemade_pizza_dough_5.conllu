@@ -7,8 +7,8 @@
 7	bowl	_	_	O	_	0	root	_	_
 8	;	_	_	O	_	0	root	_	_
 9	whisk	_	_	B-A	_	13	edge	_	_
-10	to	_	_	I-A	_	13	edge	_	_
-11	combine	_	_	I-A	_	13	edge	_	_
+10	to	_	_	I-A	_	0	root	_	_
+11	combine	_	_	I-A	_	0	root	_	_
 12	.	_	_	O	_	0	root	_	_
 13	Add	_	_	B-A	_	18	edge	_	_
 14	the	_	_	O	_	0	root	_	_

@@ -54,7 +54,7 @@
 54	cover	_	_	O	_	0	root	_	_
 55	and	_	_	O	_	0	root	_	_
 56	finish	_	_	B-A	_	63	edge	_	_
-57	cooking	_	_	I-A	_	63	edge	_	_
+57	cooking	_	_	I-A	_	0	root	_	_
 58	the	_	_	O	_	0	root	_	_
 59	remaining	_	_	O	_	0	root	_	_
 60	30	_	_	O	_	0	root	_	_

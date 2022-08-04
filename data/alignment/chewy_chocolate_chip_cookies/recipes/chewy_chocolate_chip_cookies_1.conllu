@@ -20,7 +20,7 @@
 20	s	_	_	O	_	0	root	_	_
 21	mixing	_	_	O	_	0	root	_	_
 22	sift	_	_	B-A	_	45	edge	_	_
-23	together	_	_	I-A	_	45	edge	_	_
+23	together	_	_	I-A	_	0	root	_	_
 24	(	_	_	O	_	0	root	_	_
 25	or	_	_	O	_	0	root	_	_
 26	briskly	_	_	O	_	0	root	_	_
@@ -43,7 +43,7 @@
 43	measuring	_	_	O	_	0	root	_	_
 44	cup	_	_	O	_	0	root	_	_
 45	whisk	_	_	B-A	_	59	edge	_	_
-46	together	_	_	I-A	_	59	edge	_	_
+46	together	_	_	I-A	_	0	root	_	_
 47	the	_	_	O	_	0	root	_	_
 48	eggs	_	_	O	_	0	root	_	_
 49	milk	_	_	O	_	0	root	_	_
@@ -73,7 +73,7 @@
 73	thoroughly	_	_	O	_	0	root	_	_
 74	and	_	_	O	_	0	root	_	_
 75	scraping	_	_	B-A	_	82	edge	_	_
-76	down	_	_	I-A	_	82	edge	_	_
+76	down	_	_	I-A	_	0	root	_	_
 77	the	_	_	O	_	0	root	_	_
 78	sides	_	_	O	_	0	root	_	_
 79	as	_	_	O	_	0	root	_	_
@@ -128,7 +128,7 @@
 128	)	_	_	O	_	0	root	_	_
 129	.	_	_	O	_	0	root	_	_
 130	Portion	_	_	B-A	_	141	edge	_	_
-131	out	_	_	I-A	_	141	edge	_	_
+131	out	_	_	I-A	_	0	root	_	_
 132	the	_	_	O	_	0	root	_	_
 133	cookie	_	_	O	_	0	root	_	_
 134	dough	_	_	O	_	0	root	_	_
@@ -173,7 +173,7 @@
 173	rack	_	_	O	_	0	root	_	_
 174	and	_	_	O	_	0	root	_	_
 175	let	_	_	B-A	_	191	edge	_	_
-176	sit	_	_	I-A	_	191	edge	_	_
+176	sit	_	_	I-A	_	0	root	_	_
 177	for	_	_	O	_	0	root	_	_
 178	a	_	_	O	_	0	root	_	_
 179	few	_	_	O	_	0	root	_	_
@@ -195,7 +195,7 @@
 195	minutes	_	_	O	_	0	root	_	_
 196	before	_	_	O	_	0	root	_	_
 197	portioning	_	_	B-A	_	191	edge	_	_
-198	out	_	_	I-A	_	191	edge	_	_
+198	out	_	_	I-A	_	0	root	_	_
 199	the	_	_	O	_	0	root	_	_
 200	next	_	_	O	_	0	root	_	_
 201	round	_	_	O	_	0	root	_	_

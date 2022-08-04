@@ -80,7 +80,7 @@
 80	the	_	_	O	_	0	root	_	_
 81	center	_	_	O	_	0	root	_	_
 82	comes	_	_	B-A	_	64	edge	_	_
-83	out	_	_	I-A	_	64	edge	_	_
+83	out	_	_	I-A	_	0	root	_	_
 84	with	_	_	O	_	0	root	_	_
 85	very	_	_	O	_	0	root	_	_
 86	few	_	_	O	_	0	root	_	_
@@ -89,7 +89,7 @@
 89	attached	_	_	O	_	0	root	_	_
 90	.	_	_	O	_	0	root	_	_
 91	Let	_	_	B-A	_	100	edge	_	_
-92	cool	_	_	I-A	_	100	edge	_	_
+92	cool	_	_	I-A	_	0	root	_	_
 93	in	_	_	O	_	0	root	_	_
 94	the	_	_	O	_	0	root	_	_
 95	pan	_	_	O	_	0	root	_	_
@@ -98,7 +98,7 @@
 98	minutes	_	_	O	_	0	root	_	_
 99	then	_	_	O	_	0	root	_	_
 100	turn	_	_	B-A	_	106	edge	_	_
-101	out	_	_	I-A	_	106	edge	_	_
+101	out	_	_	I-A	_	0	root	_	_
 102	onto	_	_	O	_	0	root	_	_
 103	a	_	_	O	_	0	root	_	_
 104	rack	_	_	O	_	0	root	_	_

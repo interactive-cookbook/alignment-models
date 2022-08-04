@@ -38,8 +38,8 @@
 38	cheese	_	_	O	_	0	root	_	_
 39	and	_	_	O	_	0	root	_	_
 40	stir	_	_	B-A	_	44	edge	_	_
-41	to	_	_	I-A	_	44	edge	_	_
-42	combine	_	_	I-A	_	44	edge	_	_
+41	to	_	_	I-A	_	0	root	_	_
+42	combine	_	_	I-A	_	0	root	_	_
 43	.	_	_	O	_	0	root	_	_
 44	Garnish	_	_	B-A	_	0	root	_	_
 45	with	_	_	O	_	0	root	_	_

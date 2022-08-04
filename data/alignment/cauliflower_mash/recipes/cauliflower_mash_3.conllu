@@ -6,7 +6,7 @@
 6	cauliflower	_	_	O	_	0	root	_	_
 7	and	_	_	O	_	0	root	_	_
 8	cut	_	_	B-A	_	37	edge	_	_
-9	out	_	_	I-A	_	37	edge	_	_
+9	out	_	_	I-A	_	0	root	_	_
 10	the	_	_	O	_	0	root	_	_
 11	core	_	_	O	_	0	root	_	_
 12	in	_	_	O	_	0	root	_	_
@@ -48,8 +48,8 @@
 48	of	_	_	O	_	0	root	_	_
 49	water	_	_	O	_	0	root	_	_
 50	to	_	_	B-A	_	57	edge	_	_
-51	a	_	_	I-A	_	57	edge	_	_
-52	boil	_	_	I-A	_	57	edge	_	_
+51	a	_	_	I-A	_	0	root	_	_
+52	boil	_	_	I-A	_	0	root	_	_
 53	in	_	_	O	_	0	root	_	_
 54	the	_	_	O	_	0	root	_	_
 55	steamer	_	_	O	_	0	root	_	_
@@ -160,7 +160,7 @@
 160	(	_	_	O	_	0	root	_	_
 161	You	_	_	O	_	0	root	_	_
 162	can	_	_	O	_	0	root	_	_
-163	reheat	_	_	B-A	_	0	root	_	_
+163	reheat	_	_	B-A	_	157	edge	_	_
 164	over	_	_	O	_	0	root	_	_
 165	low	_	_	O	_	0	root	_	_
 166	heat	_	_	O	_	0	root	_	_

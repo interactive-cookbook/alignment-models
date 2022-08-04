@@ -7,8 +7,8 @@
 7	cooker	_	_	O	_	0	root	_	_
 8	and	_	_	O	_	0	root	_	_
 9	stir	_	_	B-A	_	13	edge	_	_
-10	to	_	_	I-A	_	13	edge	_	_
-11	combine	_	_	I-A	_	13	edge	_	_
+10	to	_	_	I-A	_	0	root	_	_
+11	combine	_	_	I-A	_	0	root	_	_
 12	.	_	_	O	_	0	root	_	_
 13	Cook	_	_	B-A	_	43	edge	_	_
 14	for	_	_	O	_	0	root	_	_
@@ -41,7 +41,7 @@
 41	two	_	_	O	_	0	root	_	_
 42	forks	_	_	O	_	0	root	_	_
 43	to	_	_	B-A	_	48	edge	_	_
-44	shred	_	_	I-A	_	48	edge	_	_
+44	shred	_	_	I-A	_	0	root	_	_
 45	the	_	_	O	_	0	root	_	_
 46	chicken	_	_	O	_	0	root	_	_
 47	.	_	_	O	_	0	root	_	_
@@ -87,7 +87,7 @@
 87	days	_	_	O	_	0	root	_	_
 88	.	_	_	O	_	0	root	_	_
 89	Or	_	_	O	_	0	root	_	_
-90	freeze	_	_	B-A	_	0	root	_	_
+90	freeze	_	_	B-A	_	13	edge	_	_
 91	it	_	_	O	_	0	root	_	_
 92	for	_	_	O	_	0	root	_	_
 93	up	_	_	O	_	0	root	_	_

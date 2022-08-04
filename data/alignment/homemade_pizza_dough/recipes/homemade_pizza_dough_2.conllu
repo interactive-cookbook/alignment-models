@@ -70,7 +70,7 @@
 70	the	_	_	O	_	0	root	_	_
 71	bowl	_	_	O	_	0	root	_	_
 72	to	_	_	B-A	_	77	edge	_	_
-73	coat	_	_	I-A	_	77	edge	_	_
+73	coat	_	_	I-A	_	0	root	_	_
 74	with	_	_	O	_	0	root	_	_
 75	oil	_	_	O	_	0	root	_	_
 76	.	_	_	O	_	0	root	_	_
@@ -96,12 +96,12 @@
 96	until	_	_	O	_	0	root	_	_
 97	it	_	_	O	_	0	root	_	_
 98	has	_	_	B-A	_	83	edge	_	_
-99	doubled	_	_	I-A	_	83	edge	_	_
+99	doubled	_	_	I-A	_	0	root	_	_
 100	in	_	_	O	_	0	root	_	_
 101	size	_	_	O	_	0	root	_	_
 102	.	_	_	O	_	0	root	_	_
 103	Punch	_	_	B-A	_	108	edge	_	_
-104	down	_	_	I-A	_	108	edge	_	_
+104	down	_	_	I-A	_	0	root	_	_
 105	the	_	_	O	_	0	root	_	_
 106	dough	_	_	O	_	0	root	_	_
 107	and	_	_	O	_	0	root	_	_

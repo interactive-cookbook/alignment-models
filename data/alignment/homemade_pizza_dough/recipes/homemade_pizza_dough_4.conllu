@@ -61,7 +61,7 @@
 61	)	_	_	O	_	0	root	_	_
 62	.	_	_	O	_	0	root	_	_
 63	Continue	_	_	B-A	_	71	edge	_	_
-64	kneading	_	_	I-A	_	71	edge	_	_
+64	kneading	_	_	I-A	_	0	root	_	_
 65	for	_	_	O	_	0	root	_	_
 66	an	_	_	O	_	0	root	_	_
 67	additional	_	_	O	_	0	root	_	_
@@ -97,8 +97,8 @@
 97	to	_	_	O	_	0	root	_	_
 98	)	_	_	O	_	0	root	_	_
 99	turning	_	_	B-A	_	105	edge	_	_
-100	to	_	_	I-A	_	105	edge	_	_
-101	grease	_	_	I-A	_	105	edge	_	_
+100	to	_	_	I-A	_	0	root	_	_
+101	grease	_	_	I-A	_	0	root	_	_
 102	the	_	_	O	_	0	root	_	_
 103	top	_	_	O	_	0	root	_	_
 104	.	_	_	O	_	0	root	_	_

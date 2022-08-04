@@ -116,7 +116,7 @@
 116	pepper	_	_	O	_	0	root	_	_
 117	and	_	_	O	_	0	root	_	_
 118	garnish	_	_	B-A	_	0	root	_	_
-119	finished	_	_	B-A	_	0	root	_	_
+119	finished	_	_	B-A	_	118	edge	_	_
 120	dish	_	_	O	_	0	root	_	_
 121	with	_	_	O	_	0	root	_	_
 122	remaining	_	_	O	_	0	root	_	_

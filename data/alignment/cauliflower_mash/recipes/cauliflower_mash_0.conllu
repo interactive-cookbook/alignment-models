@@ -33,8 +33,8 @@
 33	Bring	_	_	B-A	_	35	edge	_	_
 34	water	_	_	O	_	0	root	_	_
 35	to	_	_	B-A	_	39	edge	_	_
-36	a	_	_	I-A	_	39	edge	_	_
-37	boil	_	_	I-A	_	39	edge	_	_
+36	a	_	_	I-A	_	0	root	_	_
+37	boil	_	_	I-A	_	0	root	_	_
 38	.	_	_	O	_	0	root	_	_
 39	Let	_	_	B-A	_	41	edge	_	_
 40	cauliflower	_	_	O	_	0	root	_	_

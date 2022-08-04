@@ -19,7 +19,7 @@
 19	spray	_	_	O	_	0	root	_	_
 20	.	_	_	O	_	0	root	_	_
 21	Set	_	_	B-A	_	65	edge	_	_
-22	aside	_	_	I-A	_	65	edge	_	_
+22	aside	_	_	I-A	_	0	root	_	_
 23	.	_	_	O	_	0	root	_	_
 24	Whisk	_	_	B-A	_	65	edge	_	_
 25	the	_	_	O	_	0	root	_	_

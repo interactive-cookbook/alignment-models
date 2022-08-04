@@ -60,8 +60,8 @@
 60	olive	_	_	O	_	0	root	_	_
 61	oil	_	_	O	_	0	root	_	_
 62	rubbing	_	_	B-A	_	67	edge	_	_
-63	to	_	_	I-A	_	67	edge	_	_
-64	coat	_	_	I-A	_	67	edge	_	_
+63	to	_	_	I-A	_	0	root	_	_
+64	coat	_	_	I-A	_	0	root	_	_
 65	surface	_	_	O	_	0	root	_	_
 66	.	_	_	O	_	0	root	_	_
 67	Cover	_	_	B-A	_	73	edge	_	_
@@ -89,5 +89,5 @@
 89	1	_	_	O	_	0	root	_	_
 90	hour	_	_	O	_	0	root	_	_
 91	before	_	_	O	_	0	root	_	_
-92	using	_	_	B-A	_	0	root	_	_
+92	using	_	_	B-A	_	84	edge	_	_
 93	.	_	_	O	_	0	root	_	_

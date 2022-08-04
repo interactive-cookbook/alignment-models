@@ -5,14 +5,14 @@
 5	of	_	_	O	_	0	root	_	_
 6	cauliflower	_	_	O	_	0	root	_	_
 7	break	_	_	B-A	_	1	edge	_	_
-8	apart	_	_	I-A	_	1	edge	_	_
+8	apart	_	_	I-A	_	0	root	_	_
 9	florets	_	_	O	_	0	root	_	_
 10	.	_	_	O	_	0	root	_	_
 11	Bring	_	_	B-A	_	13	edge	_	_
 12	water	_	_	O	_	0	root	_	_
 13	to	_	_	B-A	_	19	edge	_	_
-14	a	_	_	I-A	_	19	edge	_	_
-15	boil	_	_	I-A	_	19	edge	_	_
+14	a	_	_	I-A	_	0	root	_	_
+15	boil	_	_	I-A	_	0	root	_	_
 16	in	_	_	O	_	0	root	_	_
 17	pot	_	_	O	_	0	root	_	_
 18	.	_	_	O	_	0	root	_	_
@@ -58,7 +58,7 @@
 58	pepper	_	_	O	_	0	root	_	_
 59	and	_	_	O	_	0	root	_	_
 60	purée	_	_	B-A	_	66	edge	_	_
-61	using	_	_	I-A	_	66	edge	_	_
+61	using	_	_	I-A	_	0	root	_	_
 62	an	_	_	O	_	0	root	_	_
 63	immersion	_	_	O	_	0	root	_	_
 64	blender	_	_	O	_	0	root	_	_

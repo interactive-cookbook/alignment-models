@@ -74,7 +74,7 @@
 74	a	_	_	O	_	0	root	_	_
 75	toothpick	_	_	O	_	0	root	_	_
 76	to	_	_	B-A	_	82	edge	_	_
-77	check	_	_	I-A	_	82	edge	_	_
+77	check	_	_	I-A	_	0	root	_	_
 78	if	_	_	O	_	0	root	_	_
 79	its	_	_	O	_	0	root	_	_
 80	done	_	_	O	_	0	root	_	_

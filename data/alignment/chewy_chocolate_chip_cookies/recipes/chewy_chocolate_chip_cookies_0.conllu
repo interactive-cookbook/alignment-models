@@ -14,7 +14,7 @@
 14	powder	_	_	O	_	0	root	_	_
 15	.	_	_	O	_	0	root	_	_
 16	Sift	_	_	B-A	_	25	edge	_	_
-17	together	_	_	I-A	_	25	edge	_	_
+17	together	_	_	I-A	_	0	root	_	_
 18	the	_	_	O	_	0	root	_	_
 19	flour	_	_	O	_	0	root	_	_
 20	baking	_	_	O	_	0	root	_	_
@@ -23,7 +23,7 @@
 23	salt	_	_	O	_	0	root	_	_
 24	and	_	_	O	_	0	root	_	_
 25	set	_	_	B-A	_	57	edge	_	_
-26	aside	_	_	I-A	_	57	edge	_	_
+26	aside	_	_	I-A	_	0	root	_	_
 27	.	_	_	O	_	0	root	_	_
 28	In	_	_	O	_	0	root	_	_
 29	a	_	_	O	_	0	root	_	_
@@ -112,7 +112,7 @@
 112	apart	_	_	O	_	0	root	_	_
 113	.	_	_	O	_	0	root	_	_
 114	Take	_	_	B-A	_	125	edge	_	_
-115	out	_	_	I-A	_	125	edge	_	_
+115	out	_	_	I-A	_	0	root	_	_
 116	after	_	_	O	_	0	root	_	_
 117	exactly	_	_	O	_	0	root	_	_
 118	15mins	_	_	O	_	0	root	_	_

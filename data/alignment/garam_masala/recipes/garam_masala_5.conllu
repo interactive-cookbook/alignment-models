@@ -58,9 +58,9 @@
 58	plate	_	_	O	_	0	root	_	_
 59	and	_	_	O	_	0	root	_	_
 60	set	_	_	B-A	_	70	edge	_	_
-61	aside	_	_	I-A	_	70	edge	_	_
-62	to	_	_	I-A	_	70	edge	_	_
-63	cool	_	_	I-A	_	70	edge	_	_
+61	aside	_	_	I-A	_	0	root	_	_
+62	to	_	_	I-A	_	0	root	_	_
+63	cool	_	_	I-A	_	0	root	_	_
 64	for	_	_	O	_	0	root	_	_
 65	15	_	_	O	_	0	root	_	_
 66	minutes	_	_	O	_	0	root	_	_
@@ -120,8 +120,8 @@
 120	Sift	_	_	B-A	_	132	edge	_	_
 121	after	_	_	O	_	0	root	_	_
 122	grinding	_	_	B-A	_	120	edge	_	_
-123	to	_	_	I-A	_	120	edge	_	_
-124	refine	_	_	I-A	_	120	edge	_	_
+123	to	_	_	I-A	_	0	root	_	_
+124	refine	_	_	I-A	_	0	root	_	_
 125	the	_	_	O	_	0	root	_	_
 126	powder	_	_	O	_	0	root	_	_
 127	or	_	_	O	_	0	root	_	_

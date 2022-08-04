@@ -104,7 +104,7 @@
 104	.	_	_	O	_	0	root	_	_
 105	To	_	_	O	_	0	root	_	_
 106	serve	_	_	B-A	_	0	root	_	_
-107	sprinkle	_	_	B-A	_	0	root	_	_
+107	sprinkle	_	_	B-A	_	106	edge	_	_
 108	tortilla	_	_	O	_	0	root	_	_
 109	strips	_	_	O	_	0	root	_	_
 110	over	_	_	O	_	0	root	_	_

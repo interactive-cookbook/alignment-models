@@ -9,7 +9,7 @@
 9	pan	_	_	O	_	0	root	_	_
 10	.	_	_	O	_	0	root	_	_
 11	Whisk	_	_	B-A	_	50	edge	_	_
-12	together	_	_	I-A	_	50	edge	_	_
+12	together	_	_	I-A	_	0	root	_	_
 13	the	_	_	O	_	0	root	_	_
 14	following	_	_	O	_	0	root	_	_
 15	:	_	_	O	_	0	root	_	_
@@ -56,8 +56,8 @@
 56	wet	_	_	O	_	0	root	_	_
 57	gently	_	_	O	_	0	root	_	_
 58	stirring	_	_	B-A	_	62	edge	_	_
-59	to	_	_	I-A	_	62	edge	_	_
-60	combine	_	_	I-A	_	62	edge	_	_
+59	to	_	_	I-A	_	0	root	_	_
+60	combine	_	_	I-A	_	0	root	_	_
 61	.	_	_	O	_	0	root	_	_
 62	Add	_	_	B-A	_	67	edge	_	_
 63	the	_	_	O	_	0	root	_	_
@@ -65,8 +65,8 @@
 65	chips	_	_	O	_	0	root	_	_
 66	.	_	_	O	_	0	root	_	_
 67	Avoid	_	_	B-A	_	71	edge	_	_
-68	over	_	_	I-A	_	71	edge	_	_
-69	mixing	_	_	I-A	_	71	edge	_	_
+68	over	_	_	I-A	_	0	root	_	_
+69	mixing	_	_	I-A	_	0	root	_	_
 70	.	_	_	O	_	0	root	_	_
 71	Pour	_	_	B-A	_	81	edge	_	_
 72	into	_	_	O	_	0	root	_	_
@@ -118,7 +118,7 @@
 118	browning	_	_	O	_	0	root	_	_
 119	.	_	_	O	_	0	root	_	_
 120	Begin	_	_	B-A	_	152	edge	_	_
-121	checking	_	_	I-A	_	152	edge	_	_
+121	checking	_	_	I-A	_	0	root	_	_
 122	at	_	_	O	_	0	root	_	_
 123	50	_	_	O	_	0	root	_	_
 124	minutes	_	_	O	_	0	root	_	_
@@ -128,7 +128,7 @@
 128	Toothpick	_	_	B-A	_	130	edge	_	_
 129	will	_	_	O	_	0	root	_	_
 130	come	_	_	B-A	_	135	edge	_	_
-131	out	_	_	I-A	_	135	edge	_	_
+131	out	_	_	I-A	_	0	root	_	_
 132	mostly	_	_	O	_	0	root	_	_
 133	clean	_	_	O	_	0	root	_	_
 134	.	_	_	O	_	0	root	_	_
@@ -152,8 +152,8 @@
 152	Remove	_	_	B-A	_	154	edge	_	_
 153	&	_	_	O	_	0	root	_	_
 154	allow	_	_	B-A	_	165	edge	_	_
-155	to	_	_	I-A	_	165	edge	_	_
-156	cool	_	_	I-A	_	165	edge	_	_
+155	to	_	_	I-A	_	0	root	_	_
+156	cool	_	_	I-A	_	0	root	_	_
 157	completely	_	_	O	_	0	root	_	_
 158	on	_	_	O	_	0	root	_	_
 159	a	_	_	O	_	0	root	_	_

@@ -40,14 +40,14 @@
 40	Bring	_	_	B-A	_	42	edge	_	_
 41	broth	_	_	O	_	0	root	_	_
 42	to	_	_	B-A	_	47	edge	_	_
-43	a	_	_	I-A	_	47	edge	_	_
-44	boil	_	_	I-A	_	47	edge	_	_
+43	a	_	_	I-A	_	0	root	_	_
+44	boil	_	_	I-A	_	0	root	_	_
 45	and	_	_	O	_	0	root	_	_
 46	then	_	_	O	_	0	root	_	_
 47	reduce	_	_	B-A	_	49	edge	_	_
 48	heat	_	_	O	_	0	root	_	_
 49	to	_	_	B-A	_	54	edge	_	_
-50	simmer	_	_	I-A	_	54	edge	_	_
+50	simmer	_	_	I-A	_	0	root	_	_
 51	.	_	_	O	_	0	root	_	_
 52	Cover	_	_	B-A	_	54	edge	_	_
 53	and	_	_	O	_	0	root	_	_
@@ -86,8 +86,8 @@
 86	ghee	_	_	O	_	0	root	_	_
 87	and	_	_	O	_	0	root	_	_
 88	continue	_	_	B-A	_	93	edge	_	_
-89	to	_	_	I-A	_	93	edge	_	_
-90	blend	_	_	I-A	_	93	edge	_	_
+89	to	_	_	I-A	_	0	root	_	_
+90	blend	_	_	I-A	_	0	root	_	_
 91	.	_	_	O	_	0	root	_	_
 92	Now	_	_	O	_	0	root	_	_
 93	add	_	_	B-A	_	119	edge	_	_
@@ -127,7 +127,7 @@
 127	and	_	_	O	_	0	root	_	_
 128	pepper	_	_	O	_	0	root	_	_
 129	to	_	_	B-A	_	132	edge	_	_
-130	taste	_	_	I-A	_	132	edge	_	_
+130	taste	_	_	I-A	_	0	root	_	_
 131	.	_	_	O	_	0	root	_	_
 132	Serve	_	_	B-A	_	134	edge	_	_
 133	and	_	_	O	_	0	root	_	_

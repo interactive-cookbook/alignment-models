@@ -25,7 +25,7 @@
 25	and	_	_	O	_	0	root	_	_
 26	then	_	_	O	_	0	root	_	_
 27	grind	_	_	B-A	_	34	edge	_	_
-28	together	_	_	I-A	_	34	edge	_	_
+28	together	_	_	I-A	_	0	root	_	_
 29	with	_	_	O	_	0	root	_	_
 30	the	_	_	O	_	0	root	_	_
 31	rose	_	_	O	_	0	root	_	_

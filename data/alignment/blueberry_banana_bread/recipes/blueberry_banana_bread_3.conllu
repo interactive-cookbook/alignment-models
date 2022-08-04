@@ -20,7 +20,7 @@
 20	a	_	_	O	_	0	root	_	_
 21	bowl	_	_	O	_	0	root	_	_
 22	beat	_	_	B-A	_	46	edge	_	_
-23	together	_	_	I-A	_	46	edge	_	_
+23	together	_	_	I-A	_	0	root	_	_
 24	the	_	_	O	_	0	root	_	_
 25	sugar	_	_	O	_	0	root	_	_
 26	oil	_	_	O	_	0	root	_	_
@@ -36,7 +36,7 @@
 36	separate	_	_	O	_	0	root	_	_
 37	bowl	_	_	O	_	0	root	_	_
 38	mix	_	_	B-A	_	46	edge	_	_
-39	together	_	_	I-A	_	46	edge	_	_
+39	together	_	_	I-A	_	0	root	_	_
 40	the	_	_	O	_	0	root	_	_
 41	flour	_	_	O	_	0	root	_	_
 42	and	_	_	O	_	0	root	_	_
@@ -84,7 +84,7 @@
 84	until	_	_	O	_	0	root	_	_
 85	toothpick	_	_	O	_	0	root	_	_
 86	comes	_	_	B-A	_	77	edge	_	_
-87	out	_	_	I-A	_	77	edge	_	_
+87	out	_	_	I-A	_	0	root	_	_
 88	clean	_	_	O	_	0	root	_	_
 89	and	_	_	O	_	0	root	_	_
 90	top	_	_	O	_	0	root	_	_
@@ -92,7 +92,7 @@
 92	browned	_	_	O	_	0	root	_	_
 93	.	_	_	O	_	0	root	_	_
 94	Let	_	_	B-A	_	101	edge	_	_
-95	cool	_	_	I-A	_	101	edge	_	_
+95	cool	_	_	I-A	_	0	root	_	_
 96	for	_	_	O	_	0	root	_	_
 97	10	_	_	O	_	0	root	_	_
 98	-	_	_	O	_	0	root	_	_

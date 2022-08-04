@@ -42,8 +42,8 @@
 42	cooker	_	_	O	_	0	root	_	_
 43	and	_	_	O	_	0	root	_	_
 44	stir	_	_	B-A	_	48	edge	_	_
-45	to	_	_	I-A	_	48	edge	_	_
-46	combine	_	_	I-A	_	48	edge	_	_
+45	to	_	_	I-A	_	0	root	_	_
+46	combine	_	_	I-A	_	0	root	_	_
 47	.	_	_	O	_	0	root	_	_
 48	Serve	_	_	B-A	_	0	root	_	_
 49	in	_	_	O	_	0	root	_	_
@@ -61,7 +61,7 @@
 61	plain	_	_	O	_	0	root	_	_
 62	yogurt	_	_	O	_	0	root	_	_
 63	limes	_	_	O	_	0	root	_	_
-64	shredded	_	_	B-A	_	0	root	_	_
+64	shredded	_	_	B-A	_	51	edge	_	_
 65	cheddar	_	_	O	_	0	root	_	_
 66	cheese	_	_	O	_	0	root	_	_
 67	avocado	_	_	O	_	0	root	_	_

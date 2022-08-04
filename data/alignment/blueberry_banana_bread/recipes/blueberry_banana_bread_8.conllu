@@ -28,7 +28,7 @@
 28	mixing	_	_	O	_	0	root	_	_
 29	bowl	_	_	O	_	0	root	_	_
 30	cream	_	_	B-A	_	40	edge	_	_
-31	together	_	_	I-A	_	40	edge	_	_
+31	together	_	_	I-A	_	0	root	_	_
 32	the	_	_	O	_	0	root	_	_
 33	SPLENDA	_	_	O	_	0	root	_	_
 34	®	_	_	O	_	0	root	_	_
@@ -46,7 +46,7 @@
 46	time	_	_	O	_	0	root	_	_
 47	.	_	_	O	_	0	root	_	_
 48	Stir	_	_	B-A	_	60	edge	_	_
-49	together	_	_	I-A	_	60	edge	_	_
+49	together	_	_	I-A	_	0	root	_	_
 50	flour	_	_	O	_	0	root	_	_
 51	baking	_	_	O	_	0	root	_	_
 52	soda	_	_	O	_	0	root	_	_
@@ -86,7 +86,7 @@
 86	medium	_	_	O	_	0	root	_	_
 87	speed	_	_	O	_	0	root	_	_
 88	to	_	_	B-A	_	95	edge	_	_
-89	combine	_	_	I-A	_	95	edge	_	_
+89	combine	_	_	I-A	_	0	root	_	_
 90	well	_	_	O	_	0	root	_	_
 91	into	_	_	O	_	0	root	_	_
 92	batter	_	_	O	_	0	root	_	_
@@ -138,7 +138,7 @@
 138	the	_	_	O	_	0	root	_	_
 139	center	_	_	O	_	0	root	_	_
 140	comes	_	_	B-A	_	112	edge	_	_
-141	out	_	_	I-A	_	112	edge	_	_
+141	out	_	_	I-A	_	0	root	_	_
 142	clean	_	_	O	_	0	root	_	_
 143	.	_	_	O	_	0	root	_	_
 144	Cool	_	_	B-A	_	151	edge	_	_

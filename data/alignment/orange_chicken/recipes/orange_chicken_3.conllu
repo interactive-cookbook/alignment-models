@@ -105,9 +105,9 @@
 105	sriracha	_	_	O	_	0	root	_	_
 106	.	_	_	O	_	0	root	_	_
 107	Bring	_	_	B-A	_	112	edge	_	_
-108	to	_	_	I-A	_	112	edge	_	_
-109	a	_	_	I-A	_	112	edge	_	_
-110	boil	_	_	I-A	_	112	edge	_	_
+108	to	_	_	I-A	_	0	root	_	_
+109	a	_	_	I-A	_	0	root	_	_
+110	boil	_	_	I-A	_	0	root	_	_
 111	and	_	_	O	_	0	root	_	_
 112	reduce	_	_	B-A	_	118	edge	_	_
 113	heat	_	_	O	_	0	root	_	_
@@ -132,8 +132,8 @@
 132	sauce	_	_	O	_	0	root	_	_
 133	.	_	_	O	_	0	root	_	_
 134	Allow	_	_	B-A	_	146	edge	_	_
-135	to	_	_	I-A	_	146	edge	_	_
-136	simmer	_	_	I-A	_	146	edge	_	_
+135	to	_	_	I-A	_	0	root	_	_
+136	simmer	_	_	I-A	_	0	root	_	_
 137	until	_	_	O	_	0	root	_	_
 138	sauce	_	_	O	_	0	root	_	_
 139	has	_	_	O	_	0	root	_	_

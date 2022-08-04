@@ -11,8 +11,8 @@
 11	salted	_	_	B-A	_	5	edge	_	_
 12	water	_	_	O	_	0	root	_	_
 13	to	_	_	B-A	_	17	edge	_	_
-14	a	_	_	I-A	_	17	edge	_	_
-15	boil	_	_	I-A	_	17	edge	_	_
+14	a	_	_	I-A	_	0	root	_	_
+15	boil	_	_	I-A	_	0	root	_	_
 16	.	_	_	O	_	0	root	_	_
 17	Add	_	_	B-A	_	21	edge	_	_
 18	ziti	_	_	O	_	0	root	_	_
@@ -150,7 +150,7 @@
 150	melted	_	_	O	_	0	root	_	_
 151	and	_	_	O	_	0	root	_	_
 152	top	_	_	O	_	0	root	_	_
-153	starts	_	_	B-A	_	0	root	_	_
+153	starts	_	_	B-A	_	142	edge	_	_
 154	to	_	_	I-A	_	0	root	_	_
 155	brown	_	_	I-A	_	0	root	_	_
 156	.	_	_	O	_	0	root	_	_

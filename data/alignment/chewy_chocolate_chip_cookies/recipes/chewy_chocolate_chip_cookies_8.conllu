@@ -29,7 +29,7 @@
 29	medium	_	_	O	_	0	root	_	_
 30	bowl	_	_	O	_	0	root	_	_
 31	mix	_	_	B-A	_	41	edge	_	_
-32	together	_	_	I-A	_	41	edge	_	_
+32	together	_	_	I-A	_	0	root	_	_
 33	flour	_	_	O	_	0	root	_	_
 34	baking	_	_	O	_	0	root	_	_
 35	powder	_	_	O	_	0	root	_	_

@@ -90,7 +90,7 @@
 90	.	_	_	O	_	0	root	_	_
 91	To	_	_	O	_	0	root	_	_
 92	serve	_	_	B-A	_	0	root	_	_
-93	sprinkle	_	_	B-A	_	0	root	_	_
+93	sprinkle	_	_	B-A	_	92	edge	_	_
 94	tortilla	_	_	O	_	0	root	_	_
 95	strips	_	_	O	_	0	root	_	_
 96	on	_	_	O	_	0	root	_	_

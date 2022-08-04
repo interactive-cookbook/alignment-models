@@ -26,7 +26,7 @@
 26	medium	_	_	O	_	0	root	_	_
 27	bowl	_	_	O	_	0	root	_	_
 28	cream	_	_	B-A	_	42	edge	_	_
-29	together	_	_	I-A	_	42	edge	_	_
+29	together	_	_	I-A	_	0	root	_	_
 30	the	_	_	O	_	0	root	_	_
 31	melted	_	_	B-A	_	28	edge	_	_
 32	butter	_	_	O	_	0	root	_	_
@@ -96,7 +96,7 @@
 96	minutes	_	_	O	_	0	root	_	_
 97	in	_	_	O	_	0	root	_	_
 98	the	_	_	O	_	0	root	_	_
-99	preheated	_	_	B-A	_	0	root	_	_
+99	preheated	_	_	B-A	_	91	edge	_	_
 100	oven	_	_	O	_	0	root	_	_
 101	or	_	_	O	_	0	root	_	_
 102	until	_	_	O	_	0	root	_	_

@@ -7,7 +7,7 @@
 7	flour	_	_	O	_	0	root	_	_
 8	and	_	_	O	_	0	root	_	_
 9	set	_	_	B-A	_	54	edge	_	_
-10	aside	_	_	I-A	_	54	edge	_	_
+10	aside	_	_	I-A	_	0	root	_	_
 11	.	_	_	O	_	0	root	_	_
 12	Combine	_	_	B-A	_	54	edge	_	_
 13	remaining	_	_	O	_	0	root	_	_
@@ -107,7 +107,7 @@
 107	in	_	_	O	_	0	root	_	_
 108	center	_	_	O	_	0	root	_	_
 109	comes	_	_	B-A	_	94	edge	_	_
-110	out	_	_	I-A	_	94	edge	_	_
+110	out	_	_	I-A	_	0	root	_	_
 111	clean	_	_	O	_	0	root	_	_
 112	.	_	_	O	_	0	root	_	_
 113	Let	_	_	B-A	_	114	edge	_	_

@@ -15,7 +15,7 @@
 15	wine	_	_	O	_	0	root	_	_
 16	;	_	_	O	_	0	root	_	_
 17	set	_	_	B-A	_	44	edge	_	_
-18	aside	_	_	I-A	_	44	edge	_	_
+18	aside	_	_	I-A	_	0	root	_	_
 19	for	_	_	O	_	0	root	_	_
 20	20	_	_	O	_	0	root	_	_
 21	minutes	_	_	O	_	0	root	_	_
@@ -114,8 +114,8 @@
 114	the	_	_	O	_	0	root	_	_
 115	sauce	_	_	O	_	0	root	_	_
 116	to	_	_	B-A	_	121	edge	_	_
-117	a	_	_	I-A	_	121	edge	_	_
-118	simmer	_	_	I-A	_	121	edge	_	_
+117	a	_	_	I-A	_	0	root	_	_
+118	simmer	_	_	I-A	_	0	root	_	_
 119	and	_	_	O	_	0	root	_	_
 120	gradually	_	_	O	_	0	root	_	_
 121	add	_	_	B-A	_	125	edge	_	_

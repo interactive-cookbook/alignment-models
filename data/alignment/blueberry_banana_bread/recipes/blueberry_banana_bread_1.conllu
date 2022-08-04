@@ -8,7 +8,7 @@
 8	mixing	_	_	O	_	0	root	_	_
 9	bowl	_	_	O	_	0	root	_	_
 10	sift	_	_	B-A	_	35	edge	_	_
-11	together	_	_	I-A	_	35	edge	_	_
+11	together	_	_	I-A	_	0	root	_	_
 12	the	_	_	O	_	0	root	_	_
 13	flour	_	_	O	_	0	root	_	_
 14	baking	_	_	O	_	0	root	_	_
@@ -100,7 +100,7 @@
 100	in	_	_	O	_	0	root	_	_
 101	the	_	_	O	_	0	root	_	_
 102	center	_	_	O	_	0	root	_	_
-103	comes	_	_	B-A	_	0	root	_	_
+103	comes	_	_	B-A	_	89	edge	_	_
 104	out	_	_	I-A	_	0	root	_	_
 105	clean	_	_	O	_	0	root	_	_
 106	.	_	_	O	_	0	root	_	_

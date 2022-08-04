@@ -25,7 +25,7 @@
 25	separate	_	_	O	_	0	root	_	_
 26	bowl	_	_	O	_	0	root	_	_
 27	whisk	_	_	B-A	_	38	edge	_	_
-28	together	_	_	I-A	_	38	edge	_	_
+28	together	_	_	I-A	_	0	root	_	_
 29	the	_	_	O	_	0	root	_	_
 30	sugar	_	_	O	_	0	root	_	_
 31	vegetable	_	_	O	_	0	root	_	_

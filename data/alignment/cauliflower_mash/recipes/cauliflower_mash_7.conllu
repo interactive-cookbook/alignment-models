@@ -7,8 +7,8 @@
 7	cup	_	_	O	_	0	root	_	_
 8	water	_	_	O	_	0	root	_	_
 9	to	_	_	B-A	_	13	edge	_	_
-10	a	_	_	I-A	_	13	edge	_	_
-11	simmer	_	_	I-A	_	13	edge	_	_
+10	a	_	_	I-A	_	0	root	_	_
+11	simmer	_	_	I-A	_	0	root	_	_
 12	.	_	_	O	_	0	root	_	_
 13	Add	_	_	B-A	_	17	edge	_	_
 14	cauliflower	_	_	O	_	0	root	_	_
@@ -60,7 +60,7 @@
 60	potato	_	_	O	_	0	root	_	_
 61	masher	_	_	O	_	0	root	_	_
 62	to	_	_	B-A	_	66	edge	_	_
-63	combine	_	_	I-A	_	66	edge	_	_
+63	combine	_	_	I-A	_	0	root	_	_
 64	well	_	_	O	_	0	root	_	_
 65	.	_	_	O	_	0	root	_	_
 66	Add	_	_	B-A	_	0	root	_	_

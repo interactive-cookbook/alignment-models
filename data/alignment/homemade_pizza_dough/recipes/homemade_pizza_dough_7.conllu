@@ -14,7 +14,7 @@
 14	honey	_	_	O	_	0	root	_	_
 15	.	_	_	O	_	0	root	_	_
 16	Let	_	_	B-A	_	34	edge	_	_
-17	sit	_	_	I-A	_	34	edge	_	_
+17	sit	_	_	I-A	_	0	root	_	_
 18	for	_	_	O	_	0	root	_	_
 19	10	_	_	O	_	0	root	_	_
 20	minutes	_	_	O	_	0	root	_	_
@@ -26,7 +26,7 @@
 26	your	_	_	O	_	0	root	_	_
 27	mixer	_	_	O	_	0	root	_	_
 28	whisk	_	_	B-A	_	40	edge	_	_
-29	together	_	_	I-A	_	40	edge	_	_
+29	together	_	_	I-A	_	0	root	_	_
 30	flour	_	_	O	_	0	root	_	_
 31	and	_	_	O	_	0	root	_	_
 32	salt	_	_	O	_	0	root	_	_
@@ -139,7 +139,7 @@
 139	counter	_	_	O	_	0	root	_	_
 140	and	_	_	O	_	0	root	_	_
 141	roll	_	_	B-A	_	149	edge	_	_
-142	out	_	_	I-A	_	149	edge	_	_
+142	out	_	_	I-A	_	0	root	_	_
 143	dough	_	_	O	_	0	root	_	_
 144	with	_	_	O	_	0	root	_	_
 145	a	_	_	O	_	0	root	_	_
@@ -171,8 +171,8 @@
 171	If	_	_	O	_	0	root	_	_
 172	refrigerated	_	_	O	_	0	root	_	_
 173	allow	_	_	B-A	_	183	edge	_	_
-174	to	_	_	I-A	_	183	edge	_	_
-175	return	_	_	I-A	_	183	edge	_	_
+174	to	_	_	I-A	_	0	root	_	_
+175	return	_	_	I-A	_	0	root	_	_
 176	to	_	_	O	_	0	root	_	_
 177	room	_	_	O	_	0	root	_	_
 178	temperature	_	_	O	_	0	root	_	_

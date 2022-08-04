@@ -86,7 +86,7 @@
 86	.	_	_	O	_	0	root	_	_
 87	Bake	_	_	B-A	_	0	root	_	_
 88	in	_	_	O	_	0	root	_	_
-89	preheated	_	_	B-A	_	0	root	_	_
+89	preheated	_	_	B-A	_	87	edge	_	_
 90	oven	_	_	O	_	0	root	_	_
 91	for	_	_	O	_	0	root	_	_
 92	30	_	_	O	_	0	root	_	_

@@ -1,6 +1,6 @@
 1	To	_	_	B-A	_	16	edge	_	_
-2	begin	_	_	I-A	_	16	edge	_	_
-3	combine	_	_	I-A	_	16	edge	_	_
+2	begin	_	_	I-A	_	0	root	_	_
+3	combine	_	_	I-A	_	0	root	_	_
 4	the	_	_	O	_	0	root	_	_
 5	flour	_	_	O	_	0	root	_	_
 6	salt	_	_	O	_	0	root	_	_
@@ -14,11 +14,11 @@
 14	bowl	_	_	O	_	0	root	_	_
 15	.	_	_	O	_	0	root	_	_
 16	Give	_	_	B-A	_	19	edge	_	_
-17	them	_	_	I-A	_	19	edge	_	_
+17	them	_	_	I-A	_	0	root	_	_
 18	a	_	_	O	_	0	root	_	_
 19	stir	_	_	B-A	_	29	edge	_	_
-20	to	_	_	I-A	_	29	edge	_	_
-21	mix	_	_	I-A	_	29	edge	_	_
+20	to	_	_	I-A	_	0	root	_	_
+21	mix	_	_	I-A	_	0	root	_	_
 22	them	_	_	O	_	0	root	_	_
 23	together	_	_	O	_	0	root	_	_
 24	.	_	_	O	_	0	root	_	_

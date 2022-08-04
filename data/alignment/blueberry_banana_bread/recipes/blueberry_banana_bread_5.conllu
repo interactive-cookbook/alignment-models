@@ -77,7 +77,7 @@
 77	are	_	_	O	_	0	root	_	_
 78	ready	_	_	O	_	0	root	_	_
 79	to	_	_	B-A	_	84	edge	_	_
-80	remove	_	_	I-A	_	84	edge	_	_
+80	remove	_	_	I-A	_	0	root	_	_
 81	from	_	_	O	_	0	root	_	_
 82	pan	_	_	O	_	0	root	_	_
 83	and	_	_	O	_	0	root	_	_

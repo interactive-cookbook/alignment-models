@@ -16,8 +16,8 @@
 16	of	_	_	O	_	0	root	_	_
 17	water	_	_	O	_	0	root	_	_
 18	to	_	_	B-A	_	25	edge	_	_
-19	a	_	_	I-A	_	25	edge	_	_
-20	simmer	_	_	I-A	_	25	edge	_	_
+19	a	_	_	I-A	_	0	root	_	_
+20	simmer	_	_	I-A	_	0	root	_	_
 21	in	_	_	O	_	0	root	_	_
 22	a	_	_	O	_	0	root	_	_
 23	pot	_	_	O	_	0	root	_	_

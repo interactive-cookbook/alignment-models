@@ -37,7 +37,7 @@
 37	pasta	_	_	O	_	0	root	_	_
 38	is	_	_	O	_	0	root	_	_
 39	cooking	_	_	B-A	_	58	edge	_	_
-40	brown	_	_	I-A	_	58	edge	_	_
+40	brown	_	_	I-A	_	0	root	_	_
 41	the	_	_	O	_	0	root	_	_
 42	ground	_	_	O	_	0	root	_	_
 43	beef	_	_	O	_	0	root	_	_
@@ -65,7 +65,7 @@
 65	and	_	_	O	_	0	root	_	_
 66	pepper	_	_	O	_	0	root	_	_
 67	to	_	_	B-A	_	79	edge	_	_
-68	taste	_	_	I-A	_	79	edge	_	_
+68	taste	_	_	I-A	_	0	root	_	_
 69	along	_	_	O	_	0	root	_	_
 70	with	_	_	O	_	0	root	_	_
 71	oregano	_	_	O	_	0	root	_	_
@@ -110,7 +110,7 @@
 110	and	_	_	O	_	0	root	_	_
 111	when	_	_	O	_	0	root	_	_
 112	you	_	_	O	_	0	root	_	_
-113	stick	_	_	B-A	_	0	root	_	_
+113	stick	_	_	B-A	_	96	edge	_	_
 114	a	_	_	O	_	0	root	_	_
 115	knife	_	_	O	_	0	root	_	_
 116	into	_	_	O	_	0	root	_	_

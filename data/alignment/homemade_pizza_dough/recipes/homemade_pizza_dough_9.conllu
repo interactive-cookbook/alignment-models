@@ -15,7 +15,7 @@
 15	water	_	_	O	_	0	root	_	_
 16	and	_	_	O	_	0	root	_	_
 17	let	_	_	B-A	_	27	edge	_	_
-18	sit	_	_	I-A	_	27	edge	_	_
+18	sit	_	_	I-A	_	0	root	_	_
 19	until	_	_	O	_	0	root	_	_
 20	small	_	_	O	_	0	root	_	_
 21	bubbles	_	_	O	_	0	root	_	_
@@ -41,7 +41,7 @@
 41	the	_	_	O	_	0	root	_	_
 42	dough	_	_	O	_	0	root	_	_
 43	pulls	_	_	B-A	_	39	edge	_	_
-44	away	_	_	I-A	_	39	edge	_	_
+44	away	_	_	I-A	_	0	root	_	_
 45	from	_	_	O	_	0	root	_	_
 46	the	_	_	O	_	0	root	_	_
 47	side	_	_	O	_	0	root	_	_
@@ -111,7 +111,7 @@
 111	the	_	_	O	_	0	root	_	_
 112	dough	_	_	O	_	0	root	_	_
 113	sit	_	_	B-A	_	131	edge	_	_
-114	undisturbed	_	_	I-A	_	131	edge	_	_
+114	undisturbed	_	_	I-A	_	0	root	_	_
 115	in	_	_	O	_	0	root	_	_
 116	a	_	_	O	_	0	root	_	_
 117	warm	_	_	O	_	0	root	_	_
@@ -129,7 +129,7 @@
 129	hours	_	_	O	_	0	root	_	_
 130	.	_	_	O	_	0	root	_	_
 131	Punch	_	_	B-A	_	141	edge	_	_
-132	down	_	_	I-A	_	141	edge	_	_
+132	down	_	_	I-A	_	0	root	_	_
 133	the	_	_	O	_	0	root	_	_
 134	dough	_	_	O	_	0	root	_	_
 135	divide	_	_	B-A	_	141	edge	_	_
@@ -149,8 +149,8 @@
 149	minutes	_	_	O	_	0	root	_	_
 150	before	_	_	O	_	0	root	_	_
 151	starting	_	_	B-A	_	164	edge	_	_
-152	to	_	_	I-A	_	164	edge	_	_
-153	shape	_	_	I-A	_	164	edge	_	_
+152	to	_	_	I-A	_	0	root	_	_
+153	shape	_	_	I-A	_	0	root	_	_
 154	it	_	_	O	_	0	root	_	_
 155	into	_	_	O	_	0	root	_	_
 156	a	_	_	O	_	0	root	_	_
@@ -175,8 +175,8 @@
 175	minutes	_	_	O	_	0	root	_	_
 176	then	_	_	O	_	0	root	_	_
 177	stretch	_	_	B-A	_	182	edge	_	_
-178	out	_	_	I-A	_	182	edge	_	_
-179	out	_	_	I-A	_	182	edge	_	_
+178	out	_	_	I-A	_	0	root	_	_
+179	out	_	_	I-A	_	0	root	_	_
 180	further	_	_	O	_	0	root	_	_
 181	and	_	_	O	_	0	root	_	_
 182	keep	_	_	B-A	_	0	root	_	_

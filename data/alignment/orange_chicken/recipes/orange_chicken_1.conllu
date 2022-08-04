@@ -7,7 +7,7 @@
 7	large	_	_	O	_	0	root	_	_
 8	bowl	_	_	O	_	0	root	_	_
 9	whisk	_	_	B-A	_	26	edge	_	_
-10	together	_	_	I-A	_	26	edge	_	_
+10	together	_	_	I-A	_	0	root	_	_
 11	the	_	_	O	_	0	root	_	_
 12	cornstarch	_	_	O	_	0	root	_	_
 13	and	_	_	O	_	0	root	_	_
@@ -75,7 +75,7 @@
 75	skillet	_	_	O	_	0	root	_	_
 76	and	_	_	O	_	0	root	_	_
 77	whisk	_	_	B-A	_	80	edge	_	_
-78	together	_	_	I-A	_	80	edge	_	_
+78	together	_	_	I-A	_	0	root	_	_
 79	.	_	_	O	_	0	root	_	_
 80	Heat	_	_	B-A	_	84	edge	_	_
 81	until	_	_	O	_	0	root	_	_
@@ -91,7 +91,7 @@
 91	minutes	_	_	O	_	0	root	_	_
 92	.	_	_	O	_	0	root	_	_
 93	Whisk	_	_	B-A	_	106	edge	_	_
-94	together	_	_	I-A	_	106	edge	_	_
+94	together	_	_	I-A	_	0	root	_	_
 95	the	_	_	O	_	0	root	_	_
 96	cornstarch	_	_	O	_	0	root	_	_
 97	and	_	_	O	_	0	root	_	_
@@ -193,7 +193,7 @@
 193	them	_	_	O	_	0	root	_	_
 194	from	_	_	O	_	0	root	_	_
 195	sticking	_	_	B-A	_	229	edge	_	_
-196	together	_	_	I-A	_	229	edge	_	_
+196	together	_	_	I-A	_	0	root	_	_
 197	)	_	_	O	_	0	root	_	_
 198	and	_	_	O	_	0	root	_	_
 199	move	_	_	B-A	_	229	edge	_	_
@@ -254,7 +254,7 @@
 254	orange	_	_	O	_	0	root	_	_
 255	zest	_	_	O	_	0	root	_	_
 256	and	_	_	O	_	0	root	_	_
-257	sliced	_	_	B-A	_	0	root	_	_
+257	sliced	_	_	B-A	_	251	edge	_	_
 258	green	_	_	O	_	0	root	_	_
 259	onions	_	_	O	_	0	root	_	_
 260	on	_	_	O	_	0	root	_	_

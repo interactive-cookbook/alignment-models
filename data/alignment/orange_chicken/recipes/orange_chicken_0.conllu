@@ -7,7 +7,7 @@
 7	large	_	_	O	_	0	root	_	_
 8	bowl	_	_	O	_	0	root	_	_
 9	whisk	_	_	B-A	_	23	edge	_	_
-10	together	_	_	I-A	_	23	edge	_	_
+10	together	_	_	I-A	_	0	root	_	_
 11	the	_	_	O	_	0	root	_	_
 12	cornstarch	_	_	O	_	0	root	_	_
 13	and	_	_	O	_	0	root	_	_
@@ -75,7 +75,7 @@
 75	minutes	_	_	O	_	0	root	_	_
 76	.	_	_	O	_	0	root	_	_
 77	Whisk	_	_	B-A	_	90	edge	_	_
-78	together	_	_	I-A	_	90	edge	_	_
+78	together	_	_	I-A	_	0	root	_	_
 79	the	_	_	O	_	0	root	_	_
 80	cornstarch	_	_	O	_	0	root	_	_
 81	and	_	_	O	_	0	root	_	_
@@ -192,7 +192,7 @@
 192	1	_	_	O	_	0	root	_	_
 193	minute	_	_	O	_	0	root	_	_
 194	to	_	_	B-A	_	199	edge	_	_
-195	solidify	_	_	I-A	_	199	edge	_	_
+195	solidify	_	_	I-A	_	0	root	_	_
 196	the	_	_	O	_	0	root	_	_
 197	coating	_	_	O	_	0	root	_	_
 198	.	_	_	O	_	0	root	_	_
@@ -210,7 +210,7 @@
 210	orange	_	_	O	_	0	root	_	_
 211	zest	_	_	O	_	0	root	_	_
 212	and	_	_	O	_	0	root	_	_
-213	sliced	_	_	B-A	_	0	root	_	_
+213	sliced	_	_	B-A	_	206	edge	_	_
 214	green	_	_	O	_	0	root	_	_
 215	onions	_	_	O	_	0	root	_	_
 216	on	_	_	O	_	0	root	_	_

@@ -22,7 +22,7 @@
 22	off	_	_	B-A	_	24	edge	_	_
 23	.	_	_	O	_	0	root	_	_
 24	Set	_	_	B-A	_	27	edge	_	_
-25	aside	_	_	I-A	_	27	edge	_	_
+25	aside	_	_	I-A	_	0	root	_	_
 26	.	_	_	O	_	0	root	_	_
 27	Mash	_	_	B-A	_	35	edge	_	_
 28	the	_	_	O	_	0	root	_	_
@@ -104,12 +104,12 @@
 104	10	_	_	O	_	0	root	_	_
 105	minutes	_	_	O	_	0	root	_	_
 106	to	_	_	B-A	_	111	edge	_	_
-107	set	_	_	I-A	_	111	edge	_	_
+107	set	_	_	I-A	_	0	root	_	_
 108	the	_	_	O	_	0	root	_	_
 109	middle	_	_	O	_	0	root	_	_
 110	.	_	_	O	_	0	root	_	_
 111	Run	_	_	B-A	_	120	edge	_	_
-112	around	_	_	I-A	_	120	edge	_	_
+112	around	_	_	I-A	_	0	root	_	_
 113	the	_	_	O	_	0	root	_	_
 114	edges	_	_	O	_	0	root	_	_
 115	with	_	_	O	_	0	root	_	_

@@ -70,7 +70,7 @@
 70	are	_	_	O	_	0	root	_	_
 71	roasted	_	_	O	_	0	root	_	_
 72	turn	_	_	B-A	_	77	edge	_	_
-73	off	_	_	I-A	_	77	edge	_	_
+73	off	_	_	I-A	_	0	root	_	_
 74	the	_	_	O	_	0	root	_	_
 75	heat	_	_	O	_	0	root	_	_
 76	and	_	_	O	_	0	root	_	_

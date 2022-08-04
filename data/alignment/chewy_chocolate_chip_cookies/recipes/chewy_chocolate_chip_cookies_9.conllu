@@ -8,7 +8,7 @@
 8	medium	_	_	O	_	0	root	_	_
 9	bowl	_	_	O	_	0	root	_	_
 10	whisk	_	_	B-A	_	28	edge	_	_
-11	together	_	_	I-A	_	28	edge	_	_
+11	together	_	_	I-A	_	0	root	_	_
 12	the	_	_	O	_	0	root	_	_
 13	flour	_	_	O	_	0	root	_	_
 14	baking	_	_	O	_	0	root	_	_
@@ -58,7 +58,7 @@
 58	fully	_	_	O	_	0	root	_	_
 59	incorporated	_	_	O	_	0	root	_	_
 60	scraping	_	_	B-A	_	77	edge	_	_
-61	down	_	_	I-A	_	77	edge	_	_
+61	down	_	_	I-A	_	0	root	_	_
 62	the	_	_	O	_	0	root	_	_
 63	sides	_	_	O	_	0	root	_	_
 64	as	_	_	O	_	0	root	_	_
@@ -121,7 +121,7 @@
 121	oven	_	_	O	_	0	root	_	_
 122	and	_	_	O	_	0	root	_	_
 123	let	_	_	B-A	_	137	edge	_	_
-124	cool	_	_	I-A	_	137	edge	_	_
+124	cool	_	_	I-A	_	0	root	_	_
 125	for	_	_	O	_	0	root	_	_
 126	5	_	_	O	_	0	root	_	_
 127	minutes	_	_	O	_	0	root	_	_
@@ -146,4 +146,4 @@
 146	30	_	_	O	_	0	root	_	_
 147	minutes	_	_	O	_	0	root	_	_
 148	before	_	_	O	_	0	root	_	_
-149	baking	_	_	B-A	_	0	root	_	_
+149	baking	_	_	B-A	_	137	edge	_	_

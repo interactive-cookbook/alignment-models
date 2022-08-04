@@ -20,7 +20,7 @@
 20	flour	_	_	O	_	0	root	_	_
 21	without	_	_	O	_	0	root	_	_
 22	kneading	_	_	B-A	_	17	edge	_	_
-23	using	_	_	I-A	_	17	edge	_	_
+23	using	_	_	I-A	_	0	root	_	_
 24	a	_	_	O	_	0	root	_	_
 25	wooden	_	_	O	_	0	root	_	_
 26	spoon	_	_	O	_	0	root	_	_
@@ -43,7 +43,7 @@
 43	hours	_	_	O	_	0	root	_	_
 44	.	_	_	O	_	0	root	_	_
 45	Roll	_	_	B-A	_	55	edge	_	_
-46	out	_	_	I-A	_	55	edge	_	_
+46	out	_	_	I-A	_	0	root	_	_
 47	into	_	_	O	_	0	root	_	_
 48	desired	_	_	O	_	0	root	_	_
 49	shape	_	_	O	_	0	root	_	_

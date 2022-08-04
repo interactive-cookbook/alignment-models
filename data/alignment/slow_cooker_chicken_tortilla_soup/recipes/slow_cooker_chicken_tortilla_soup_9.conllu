@@ -72,8 +72,8 @@
 72	the	_	_	O	_	0	root	_	_
 73	soup	_	_	O	_	0	root	_	_
 74	to	_	_	B-A	_	85	edge	_	_
-75	continue	_	_	I-A	_	85	edge	_	_
-76	cooking	_	_	I-A	_	85	edge	_	_
+75	continue	_	_	I-A	_	0	root	_	_
+76	cooking	_	_	I-A	_	0	root	_	_
 77	.	_	_	O	_	0	root	_	_
 78	MEDIUM	_	_	O	_	0	root	_	_
 79	:	_	_	O	_	0	root	_	_

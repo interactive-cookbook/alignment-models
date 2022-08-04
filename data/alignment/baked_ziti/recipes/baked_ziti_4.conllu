@@ -91,7 +91,7 @@
 91	minutes	_	_	O	_	0	root	_	_
 92	in	_	_	O	_	0	root	_	_
 93	the	_	_	O	_	0	root	_	_
-94	preheated	_	_	B-A	_	0	root	_	_
+94	preheated	_	_	B-A	_	88	edge	_	_
 95	oven	_	_	O	_	0	root	_	_
 96	or	_	_	O	_	0	root	_	_
 97	until	_	_	O	_	0	root	_	_

@@ -33,8 +33,8 @@
 33	bowl	_	_	O	_	0	root	_	_
 34	and	_	_	O	_	0	root	_	_
 35	mix	_	_	B-A	_	49	edge	_	_
-36	to	_	_	I-A	_	49	edge	_	_
-37	combine	_	_	I-A	_	49	edge	_	_
+36	to	_	_	I-A	_	0	root	_	_
+37	combine	_	_	I-A	_	0	root	_	_
 38	.	_	_	O	_	0	root	_	_
 39	In	_	_	O	_	0	root	_	_
 40	another	_	_	O	_	0	root	_	_
@@ -58,8 +58,8 @@
 58	eggs	_	_	O	_	0	root	_	_
 59	and	_	_	O	_	0	root	_	_
 60	whisk	_	_	B-A	_	64	edge	_	_
-61	to	_	_	I-A	_	64	edge	_	_
-62	combine	_	_	I-A	_	64	edge	_	_
+61	to	_	_	I-A	_	0	root	_	_
+62	combine	_	_	I-A	_	0	root	_	_
 63	.	_	_	O	_	0	root	_	_
 64	Make	_	_	B-A	_	75	edge	_	_
 65	a	_	_	O	_	0	root	_	_
@@ -214,7 +214,7 @@
 214	preheated	_	_	O	_	0	root	_	_
 215	200F/95C	_	_	O	_	0	root	_	_
 216	oven	_	_	O	_	0	root	_	_
-217	set	_	_	B-A	_	0	root	_	_
+217	set	_	_	B-A	_	193	edge	_	_
 218	with	_	_	O	_	0	root	_	_
 219	a	_	_	O	_	0	root	_	_
 220	wire	_	_	O	_	0	root	_	_

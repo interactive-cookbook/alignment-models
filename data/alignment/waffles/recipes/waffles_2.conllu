@@ -8,7 +8,7 @@
 8	large	_	_	O	_	0	root	_	_
 9	bowl	_	_	O	_	0	root	_	_
 10	mix	_	_	B-A	_	37	edge	_	_
-11	together	_	_	I-A	_	37	edge	_	_
+11	together	_	_	I-A	_	0	root	_	_
 12	the	_	_	O	_	0	root	_	_
 13	flour	_	_	O	_	0	root	_	_
 14	salt	_	_	O	_	0	root	_	_

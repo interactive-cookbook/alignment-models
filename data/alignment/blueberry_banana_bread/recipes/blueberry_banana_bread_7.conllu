@@ -71,8 +71,8 @@
 71	bananas	_	_	O	_	0	root	_	_
 72	and	_	_	O	_	0	root	_	_
 73	continue	_	_	B-A	_	81	edge	_	_
-74	to	_	_	I-A	_	81	edge	_	_
-75	beat	_	_	I-A	_	81	edge	_	_
+74	to	_	_	I-A	_	0	root	_	_
+75	beat	_	_	I-A	_	0	root	_	_
 76	until	_	_	O	_	0	root	_	_
 77	well	_	_	O	_	0	root	_	_
 78	combined	_	_	O	_	0	root	_	_
@@ -120,7 +120,7 @@
 120	the	_	_	O	_	0	root	_	_
 121	center	_	_	O	_	0	root	_	_
 122	comes	_	_	B-A	_	108	edge	_	_
-123	out	_	_	I-A	_	108	edge	_	_
+123	out	_	_	I-A	_	0	root	_	_
 124	clean	_	_	O	_	0	root	_	_
 125	.	_	_	O	_	0	root	_	_
 126	Remove	_	_	B-A	_	130	edge	_	_
@@ -128,7 +128,7 @@
 128	oven	_	_	O	_	0	root	_	_
 129	and	_	_	O	_	0	root	_	_
 130	let	_	_	B-A	_	144	edge	_	_
-131	cool	_	_	I-A	_	144	edge	_	_
+131	cool	_	_	I-A	_	0	root	_	_
 132	for	_	_	O	_	0	root	_	_
 133	10	_	_	O	_	0	root	_	_
 134	minutes	_	_	O	_	0	root	_	_

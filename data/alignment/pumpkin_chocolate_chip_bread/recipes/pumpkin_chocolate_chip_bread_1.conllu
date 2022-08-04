@@ -97,7 +97,7 @@
 97	the	_	_	O	_	0	root	_	_
 98	center	_	_	O	_	0	root	_	_
 99	comes	_	_	B-A	_	82	edge	_	_
-100	out	_	_	I-A	_	82	edge	_	_
+100	out	_	_	I-A	_	0	root	_	_
 101	clean	_	_	O	_	0	root	_	_
 102	.	_	_	O	_	0	root	_	_
 103	Remove	_	_	B-A	_	107	edge	_	_

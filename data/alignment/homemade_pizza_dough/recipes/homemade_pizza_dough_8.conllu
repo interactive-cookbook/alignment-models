@@ -61,12 +61,12 @@
 61	Knead	_	_	B-A	_	63	edge	_	_
 62	and	_	_	O	_	0	root	_	_
 63	roll	_	_	B-A	_	74	edge	_	_
-64	out	_	_	I-A	_	74	edge	_	_
+64	out	_	_	I-A	_	0	root	_	_
 65	with	_	_	O	_	0	root	_	_
 66	floured	_	_	B-A	_	63	edge	_	_
 67	roller	_	_	O	_	0	root	_	_
 68	to	_	_	B-A	_	74	edge	_	_
-69	fit	_	_	I-A	_	74	edge	_	_
+69	fit	_	_	I-A	_	0	root	_	_
 70	onto	_	_	O	_	0	root	_	_
 71	pizza	_	_	O	_	0	root	_	_
 72	pan	_	_	O	_	0	root	_	_

@@ -25,7 +25,7 @@
 25	to	_	_	O	_	0	root	_	_
 26	plate	_	_	O	_	0	root	_	_
 27	to	_	_	B-A	_	31	edge	_	_
-28	cool	_	_	I-A	_	31	edge	_	_
+28	cool	_	_	I-A	_	0	root	_	_
 29	.	_	_	O	_	0	root	_	_
 30	After	_	_	O	_	0	root	_	_
 31	roasting	_	_	B-A	_	38	edge	_	_

@@ -37,7 +37,7 @@
 37	medium	_	_	O	_	0	root	_	_
 38	bowl	_	_	O	_	0	root	_	_
 39	stir	_	_	B-A	_	79	edge	_	_
-40	together	_	_	I-A	_	79	edge	_	_
+40	together	_	_	I-A	_	0	root	_	_
 41	flour	_	_	O	_	0	root	_	_
 42	baking	_	_	O	_	0	root	_	_
 43	soda	_	_	O	_	0	root	_	_
@@ -50,7 +50,7 @@
 50	large	_	_	O	_	0	root	_	_
 51	bowl	_	_	O	_	0	root	_	_
 52	stir	_	_	B-A	_	60	edge	_	_
-53	together	_	_	I-A	_	60	edge	_	_
+53	together	_	_	I-A	_	0	root	_	_
 54	sugar	_	_	O	_	0	root	_	_
 55	brown	_	_	O	_	0	root	_	_
 56	sugar	_	_	O	_	0	root	_	_
@@ -126,7 +126,7 @@
 126	each	_	_	O	_	0	root	_	_
 127	loaf	_	_	O	_	0	root	_	_
 128	comes	_	_	B-A	_	110	edge	_	_
-129	out	_	_	I-A	_	110	edge	_	_
+129	out	_	_	I-A	_	0	root	_	_
 130	clean	_	_	O	_	0	root	_	_
 131	or	_	_	O	_	0	root	_	_
 132	with	_	_	O	_	0	root	_	_
@@ -173,8 +173,8 @@
 173	removing	_	_	B-A	_	175	edge	_	_
 174	and	_	_	O	_	0	root	_	_
 175	allowing	_	_	B-A	_	189	edge	_	_
-176	to	_	_	I-A	_	189	edge	_	_
-177	cool	_	_	I-A	_	189	edge	_	_
+176	to	_	_	I-A	_	0	root	_	_
+177	cool	_	_	I-A	_	0	root	_	_
 178	completely	_	_	O	_	0	root	_	_
 179	on	_	_	O	_	0	root	_	_
 180	a	_	_	O	_	0	root	_	_

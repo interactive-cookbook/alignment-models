@@ -49,7 +49,7 @@
 49	and	_	_	O	_	0	root	_	_
 50	pepper	_	_	O	_	0	root	_	_
 51	to	_	_	B-A	_	54	edge	_	_
-52	taste	_	_	I-A	_	54	edge	_	_
+52	taste	_	_	I-A	_	0	root	_	_
 53	.	_	_	O	_	0	root	_	_
 54	Add	_	_	B-A	_	58	edge	_	_
 55	chicken	_	_	O	_	0	root	_	_
@@ -93,11 +93,11 @@
 93	stir	_	_	B-A	_	95	edge	_	_
 94	.	_	_	O	_	0	root	_	_
 95	Allow	_	_	B-A	_	102	edge	_	_
-96	to	_	_	I-A	_	102	edge	_	_
-97	cook	_	_	I-A	_	102	edge	_	_
+96	to	_	_	I-A	_	0	root	_	_
+97	cook	_	_	I-A	_	0	root	_	_
 98	until	_	_	O	_	0	root	_	_
 99	heated	_	_	B-A	_	95	edge	_	_
-100	through	_	_	I-A	_	95	edge	_	_
+100	through	_	_	I-A	_	0	root	_	_
 101	.	_	_	O	_	0	root	_	_
 102	Serve	_	_	B-A	_	0	root	_	_
 103	warm	_	_	O	_	0	root	_	_

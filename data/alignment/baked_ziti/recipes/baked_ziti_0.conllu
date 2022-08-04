@@ -55,14 +55,14 @@
 55	minutes	_	_	O	_	0	root	_	_
 56	before	_	_	O	_	0	root	_	_
 57	ready	_	_	B-A	_	69	edge	_	_
-58	to	_	_	I-A	_	69	edge	_	_
-59	eat	_	_	I-A	_	69	edge	_	_
+58	to	_	_	I-A	_	0	root	_	_
+59	eat	_	_	I-A	_	0	root	_	_
 60	bring	_	_	B-A	_	64	edge	_	_
 61	pot	_	_	O	_	0	root	_	_
 62	of	_	_	O	_	0	root	_	_
 63	water	_	_	O	_	0	root	_	_
 64	to	_	_	B-A	_	69	edge	_	_
-65	boil	_	_	I-A	_	69	edge	_	_
+65	boil	_	_	I-A	_	0	root	_	_
 66	for	_	_	O	_	0	root	_	_
 67	pasta	_	_	O	_	0	root	_	_
 68	.	_	_	O	_	0	root	_	_

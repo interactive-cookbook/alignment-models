@@ -30,8 +30,8 @@
 30	brown	_	_	O	_	0	root	_	_
 31	.	_	_	O	_	0	root	_	_
 32	Take	_	_	B-A	_	36	edge	_	_
-33	it	_	_	I-A	_	36	edge	_	_
-34	aside	_	_	I-A	_	36	edge	_	_
+33	it	_	_	I-A	_	0	root	_	_
+34	aside	_	_	I-A	_	0	root	_	_
 35	.	_	_	O	_	0	root	_	_
 36	Add	_	_	B-A	_	41	edge	_	_
 37	coriander	_	_	O	_	0	root	_	_
@@ -47,7 +47,7 @@
 47	the	_	_	O	_	0	root	_	_
 48	spices	_	_	O	_	0	root	_	_
 49	cool	_	_	B-A	_	53	edge	_	_
-50	down	_	_	I-A	_	53	edge	_	_
+50	down	_	_	I-A	_	0	root	_	_
 51	and	_	_	O	_	0	root	_	_
 52	then	_	_	O	_	0	root	_	_
 53	grind	_	_	B-A	_	59	edge	_	_

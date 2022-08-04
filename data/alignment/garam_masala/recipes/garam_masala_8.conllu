@@ -32,8 +32,8 @@
 32	and	_	_	O	_	0	root	_	_
 33	forefinger	_	_	O	_	0	root	_	_
 34	to	_	_	B-A	_	44	edge	_	_
-35	crack	_	_	I-A	_	44	edge	_	_
-36	open	_	_	I-A	_	44	edge	_	_
+35	crack	_	_	I-A	_	0	root	_	_
+36	open	_	_	I-A	_	0	root	_	_
 37	;	_	_	O	_	0	root	_	_
 38	discard	_	_	B-A	_	44	edge	_	_
 39	husks	_	_	O	_	0	root	_	_
@@ -61,7 +61,7 @@
 61	cumin	_	_	O	_	0	root	_	_
 62	seeds	_	_	O	_	0	root	_	_
 63	turn	_	_	B-A	_	50	edge	_	_
-64	brown	_	_	I-A	_	50	edge	_	_
+64	brown	_	_	I-A	_	0	root	_	_
 65	and	_	_	O	_	0	root	_	_
 66	mixture	_	_	O	_	0	root	_	_
 67	is	_	_	O	_	0	root	_	_
@@ -105,7 +105,7 @@
 105	Store	_	_	B-A	_	0	root	_	_
 106	in	_	_	O	_	0	root	_	_
 107	tightly	_	_	O	_	0	root	_	_
-108	sealed	_	_	B-A	_	0	root	_	_
+108	sealed	_	_	B-A	_	105	edge	_	_
 109	jar	_	_	O	_	0	root	_	_
 110	away	_	_	O	_	0	root	_	_
 111	from	_	_	O	_	0	root	_	_

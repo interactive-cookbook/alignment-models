@@ -4,7 +4,7 @@
 4	combine	_	_	B-A	_	6	edge	_	_
 5	and	_	_	O	_	0	root	_	_
 6	beat	_	_	B-A	_	13	edge	_	_
-7	together	_	_	I-A	_	13	edge	_	_
+7	together	_	_	I-A	_	0	root	_	_
 8	eggs	_	_	O	_	0	root	_	_
 9	pumpkin	_	_	O	_	0	root	_	_
 10	and	_	_	O	_	0	root	_	_
@@ -46,7 +46,7 @@
 46	or	_	_	O	_	0	root	_	_
 47	until	_	_	O	_	0	root	_	_
 48	tests	_	_	B-A	_	39	edge	_	_
-49	done	_	_	I-A	_	39	edge	_	_
+49	done	_	_	I-A	_	0	root	_	_
 50	with	_	_	O	_	0	root	_	_
 51	toothpick	_	_	O	_	0	root	_	_
 52	or	_	_	O	_	0	root	_	_

@@ -1,5 +1,5 @@
 1	Dry	_	_	B-A	_	18	edge	_	_
-2	roast	_	_	I-A	_	18	edge	_	_
+2	roast	_	_	I-A	_	0	root	_	_
 3	all	_	_	O	_	0	root	_	_
 4	the	_	_	O	_	0	root	_	_
 5	ingredients	_	_	O	_	0	root	_	_

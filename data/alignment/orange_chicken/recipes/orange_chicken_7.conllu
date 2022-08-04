@@ -82,7 +82,7 @@
 82	turning	_	_	B-A	_	73	edge	_	_
 83	it	_	_	O	_	0	root	_	_
 84	upside	_	_	O	_	0	root	_	_
-85	down	_	_	B-A	_	0	root	_	_
+85	down	_	_	B-A	_	73	edge	_	_
 86	once	_	_	O	_	0	root	_	_
 87	during	_	_	O	_	0	root	_	_
 88	baking	_	_	O	_	0	root	_	_

@@ -52,7 +52,7 @@
 52	inserted	_	_	B-A	_	55	edge	_	_
 53	in	_	_	O	_	0	root	_	_
 54	middle	_	_	O	_	0	root	_	_
-55	comes	_	_	B-A	_	0	root	_	_
+55	comes	_	_	B-A	_	46	edge	_	_
 56	out	_	_	I-A	_	0	root	_	_
 57	clean	_	_	O	_	0	root	_	_
 58	.	_	_	O	_	0	root	_	_

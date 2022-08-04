@@ -27,8 +27,8 @@
 27	powder	_	_	O	_	0	root	_	_
 28	.	_	_	O	_	0	root	_	_
 29	Stir	_	_	B-A	_	47	edge	_	_
-30	to	_	_	I-A	_	47	edge	_	_
-31	combine	_	_	I-A	_	47	edge	_	_
+30	to	_	_	I-A	_	0	root	_	_
+31	combine	_	_	I-A	_	0	root	_	_
 32	.	_	_	O	_	0	root	_	_
 33	In	_	_	O	_	0	root	_	_
 34	another	_	_	O	_	0	root	_	_
@@ -62,8 +62,8 @@
 62	vanilla	_	_	O	_	0	root	_	_
 63	and	_	_	O	_	0	root	_	_
 64	beat	_	_	B-A	_	69	edge	_	_
-65	to	_	_	I-A	_	69	edge	_	_
-66	mix	_	_	I-A	_	69	edge	_	_
+65	to	_	_	I-A	_	0	root	_	_
+66	mix	_	_	I-A	_	0	root	_	_
 67	well	_	_	O	_	0	root	_	_
 68	.	_	_	O	_	0	root	_	_
 69	Fold	_	_	B-A	_	77	edge	_	_
@@ -92,7 +92,7 @@
 92	into	_	_	O	_	0	root	_	_
 93	the	_	_	O	_	0	root	_	_
 94	middle	_	_	O	_	0	root	_	_
-95	comes	_	_	B-A	_	0	root	_	_
+95	comes	_	_	B-A	_	83	edge	_	_
 96	out	_	_	I-A	_	0	root	_	_
 97	clean	_	_	O	_	0	root	_	_
 98	.	_	_	O	_	0	root	_	_

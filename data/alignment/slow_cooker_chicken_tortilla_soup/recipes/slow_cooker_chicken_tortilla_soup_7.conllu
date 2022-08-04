@@ -31,7 +31,7 @@
 31	the	_	_	O	_	0	root	_	_
 32	soup	_	_	O	_	0	root	_	_
 33	lay	_	_	B-A	_	40	edge	_	_
-34	out	_	_	I-A	_	40	edge	_	_
+34	out	_	_	I-A	_	0	root	_	_
 35	all	_	_	O	_	0	root	_	_
 36	toppings	_	_	O	_	0	root	_	_
 37	in	_	_	O	_	0	root	_	_

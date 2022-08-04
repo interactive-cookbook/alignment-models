@@ -56,7 +56,7 @@
 56	a	_	_	O	_	0	root	_	_
 57	container	_	_	O	_	0	root	_	_
 58	to	_	_	B-A	_	81	edge	_	_
-59	cool	_	_	I-A	_	81	edge	_	_
+59	cool	_	_	I-A	_	0	root	_	_
 60	.	_	_	O	_	0	root	_	_
 61	Use	_	_	B-A	_	70	edge	_	_
 62	mortar	_	_	O	_	0	root	_	_

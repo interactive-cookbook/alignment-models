@@ -4,7 +4,7 @@
 4	iron	_	_	O	_	0	root	_	_
 5	.	_	_	O	_	0	root	_	_
 6	Sift	_	_	B-A	_	18	edge	_	_
-7	together	_	_	I-A	_	18	edge	_	_
+7	together	_	_	I-A	_	0	root	_	_
 8	the	_	_	O	_	0	root	_	_
 9	dry	_	_	O	_	0	root	_	_
 10	ingredients	_	_	O	_	0	root	_	_
@@ -16,7 +16,7 @@
 16	)	_	_	O	_	0	root	_	_
 17	.	_	_	O	_	0	root	_	_
 18	Whisk	_	_	B-A	_	27	edge	_	_
-19	together	_	_	I-A	_	27	edge	_	_
+19	together	_	_	I-A	_	0	root	_	_
 20	the	_	_	O	_	0	root	_	_
 21	wet	_	_	O	_	0	root	_	_
 22	ingredients	_	_	O	_	0	root	_	_

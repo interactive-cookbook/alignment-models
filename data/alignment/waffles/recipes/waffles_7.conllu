@@ -1,5 +1,5 @@
 1	Sift	_	_	B-A	_	31	edge	_	_
-2	together	_	_	I-A	_	31	edge	_	_
+2	together	_	_	I-A	_	0	root	_	_
 3	in	_	_	O	_	0	root	_	_
 4	a	_	_	O	_	0	root	_	_
 5	large	_	_	O	_	0	root	_	_
@@ -15,7 +15,7 @@
 15	a	_	_	O	_	0	root	_	_
 16	jug	_	_	O	_	0	root	_	_
 17	measure	_	_	B-A	_	31	edge	_	_
-18	out	_	_	I-A	_	31	edge	_	_
+18	out	_	_	I-A	_	0	root	_	_
 19	milk	_	_	O	_	0	root	_	_
 20	Separate	_	_	B-A	_	31	edge	_	_
 21	eggs	_	_	O	_	0	root	_	_
@@ -37,7 +37,7 @@
 37	milk	_	_	O	_	0	root	_	_
 38	and	_	_	O	_	0	root	_	_
 39	whisk	_	_	B-A	_	42	edge	_	_
-40	together	_	_	I-A	_	42	edge	_	_
+40	together	_	_	I-A	_	0	root	_	_
 41	.	_	_	O	_	0	root	_	_
 42	Pour	_	_	B-A	_	50	edge	_	_
 43	over	_	_	O	_	0	root	_	_
@@ -58,7 +58,7 @@
 58	butter	_	_	O	_	0	root	_	_
 59	and	_	_	O	_	0	root	_	_
 60	continue	_	_	B-A	_	73	edge	_	_
-61	mixing	_	_	I-A	_	73	edge	_	_
+61	mixing	_	_	I-A	_	0	root	_	_
 62	very	_	_	O	_	0	root	_	_
 63	gently	_	_	O	_	0	root	_	_
 64	until	_	_	O	_	0	root	_	_

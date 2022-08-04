@@ -32,7 +32,7 @@
 32	small	_	_	O	_	0	root	_	_
 33	bowl	_	_	O	_	0	root	_	_
 34	stir	_	_	B-A	_	42	edge	_	_
-35	together	_	_	I-A	_	42	edge	_	_
+35	together	_	_	I-A	_	0	root	_	_
 36	milk	_	_	O	_	0	root	_	_
 37	egg	_	_	O	_	0	root	_	_
 38	yolks	_	_	O	_	0	root	_	_
@@ -46,7 +46,7 @@
 46	mixing	_	_	O	_	0	root	_	_
 47	bowl	_	_	O	_	0	root	_	_
 48	whisk	_	_	B-A	_	58	edge	_	_
-49	together	_	_	I-A	_	58	edge	_	_
+49	together	_	_	I-A	_	0	root	_	_
 50	flour	_	_	O	_	0	root	_	_
 51	corn	_	_	O	_	0	root	_	_
 52	starch	_	_	O	_	0	root	_	_

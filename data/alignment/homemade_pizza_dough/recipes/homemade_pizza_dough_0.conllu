@@ -116,9 +116,9 @@
 116	and	_	_	O	_	0	root	_	_
 117	you	_	_	O	_	0	root	_	_
 118	re	_	_	B-A	_	122	edge	_	_
-119	ready	_	_	I-A	_	122	edge	_	_
-120	to	_	_	I-A	_	122	edge	_	_
-121	cook	_	_	I-A	_	122	edge	_	_
+119	ready	_	_	I-A	_	0	root	_	_
+120	to	_	_	I-A	_	0	root	_	_
+121	cook	_	_	I-A	_	0	root	_	_
 122	cut	_	_	B-A	_	132	edge	_	_
 123	the	_	_	O	_	0	root	_	_
 124	dough	_	_	O	_	0	root	_	_
@@ -130,7 +130,7 @@
 130	floured	_	_	B-A	_	132	edge	_	_
 131	surface	_	_	O	_	0	root	_	_
 132	roll	_	_	B-A	_	145	edge	_	_
-133	out	_	_	I-A	_	145	edge	_	_
+133	out	_	_	I-A	_	0	root	_	_
 134	the	_	_	O	_	0	root	_	_
 135	dough	_	_	O	_	0	root	_	_
 136	until	_	_	O	_	0	root	_	_
