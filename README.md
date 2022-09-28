@@ -4,7 +4,7 @@ Implementation of the automatic alignment model from the paper **"Aligning Actio
 *Internal note*: If you are searching for the version of the alignment model implied in our crowdsourcing task, please visit this [private repository](https://github.com/interactive-cookbook/crowdsourcing/tree/main/topk-alignments/alignment-model-topk).
 
 ## Requirements
-You can find all the requirements in the file `requirement.txt`.
+You can find all the requirements in the file `requirement.txt`. Please call `requirement.txt --no-depts` when you install the requirements.
 - Python 3.7
 - Conllu 4.2.2
 - Matplotlib 3.3.2
