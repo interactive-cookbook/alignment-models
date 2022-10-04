@@ -1,3 +1,7 @@
+## Corpus Version
+
+The data in this repository is the ARA 1.0 version of the ARA corpus. The updated ARA 1.1 version and an explanation about the differences is available [here](https://github.com/interactive-cookbook/ara).
+
 ## Data Format
 
 There is one folder per dish containing a file with gold alignments (crowdsourced) called ```alignments.tv``` and a sub-directory ```/recipes``` containing the individual recipe files.
