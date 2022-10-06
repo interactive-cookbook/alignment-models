@@ -1,3 +1,10 @@
+This release corresponds to the Automatic Alignment Model 1.1.
+This new version separates scripts for training the model and for testing in on different functionalities.
+Its applications can be regrouped under three major outputs:
+1) Best Alignment
+2) Top k best alignments
+3) All alignments and their corresponding alignment scores, ranked from the best to the worst
+
 # Automatic Alignment Model
 Implementation of the automatic alignment model from the paper **"Aligning Actions Across Recipe Graphs"**. In this paper we present two automatic alignment models (base, extended) and a simple baseline (cosine similarity).
 
