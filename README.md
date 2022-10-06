@@ -10,8 +10,6 @@ Functionality | Output
 *Top k best alignments* | Top k best alignments
 *Graph Edit Distance (GED)* | All possible alignments and their corresponding alignment scores, ranked from the best to the worst.
 
-*Internal note*: If you are searching for the version of the alignment model implied in our crowdsourcing task, please visit this [private repository](https://github.com/interactive-cookbook/crowdsourcing/tree/main/topk-alignments/alignment-model-topk).
-
 ## Requirements
 You can find all the requirements in the file `requirement.txt`. Please call `requirement.txt --no-depts` when you install the requirements.
 - Python 3.7
@@ -68,7 +66,7 @@ Run the following command from this directory:
 `python test_topkt.py [model_name] --embedding_name [embedding_name]`
 
 As output, a prediction file named after the test dish(es) will be created. Here the k (k=value set as a constant, we use k=7 for our crowdsourcing purposes) best alignments computed for each action of the test recipes are saved as ranked from the best one to the worst one.
-This top k functionality is used for our crowdsourcing experiment to help the participants focus only on the most probable alignments.
+This top k functionality is used for our [crowdsourcing experiment](https://github.com/interactive-cookbook/crowdsourcing) to help the participants focus only on the most probable alignments.
 
 ## Graph Edit Distance (GED)
 
@@ -77,6 +75,11 @@ Run the following command from this directory:
 `python test_ged.py [model_name] --embedding_name [embedding_name]`
 
 As output, a prediction file named after the test dish(es) will be created. Here all alignments computed for each action of the test recipes are saved as ranked from the best one to the worst one. Their corresponding alignment scores are also listed in this file.
+We use the results of this model functionality to compute [graph alignment](https://github.com/interactive-cookbook/graph-alignment) between recipes. In order to do it, we compute the graph edit distance between recipes or action graphs. We use the alignment scores of the prediction file as operation costs that can be performed in GED between two graphs to calculate their (dis)similarity. For deletion costs, we use the model's results directly by retrieving the actions and their scores that correspond to null alignments. For substitution and insertion costs, a different test script should be used. Please run:
+
+`python test_ged_inversion.py [model_name] --embedding_name [embedding_name]`
+
+As output, the same file format as in `test_ged.py` output is expected, but the alignment direction is swapped among the graph pair. `test_ged.py` aligns graph1 to graph2, `test_ged_inversion.py` aligns recipe2 to recipe1. For insertion costs, we use the `test_ged_inversion.py` results directly by retrieving the actions and their scores that correspond to null alignments. For substitution costs, we calculate the average between scores corresponding to the same action pair in both `test_ged.py` and `test_ged_inversion.py` results.
 
 
 ## Results
