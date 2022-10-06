@@ -1,6 +1,6 @@
 ## Corpus Version
 
-The data in this repository is the ARA 1.0 version of the ARA corpus. The updated ARA 1.1 version and an explanation about the differences is available [here](https://github.com/interactive-cookbook/ara).
+The data in this repository is the ARA 1.1 version of the ARA corpus. An explanation about the difference between the new ARA 1.1 version and the old ARA 1.0 version is available [here](https://github.com/interactive-cookbook/ara). 
 
 ## Data Format
 
