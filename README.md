@@ -1,12 +1,13 @@
-This release corresponds to the Automatic Alignment Model 1.1.
-This new version separates scripts for training the model and for testing in on different functionalities.
-Its applications can be regrouped under three major outputs:
-1) Best Alignment
-2) Top k best alignments
-3) All alignments and their corresponding alignment scores, ranked from the best to the worst
-
 # Automatic Alignment Model
-Implementation of the automatic alignment model from the paper **"Aligning Actions Across Recipe Graphs"**. In this paper we present two automatic alignment models (base, extended) and a simple baseline (cosine similarity).
+In this roepo we present the new release of our Automatic Alignment Model 1.1. The version 1.0 has been presented in our paper **"Aligning Actions Across Recipe Graphs"**, where we compared two automatic alignment models (base, extended) and a simple baseline (cosine similarity). You can find this previous release [here](https://github.com/interactive-cookbook/alignment-models/releases/tag/v1.1.0).
+
+In this new version, we enlarge the functionalities of the alignment model since we make available the possibility of testing it on different functionalities.
+Its applications can be regrouped under three major outputs:
+
+--- | ---
+*Best Alignment* | Ouput= alignment to the best action only, [original version](https://github.com/interactive-cookbook/alignment-models/releases/tag/v1.1.0).
+*Top k best alignments* | Output= top k best alignments
+*All alignments* | Output= all possible alignments and their corresponding alignment scores, ranked from the best to the worst.
 
 *Internal note*: If you are searching for the version of the alignment model implied in our crowdsourcing task, please visit this [private repository](https://github.com/interactive-cookbook/crowdsourcing/tree/main/topk-alignments/alignment-model-topk).
 
@@ -23,7 +24,9 @@ You can find all the requirements in the file `requirement.txt`. Please call `re
 
 ## Usage
 
-Download the corpus from [here](https://github.com/interactive-cookbook/alignment-models/tree/main/data/alignment) into `./alignment-models/data/` folder for reproducing our experiment results. The data should be structured in one directory (/data), containing subdirectories corresponding to the different dishes, each of them including the recipes of the dish regrouped under a /recipes directory, and an "alignments.tsv" file. This file shows the crowsourced golden standard alignments of the correspoding recipes. Additionally, create the results folder where the trained models and their test results will be saved (**Notes:** You can change the hyperparameters and the path names in the file `constants.py`). Per default, the script looks for the following results folders:
+Download the corpus from [here](https://github.com/interactive-cookbook/alignment-models/tree/main/data) into `./alignment-models/data/` folder for reproducing our experiment results. The data should be structured in one directory (/data), containing subdirectories corresponding to the different dishes, each of them including the recipes of the dish regrouped under a /recipes directory, and an "alignments.tsv" file. This file shows the crowsourced golden standard alignments of the correspoding recipes, but it is required only for training purposes.
+
+Additionally, create the results folder where the trained models and their test results will be saved (**Notes:** You can change the hyperparameters and the path names in the file `constants.py`). Per default, the script looks for the following results folders:
 
 Model Name | Saves To
 --- | ---
@@ -32,9 +35,9 @@ Alignment Model (base) | `./results2`
 Cosine Similarity Baseline | `./results3`
 Naive Model | `./results4`
 
-To reproduce our experimental results, run the following command from this directory:
+To train the model, run the following command from this directory:
 
-`python main.py [model_name] --embedding_name [embedding_name]`
+`python train.py [model_name] --embedding_name [embedding_name]`
 
 where `[model_name]` could be one of the following:
 - `Sequence` : Sequential Ordering of Alignments
@@ -46,6 +49,27 @@ where `[model_name]` could be one of the following:
 and `[embedding_name]` could be one of the following:
 - `bert` : BERT embeddings (default)
 - `elmo` : ELMO embeddings
+
+To test the model, choose the application from the following:
+
+## Best alignment
+
+Run the following command from this directory:
+
+`python test_best_alignment.py [model_name] --embedding_name [embedding_name]`
+
+As output, a prediction file named after the test dish(es) will be created. Here the best alignment computed for each action of the test recipes is saved.
+
+## Top k best alignments
+
+Run the following command from this directory:
+
+`python test_topkt.py [model_name] --embedding_name [embedding_name]`
+
+As output, a prediction file named after the test dish(es) will be created. Here the k (k=value set as a constant, we use k=7 for our crowdsourcing purposes) best alignments computed for each action of the test recipes are saved as ranked from the best one to the worst one.
+This top k functionality is used for our crowdsourcing experiment in order 
+
+
 
 ## Results
 
