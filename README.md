@@ -4,10 +4,11 @@ In this roepo we present the new release of our Automatic Alignment Model 1.1. T
 In this new version, we enlarge the functionalities of the alignment model since we make available the possibility of testing it on different functionalities.
 Its applications can be regrouped under three major outputs:
 
+Functionality | Output
 --- | ---
-*Best Alignment* | Ouput= alignment to the best action only, [original version](https://github.com/interactive-cookbook/alignment-models/releases/tag/v1.1.0).
-*Top k best alignments* | Output= top k best alignments
-*All alignments* | Output= all possible alignments and their corresponding alignment scores, ranked from the best to the worst.
+*Best Alignment* |Alignment to the best action only, [original version](https://github.com/interactive-cookbook/alignment-models/releases/tag/v1.1.0).
+*Top k best alignments* | Top k best alignments
+*All alignments* | All possible alignments and their corresponding alignment scores, ranked from the best to the worst.
 
 *Internal note*: If you are searching for the version of the alignment model implied in our crowdsourcing task, please visit this [private repository](https://github.com/interactive-cookbook/crowdsourcing/tree/main/topk-alignments/alignment-model-topk).
 
@@ -67,9 +68,9 @@ Run the following command from this directory:
 `python test_topkt.py [model_name] --embedding_name [embedding_name]`
 
 As output, a prediction file named after the test dish(es) will be created. Here the k (k=value set as a constant, we use k=7 for our crowdsourcing purposes) best alignments computed for each action of the test recipes are saved as ranked from the best one to the worst one.
-This top k functionality is used for our crowdsourcing experiment in order 
+This top k functionality is used for our crowdsourcing experiment to help the participants focus only on the most probable alignments.
 
-
+## All alignments
 
 ## Results
 
