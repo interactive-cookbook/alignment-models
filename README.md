@@ -39,9 +39,9 @@ graph TB;
     predict(predict) --> predictbest & predicttopk & predictged;
     input["action graphs <br> (.conllu)"] --> predict;
     trained --> predict;
-    predictbest("python test_best_alignment.py [model_name] --embedding_name [embedding_name]") --> best["index of best alignment <br> (predictions.tsv)"];
-    predicttopk("python test_topkt.py [model_name] --embedding_name [embedding_name]") --> topk["7 best alignments, ranked <br> (predicitons.tsv)"];
-    predictged("python test_ged.py [model_name] --embedding_name [embedding_name] <br> or <br> python test_ged_inversion.py [model_name] --embedding_name [embedding_name]") --> ged["all aligments and scores, ranked <br> (predictions.tsv)"];
+    predictbest("python test_best_alignment.py [model_name] --embedding_name [embedding_name]") --> best["index of best alignment <br> (prediction.tsv)"];
+    predicttopk("python test_topkt.py [model_name] --embedding_name [embedding_name]") --> topk["7 best alignments, ranked <br> (prediction.tsv)"];
+    predictged("python test_ged.py [model_name] --embedding_name [embedding_name] <br> or <br> python test_ged_inversion.py [model_name] --embedding_name [embedding_name]") --> ged["all aligments and scores, ranked <br> (prediction.tsv)"];
     
 
     crowd -.-> tdata;
