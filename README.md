@@ -1,5 +1,5 @@
 # Automatic Alignment Model
-In this roepo we present the new release of our Automatic Alignment Model 2.0. The version 1.0 has been presented in our paper **"Aligning Actions Across Recipe Graphs"**, where we compared two automatic alignment models (base, extended) and a simple baseline (cosine similarity). You can find this previous release [here](https://github.com/interactive-cookbook/alignment-models/releases/tag/v1.1.0).
+In this repo we present the new release of our Automatic Alignment Model 2.0. The version 1.0 has been presented in our paper **"Aligning Actions Across Recipe Graphs"**, where we compared two automatic alignment models (base, extended) and a simple baseline (cosine similarity). You can find this previous release [here](https://github.com/interactive-cookbook/alignment-models/releases/tag/v1.1.0).
 
 In this new version, we enlarge the functionalities of the alignment model since we make available the possibility of testing it on different functionalities.
 Its applications can be regrouped under three major outputs:
@@ -22,6 +22,58 @@ You can find all the requirements in the file `requirement.txt`. Please call `re
 - AllenNLP 0.9.0
 
 ## Usage
+
+This flow-chart shows the scripts and data associated with this repo as well as how this repo is related to the other parts of the cookbook project.
+
+```mermaid
+
+graph TB;
+    %% alignment model flow chart
+    corpus[L'20 corpus] -.-> tp[Tagger & Parser];
+    tp -.-> crowd[Crowdsourcing];
+    tp -.-> input;
+
+    tdata["training data, e.g. ARA <br> (alignments.tsv)"] --> train;
+    train["python train.py [model_name] --embedding_name [embedding_name]"] --> trained[trained alignment model];
+    constants["paths and hyperparameters <br> (constants.py)"] --> train;
+    predict(predict) --> predictbest & predicttopk & predictged;
+    input["action graphs <br> (.conllu)"] --> predict;
+    trained --> predict;
+    predictbest("python test_best_alignment.py [model_name] --embedding_name [embedding_name]") --> best["index of best alignment <br> (predictions.tsv)"];
+    predicttopk("python test_topkt.py [model_name] --embedding_name [embedding_name]") --> topk["7 best alignments, ranked <br> (predicitons.tsv)"];
+    predictged("python test_ged.py [model_name] --embedding_name [embedding_name] <br> or <br> python test_ged_inversion.py [model_name] --embedding_name [embedding_name]") --> ged["all aligments and scores, ranked <br> (predictions.tsv)"];
+    
+
+    crowd -.-> tdata;
+    topk -.-> crowd;
+    crowd -.-> ARA;
+    corpus -.-> coreference;
+    yama[Y'20 corpus] -.-> tp;
+    coreference -.-> generation;
+    best -.-> generation;
+
+    subgraph Legend;
+        direction LR;
+        script(scripts and programmes) -->files;
+        files[files and data] -.-> context;
+        context[project context];
+    end
+
+    %% style for scripts and programmes
+    classDef scriptClass stroke-width:3px;
+    class script,predict,train,predictbest,predicttopk,predictged scriptClass;
+
+    %% style for files and data
+    classDef filesClass fill:#888,stroke:#000;
+    class input,tdata,topk,ARA,files,best,ged,trained,constants filesClass;
+
+    %% style context from other repos
+    classDef contextClass stroke-width:1px,stroke-dasharray: 5 5;
+    class corpus,coreference,generation,yama,crowd,tp,context contextClass; 
+
+```
+
+### Training
 
 Download the corpus from [here](https://github.com/interactive-cookbook/alignment-models/tree/main/data) into `./alignment-models/data/` folder for reproducing our experiment results. The data should be structured in one directory (/data), containing subdirectories corresponding to the different dishes, each of them including the recipes of the dish regrouped under a /recipes directory, and an "alignments.tsv" file. This file shows the crowsourced golden standard alignments of the correspoding recipes, but it is required only for training purposes.
 
@@ -51,7 +103,7 @@ and `[embedding_name]` could be one of the following:
 
 To test the model, choose the application from the following:
 
-## Best alignment
+### Best alignment
 
 Run the following command from this directory:
 
@@ -59,7 +111,7 @@ Run the following command from this directory:
 
 As output, a prediction file named after the test dish(es) will be created. Here the best alignment computed for each action of the test recipes is saved.
 
-## Top k best alignments
+### Top k best alignments
 
 Run the following command from this directory:
 
@@ -68,7 +120,7 @@ Run the following command from this directory:
 As output, a prediction file named after the test dish(es) will be created. Here the k (k=value set as a constant, we use k=7 for our crowdsourcing purposes) best alignments computed for each action of the test recipes are saved as ranked from the best one to the worst one.
 This top k functionality is used for our [crowdsourcing experiment](https://github.com/interactive-cookbook/crowdsourcing) to help the participants focus only on the most probable alignments.
 
-## Graph Edit Distance (GED)
+### Graph Edit Distance (GED)
 
 Run the following command from this directory:
 
