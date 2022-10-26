@@ -72,13 +72,13 @@ graph TB;
     class corpus,coreference,generation,yama,crowd,tp,context contextClass; 
 
 ```
-## Usage
 
 To ensure a cross validation, we train the model for 10 folds, with 70 epochs each. To start the cross validation, run:
 
 `./cross_valid_alignment_model`
 
 This script can be changed according to which version of the test script of the model we want to use. They are displayed in detail in the following.
+
 
 ### Training
 
