@@ -371,13 +371,12 @@ def fetch_dish_test(dish, folder, recipe_folder_name, emb_model, tokenizer, devi
 
         # Recipe names for the dish
         sub_directories=[]
-        data_folder = os.path.join(test_folder, dish)  # dish folder = ./data/baked_ziti
-        #print(data_folder)
-        recipe_folder = os.path.join(data_folder, recipe_folder_name)  # recipe folder, e.g. ./data/baked_ziti/recipes, data/dish-name/recipes
-        #print(recipe_folder) 
+
+        data_folder = os.path.join(folder, dish)  # dish folder
+        recipe_folder = os.path.join(data_folder, recipe_folder_name)  # recipe folder, e.g. data/dish-name/recipes
         recipe_list = os.listdir(recipe_folder)
-        recipe_list = [recipe for recipe in recipe_list if not recipe.startswith(".")] # ['baked_ziti_6.conllu', 'baked_ziti_7.conllu', 'baked_ziti_9.conllu', 'baked_ziti_8.conllu', 'baked_ziti_2.conllu', 'baked_ziti_10.conllu', 'baked_ziti_3.conllu', 'baked_ziti_0.conllu', 'baked_ziti_4.conllu', 'baked_ziti_1.conllu', 'baked_ziti_5.conllu']
-        #print(recipe_list)
+        recipe_list = [recipe for recipe in recipe_list if not recipe.startswith(".")]
+
         sub_directories.append(recipe_folder)
 
         # Read in recipes of the dish
@@ -533,7 +532,7 @@ def fetch_dish_test_insertion(dish, folder, recipe_folder_name, emb_model, token
 
         # Recipe names for the dish
         sub_directories=[]
-        data_folder = os.path.join(test_folder, dish)  # dish folder = ./data/baked_ziti
+        data_folder = os.path.join(folder, dish)  # dish folder = ./data/baked_ziti
         #print(data_folder)
         recipe_folder = os.path.join(data_folder, recipe_folder_name)  # recipe folder, e.g. ./data/baked_ziti/recipes, data/dish-name/recipes
         #print(recipe_folder) 
@@ -618,7 +617,7 @@ def fetch_dish_test_insertion(dish, folder, recipe_folder_name, emb_model, token
               recipe2=pair[0]
               pair_ins=(recipe1,recipe2)
               pairings_insertion.append(pair_ins)
-           print("INSERTION", "           ", pairings_insertion)   
+           #print("INSERTION", "           ", pairings_insertion)   
            
 
            # 4) prepare replacement for dish_group_alignments
