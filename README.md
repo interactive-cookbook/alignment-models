@@ -133,6 +133,12 @@ We use the results of this model functionality to compute [graph alignment](http
 
 As output, the same file format as in `test_ged.py` output is expected, but the alignment direction is swapped among the graph pair. `test_ged.py` aligns graph1 to graph2, `test_ged_inversion.py` aligns recipe2 to recipe1. For insertion costs, we use the `test_ged_inversion.py` results directly by retrieving the actions and their scores that correspond to null alignments. For substitution costs, we calculate the average between scores corresponding to the same action pair in both `test_ged.py` and `test_ged_inversion.py` results.
 
+## Evaluation
+
+To evaluate the results obtained by each version of the test script of the alignment model, create a directory (e.g., ([predictions]()) where you store the prediction file of the dish that you want to evaluate. Create a directory called "test" where you store the data (recipes and alignment file) related to the dish stored in "predictions". Then run:
+
+`python evaluate_predictions.py [predictions]`
+
 
 ## Results
 
