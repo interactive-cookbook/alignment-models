@@ -1,15 +1,6 @@
 
 """
-Usage: python main.py model_name embedding_name
-
-(model_name: ['Sequence' : Sequential ordering of alignments, 
-              'Cosine_similarity' : Cosine model, 
-              'Naive' : Common Action Pair Heuristics model,
-              'Alignment-no-feature' : Base Alignment model, 
-              'Alignment-with-feature' : Extended Alignment model])
-
-(embedding_name : ['bert' : BERT embeddings,
-                   'elmo' : ELMO embeddings])
+Training functions
 """
 
 # importing libraries
@@ -64,6 +55,7 @@ parser = argparse.ArgumentParser(description = """Automatic Alignment model""")
 parser.add_argument('model_name', type=str, help="""Model Name; one of {'Simple', 'Naive', 'Alignment-no-feature', 'Alignment-with-feature'}""") # TODO: add options for fat graphs (with parents and grandparents)
 parser.add_argument('--embedding_name', type=str, default='bert', help='Embedding Name (Default is bert, alternative: elmo)')
 parser.add_argument('--cuda-device', type=str, help="""Select cuda; default: cuda:0""")
+parser.add_argument('--fold', type=int, help="""Fold Number; number in range 1 to 10""")
 args = parser.parse_args()
 
 model_name = args.model_name
@@ -73,6 +65,8 @@ embedding_name = args.embedding_name
 if args.cuda_device:
     device = torch.device("cuda:"+args.cuda_device if torch.cuda.is_available() else "cpu")
     flair.device = device 
+
+fold = args.fold
 
 print("-------Loading Model-------")
 
@@ -303,10 +297,6 @@ class Folds_Train:
 
             return correct_predictions, num_actions, total_loss, step
 
-        elif mode == "Testing":
-
-            return correct_predictions, num_actions, results_df
-
         return None
 
     #####################################
@@ -335,7 +325,7 @@ class Folds_Train:
             torch device where model tensors are saved.
 
         """
-
+        
         train_loss = 0.0
         step = 0
         correct_predictions = 0
@@ -487,9 +477,26 @@ class Folds_Train:
             "Inf"
         )  # Stores the best Validation/Training Loss
 
-        valid_dish_id = len(dish_list) - 1  # Validation dish index
+        #print(len(dish_list))
+        if fold in range(len(dish_list)):
+            test_dish_id = fold  # Validation dish index
+        else:
+            test_dish_id = 0
+
+        print("test_dish_id",test_dish_id)
+        valid_dish_id = fold - 1 # Test dish index
+        print("valid_dish_id",valid_dish_id)
         train_dish_list = dish_list.copy()
-        valid_dish = train_dish_list.pop(valid_dish_id)
+        test_dish = train_dish_list.pop(test_dish_id)
+        try:
+            valid_dish = train_dish_list.pop(valid_dish_id)
+        except IndexError:
+            valid_dish = train_dish_list.pop(valid_dish_id-1)
+
+        print("Training on dishes", train_dish_list)
+        print("Validating on dish", valid_dish)
+        print("Testing will be on dish", test_dish)
+
 
         # Training loop
 
@@ -590,7 +597,7 @@ class Folds_Train:
         with_feature=True,
     ):
         """
-        Running 10 fold cross validation for alignment models
+        Running 10 fold cross validation for alignment models --> change this mechanism to one run only
 
         Parameters
         ----------
@@ -614,12 +621,14 @@ class Folds_Train:
 
         """
 
+        fold = args.fold
+
         print("-------Loading Data-------")
 
         dish_list = os.listdir(folder)
 
         dish_list = [dish for dish in dish_list if not dish.startswith(".")]
-        dish_list.sort() 
+        dish_list.sort() # okay
         self.dish_dicts = dict()
         self.gold_alignments = dict()
 
@@ -631,7 +640,7 @@ class Folds_Train:
         
             self.gold_alignments[dish] = dish_group_alignments
 
-        print("Data successfully loaded for dishes ", dish_list)
+        print("Data successfully loaded for dishes ", dish_list) # okay
 
         fold_result_df = pd.DataFrame(
             columns=[
@@ -640,11 +649,11 @@ class Folds_Train:
                 "Train_Accuracy",
                 "Valid_Loss",
                 "Valid_Accuracy",
+                "Test_Dish",
                 "Fold_Timelapse_Minutes"
             ]
         )  # , "Test_Dish1_accuracy", "Test_Dish2_accuracy"])
 
-        #test_dish_id = len(dish_list) - 1 # TODO: why though? Why not iterate over dish_list 5 lines later or use `test_dish_id = fold`?
 
         if with_feature:
             destination_folder = destination_folder1
@@ -652,116 +661,90 @@ class Folds_Train:
         else:
             destination_folder = destination_folder2
 
-        print("-------Cross Validation Folds-------")
+        #print("-------Training starts-------")
 
-        for fold in range(num_folds):
+        start = datetime.now()
 
-            start = datetime.now()
+        saved_file_path = os.path.join(
+            destination_folder, "model" + str(fold) + ".pt"
+        )  # Model saved path
+        saved_metric_path = os.path.join(
+            destination_folder, "metric" + str(fold) + ".pt"
+        )  # Metric saved path
+        saved_graph_path = os.path.join(destination_folder, "loss_acc_graph" + str(fold) + ".png")
 
-            saved_file_path = os.path.join(
-                destination_folder, "model" + str(fold + 1) + ".pt"
-            )  # Model saved path
-            saved_metric_path = os.path.join(
-                destination_folder, "metric" + str(fold + 1) + ".pt"
-            )  # Metric saved path
-            saved_graph_path = os.path.join(destination_folder, "loss_acc_graph" + str(fold + 1) + ".png")
+        train_dish_list = dish_list.copy()  # okay
 
-            train_dish_list = dish_list.copy()
-            #test_dish_list = [
-            #    train_dish_list.pop(test_dish_id)
-            #]  # train_dish_list contains 9 dish names, test_dish_list contains 1 dish name
+        # test_dish_list = [
+        #        train_dish_list.pop(test_dish_id)
+        #    ]  # train_dish_list contains 9 dish names, test_dish_list contains 1 dish name
 
-            #test_dish_id -= 1
+        if fold in range(len(dish_list)):
+            test_dish_id = fold  # Validation dish index
+        else:
+            test_dish_id = 0
 
-            #if test_dish_id == -1:
+        print("Fold [{}/{}]".format(fold, num_folds))
 
-            #    test_dish_id = len(dish_list) - 1 # TODO: why? shouldn't it be 0, if anything? or maybe just move the line ```test_dish_id -= 1``` to the end of the loop?
+        print("-------Training-------")
 
-            print("Fold [{}/{}]".format(fold + 1, num_folds))
+        (
+            train_accuracy,
+            valid_accuracy,
+            train_loss,
+            valid_loss,
+        ) = self.training_process(
+            train_dish_list,
+            embedding_name,
+            emb_model,
+            tokenizer,
+            model,
+            optimizer,
+            criterion,
+            num_epochs,
+            saved_file_path,
+            saved_metric_path,
+            saved_graph_path,
+            device,
+        )
 
-            print("-------Training-------")
+        end = datetime.now()
+        elapsedTime = end - start
+        elapsed_duration = divmod(elapsedTime.total_seconds(), 60)
 
-            (
-                train_accuracy,
-                valid_accuracy,
-                train_loss,
-                valid_loss,
-            ) = self.training_process(
-                train_dish_list,
-                embedding_name,
-                emb_model,
-                tokenizer,
-                model,
-                optimizer,
-                criterion,
-                num_epochs,
-                saved_file_path,
-                saved_metric_path,
-                saved_graph_path,
-                device,
+        print(
+            "Time elapsed: {} mins and {:.2f} secs".format(
+                elapsed_duration[0], elapsed_duration[1]
             )
+        )
+ 
+        try:
+            fold_result = {
+                "Fold": fold,
+                "Train_Loss": train_loss,
+                "Train_Accuracy": train_accuracy,
+                "Valid_Loss": valid_loss,
+                "Valid_Accuracy": valid_accuracy,
+                "Test_Dish": train_dish_list[test_dish_id],
+                "Fold_Timelapse_Minutes": elapsed_duration[0]}
+        except IndexError:
+            fold_result = {
+                "Fold": fold,
+                "Train_Loss": train_loss,
+                "Train_Accuracy": train_accuracy,
+                "Valid_Loss": valid_loss,
+                "Valid_Accuracy": valid_accuracy,
+                "Test_Dish": train_dish_list[test_dish_id],
+                "Fold_Timelapse_Minutes": elapsed_duration[0]
+            }
 
-            #print("-------Testing-------")
+        fold_result_df = fold_result_df.append(fold_result, ignore_index=True)
 
-            #(
-            #    test_accuracy_list,
-            #    test_accuracy,
-            #    total_correct_predictions,
-            #    total_actions,
-            #) = self.testing_process(
-            #    test_dish_list,
-            #    embedding_name,
-            #    emb_model,
-            #    tokenizer,
-            #    model,
-            #    optimizer,
-            #    saved_file_path,
-            #    saved_metric_path,
-            #    destination_folder,
-            #    device,
-            #)
-
-            end = datetime.now()
-
-            elapsedTime = end - start
-            elapsed_duration = divmod(elapsedTime.total_seconds(), 60)
-
-            print(
-                "Time elapsed: {} mins and {:.2f} secs".format(
-                    elapsed_duration[0], elapsed_duration[1]
-                )
-            )
-            #print("test_dish_id +1, dish_list[test_dish_id] ", test_dish_id +1, dish_list[test_dish_id])
-            try:
-                fold_result = {
-                    "Fold": fold + 1,
-                    "Train_Loss": train_loss,
-                    "Train_Accuracy": train_accuracy,
-                    "Valid_Loss": valid_loss,
-                    "Valid_Accuracy": valid_accuracy,
-                    "Fold_Timelapse_Minutes": elapsed_duration[0]
-                }  # ,
-                # "Test_Dish1_accuracy" : test_accuracy_list[0][2],
-                # "Test_Dish2_accuracy" : test_accuracy_list[1][2]}
-            except IndexError:
-                fold_result = {
-                    "Fold": fold + 1,
-                    "Train_Loss": train_loss,
-                    "Train_Accuracy": train_accuracy,
-                    "Valid_Loss": valid_loss,
-                    "Valid_Accuracy": valid_accuracy,
-                    "Fold_Timelapse_Minutes": elapsed_duration[0]
-                }
-
-            fold_result_df = fold_result_df.append(fold_result, ignore_index=True)
-
-            
-            print("--------------")
-
+        print("--------------")
 
         print("-------Training Finished-------\n")
 
-        save_result_path = os.path.join(destination_folder, "fold_results_train.tsv")
+        save_result_path = os.path.join(destination_folder, "fold_results_train_"+str(fold)+".tsv")
 
         # Saving the results
         fold_result_df.to_csv(save_result_path, sep="\t", index=False, encoding="utf-8")
@@ -772,16 +755,7 @@ class Folds_Train:
 
         total_duration = fold_result_df["Fold_Timelapse_Minutes"].sum()
         total_duration = divmod(total_duration, 60) 
-        print(f"Total training time for {num_folds} folds: {total_duration[0]}h {total_duration[1]}min" )
-
-        #total_num_correct = fold_result_df["Correct_Predictions"].sum()
-        #total_num_actions = fold_result_df["Num_Actions"].sum()
-        #avg_model_accuracy = total_num_correct / total_num_actions
-        #print("Total correct predictions: ", total_num_correct)
-        #print("Total actions: ", total_num_actions)
-        #print("Total model accuracy: ", avg_model_accuracy)
-    
-        #return test_dish_list
+        print(f"Total training time for fold {fold}: {total_duration[0]}h {total_duration[1]}min" )
 
 
 
@@ -1028,14 +1002,4 @@ else:
      print(
          "Incorrect Argument: Model_name should be ['Cosine_similarity', 'Naive', 'Alignment-no-feature', 'Alignment-with-feature']"
      )
-
-
-#### Saving the model parameters in a .pt file ####
-#torch.save(tagger.state_dict(), "./model_parameters_tagger.pt")
-
-# load trained model parameters again
-# instantiate the saved model before using it
-#trained_tagger = LSTM_model(input_size=input_size, embedding_dim=embedding_dim, hidden_size=hidden_size, vocab_size=vocab_size, number_classes=number_classes)
-
-# load the trained parameters
-#trained_tagger.load_state_dict(torch.load("./model_parameters_tagger.pt"))   
+   
