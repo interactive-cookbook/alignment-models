@@ -135,7 +135,7 @@ As output, the same file format as in `test_ged.py` output is expected, but the 
 
 ## Evaluation
 
-To evaluate the results obtained by each version of the test script of the alignment model, create a directory (e.g., ([predictions]()) where you store the prediction file of the dish that you want to evaluate. Create a directory called "test" where you store the data (recipes and alignment file) related to the dish stored in "predictions". Then run:
+To evaluate the results obtained by each version of the test script of the alignment model, create a directory (e.g., ([predictions](https://github.com/interactive-cookbook/alignment-models/tree/main/predictions)) where you store the prediction file of the dish that you want to evaluate. Create a directory called ["test"](https://github.com/interactive-cookbook/alignment-models/tree/main/test) where you store the data (recipes and alignment file) related to the dish stored in "predictions". Then run:
 
 `python evaluate_predictions.py [predictions]`
 
