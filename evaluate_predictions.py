@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 import os
+import warnings
+warnings.filterwarnings('ignore')
 import sys
 import numpy as np
 import csv
+from deepdiff import DeepDiff
 from sklearn.metrics import precision_recall_fscore_support, accuracy_score
 from constants import folder, alignment_file, test_folder, destination_folder1
 
@@ -11,7 +14,7 @@ results_per_dish={}
 #prediction_dir=destination_folder1
 prediction_dir=sys.argv[1]
 
-# extract root, sub directories, and all files of data/test folder
+# extract root, sub directories, and all files of test folder
 for root_name, sub_dirs, file_list in os.walk(test_folder):  # , topdown = False):
    #print("root_name", root_name)
    #for file in sub_dirs:
@@ -29,7 +32,7 @@ for root_name, sub_dirs, file_list in os.walk(test_folder):  # , topdown = False
       for sub_dir in sub_dirss:
          if filename==alignment_file:
             #print(filename)
-            align_file_open = open(os.path.join(test_folder, sub_dir, filename))#.read()
+            align_file_open = open(os.path.join(folder, sub_dir, filename))#.read()
             align_file = align_file_open.readlines()[1:]
             gold_pred={}
             gold=[]
@@ -54,25 +57,30 @@ for root_name, sub_dirs, file_list in os.walk(test_folder):  # , topdown = False
                 #print("gold",gold_pred)
 
                 # extract list of prediction files
+                pred_files=[] 
                 for pred_file in os.listdir(prediction_dir):
+                   pred_files.append(pred_file)
                    #print(pred_file)
-                   #model_pred={}
+                   model_pred={}
                    pred=[]
                    tot_predictions = 0
                    correct_predictions = 0
 
                       
                    if os.path.isfile(os.path.join(prediction_dir, pred_file)):
-                      #print("yes")
-                      if str(pred_file)[:-15]==sub_dir:
+                      #print(pred_file.split(".")[:-1][0])
+                      #print(sub_dir+"_prediction")
+                      #print(join(str(pred_file).split("_")[:-1]))
+                      #if str(pred_file).split("_")[:-1][0]==sub_dir:
+                      if pred_file.split(".")[:-1][0]==sub_dir+"_prediction":
+
                          model_pred={}
-                         #print("yes") 
-                         #print(str(pred_file)[:-15], sub_dir)
+                         #print("yes",str(pred_file))
 
                          pred_file_open = open(os.path.join(prediction_dir, pred_file))#.read()
                          pred_file = pred_file_open.readlines()[1:]
 
-                         # define elements for each line in prediction file 
+                         # define elements for each line in prediction file
                          for line in pred_file:
                              #print("PRED",line)
                              #line=line.strip().split()
@@ -88,12 +96,15 @@ for root_name, sub_dirs, file_list in os.walk(test_folder):  # , topdown = False
                              else:
                                 pred_label = columns[3]
 
+                             
                              # dictionary with model predictions
                              # model_pred.keys() = recipe 1, action id
                              # model_pred.values() = recipe 2, model prediction                            
                              model_pred[(recipe1,action_id)] = (recipe2,pred_label)                             # print("pred",pred_label)
+                             #print(model_pred)
+                             #exit()
                              # pred_scores = columns[4] # we don't need this + not all versions of alignment-model have this column
-                           
+                          
                              if rec1==recipe1 and rec2==recipe2:
                                  if act_id==action_id:
                                      if gold_label==pred_label:
@@ -106,11 +117,11 @@ for root_name, sub_dirs, file_list in os.walk(test_folder):  # , topdown = False
                                         correct_predictions=correct_predictions
                       else:
                          continue
-                  
-            #print("gold", gold_pred)
-            print()
+                 
+            print("gold", gold_pred)
+            #print()
             #exit()
-            #print("model", model_pred)
+            print("model", model_pred)
                
             # sanity check
             if len(gold_pred)==len(model_pred):
@@ -127,7 +138,6 @@ for root_name, sub_dirs, file_list in os.walk(test_folder):  # , topdown = False
                #   if key not in model_pred.keys():
                      #print(key)
 
-
             total_correct=0
             total=0
 
@@ -135,25 +145,32 @@ for root_name, sub_dirs, file_list in os.walk(test_folder):  # , topdown = False
             for alignment in gold_pred.keys(): # ('pumpkin_chocolate_chip_bread_6', '5')
                total+=1
                #print("total", total)
-               #print(alignment[1])
+               #print(alignment)
                #print(gold_pred[alignment],model_pred[alignment])
 
                # create a list of gold predictions in the order in which they are made
-               gold.append(gold_pred[alignment][1])
-               #print(gold)
-               # create a list of model predictions in the order in which they are made
-               pred.append(model_pred[alignment][1])
-               #print(pred)
-               if gold_pred[alignment]==model_pred[alignment]:                   
-                 total_correct+=1
-               #print("total_correct", total_correct)
+               if alignment in model_pred:
+                  gold.append(gold_pred[alignment][1])
+                  #print("gold",gold)
 
-            #print(alignment, gold_pred[alignment], prediction, model_pred[prediction])
+                  # create a list of model predictions in the order in which they are made
+                  try:
+                     pred.append(model_pred[alignment][1])
+                     #print("pred", pred)
+                     if gold_pred[alignment]==model_pred[alignment]:                   
+                        total_correct+=1
+                        #print("total_correct", total_correct)
+                  except KeyError:
+                     print(alignment)
+
+            #diff = DeepDiff(gold_pred, model_pred)
+            #print(len(diff['values_changed']))
+            #print(alignment, gold_pred[alignment], model_pred[alignment])
             #print(total_correct, "correct predictions out of", len(gold_pred)) 
-            #print(gold)
-            #print(pred)
+            #print(len(gold))
+            #print(len(pred))
 
-            # accuracy
+            # Accuracy
             #total_accuracy=0
             #total_accuracy=total_correct*100/tot_pred
             #print("The total accuracy is", total_accuracy)
@@ -161,11 +178,11 @@ for root_name, sub_dirs, file_list in os.walk(test_folder):  # , topdown = False
             acc_score=accuracy_score(gold, pred) 
             #print(acc_score)
 
-            # precision & recall
+            # Precision & recall
             prec_recall_f1=precision_recall_fscore_support(gold , pred, average='weighted')
             #print(prec_recall_f1)
               
-            # save results in a dict
+            # Save results in a dict
             source_recipe=rec1[:-2]
             results_per_dish[str(source_recipe)]={"accuracy":acc_score,"precision":prec_recall_f1[0],"recall":prec_recall_f1[1],"F1":prec_recall_f1[2]}
 
@@ -176,8 +193,9 @@ print()
 print("Dish-related performance statistics:")
 # dish-related
 for key in results_per_dish.keys():
-   print("Results on dish",key,": Accuracy:",results_per_dish[key]["accuracy"],", Precision:",results_per_dish[key]["precision"],", Recall:",results_per_dish[key]["recall"],", F1:",results_per_dish[key]["F1"])
-# general
+   print("Results on dish",key,": Accuracy:",results_per_dish[key]["accuracy"]*100,", Precision:",results_per_dish[key]["precision"]*100,", Recall:",results_per_dish[key]["recall"]*100,", F1:",results_per_dish[key]["F1"]*100)
+"""
+# General
 acc=[]
 prec=[]
 recall=[]
@@ -190,7 +208,8 @@ for key in results_per_dish.keys():
 
 print()
 print("General performance statistics:")
-print("Total accuracy:", sum(acc)/2)
-print("Total precision:", sum(prec)/2)
-print("Total recall:", sum(recall)/2)
-print("Total F1:", sum(recall)/2)           
+print("Total accuracy:", sum(acc)/len(pred_files))
+print("Total precision:", sum(prec)/len(pred_files))
+print("Total recall:", sum(recall)/len(pred_files))
+print("Total F1:", sum(recall)/len(pred_files))
+"""           
