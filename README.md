@@ -6,9 +6,9 @@ Its applications can be regrouped under three major outputs:
 
 Functionality | Output
 --- | ---
-*Best Alignment* |Alignment to the best action only, [original version](https://github.com/interactive-cookbook/alignment-models/releases/tag/v1.1.0).
+*Best local alignment* |Alignment to the best action only, [original version](https://github.com/interactive-cookbook/alignment-models/releases/tag/v1.1.0).
 *Top k best alignments* | Top k best alignments
-*Graph Edit Distance (GED)* | All possible alignments and their corresponding alignment scores, ranked from the best to the worst.
+*All alignments and their scores for Graph Edit Distance (GED)* | All possible alignments and their corresponding alignment scores, ranked from the best to the worst.
 
 ## Requirements
 You can find all the requirements in the file `requirement.txt`. Please call `requirement.txt --no-depts` when you install the requirements.
@@ -110,7 +110,7 @@ and `[embedding_name]` could be one of the following:
 
 To test the model, choose the application from the following:
 
-### Best alignment
+### Best local alignment
 
 Run the following command from this directory:
 
@@ -127,7 +127,7 @@ Run the following command from this directory:
 As output, a prediction file named after the test dish(es) will be created. Here the k (k=value set as a constant, we use k=7 for our crowdsourcing purposes) best alignments computed for each action of the test recipes are saved as ranked from the best one to the worst one.
 This top k functionality is used for our [crowdsourcing experiment](https://github.com/interactive-cookbook/crowdsourcing) to help the participants focus only on the most probable alignments.
 
-### Graph Edit Distance (GED)
+### All alignments and their scores for Graph Edit Distance (GED)
 
 Run the following command from this directory:
 
