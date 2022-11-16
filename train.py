@@ -3,6 +3,7 @@
 Training functions
 """
 
+
 # importing libraries
 
 import torch
@@ -158,50 +159,7 @@ class Folds_Train:
 
 
         """
-
-        """
-        data_folder = os.path.join(folder, dish)  # dish folder
-        recipe_folder = os.path.join(data_folder, recipe_folder_name)  # recipe folder, e.g. data/dish-name/recipes
         
-
-        alignment_file_path = os.path.join(
-            data_folder, alignment_file
-        )  # alignment file, e.g. data/dish-name/alignments.tsv
-
-        # Gold Standard Alignments between all recipes for dish
-        alignments = pd.read_csv(
-            alignment_file_path, sep="\t", header=0, skiprows=0, encoding="utf-8"
-        )
-        
-
-        # Group by Recipe pairs
-        dish_group_alignments = alignments.groupby(["file1", "file2"])
-
-        if mode == "Testing":
-            results_df = pd.DataFrame(
-                columns=["Action1_id", "True_Label", "Predicted_Label"]
-            )
-
-        for key in dish_group_alignments.groups.keys():
-
-            recipe1_filename = os.path.join(recipe_folder, key[0] + ".conllu")
-            recipe2_filename = os.path.join(recipe_folder, key[1] + ".conllu")
-
-
-
-            embedding_vector1, vector_lookup_list1, recipe_dict1 = fetch_recipe(
-                recipe1_filename, emb_model, tokenizer, device, embedding_name,
-            )
-            embedding_vector2, vector_lookup_list2, recipe_dict2 = fetch_recipe(
-                recipe2_filename, emb_model, tokenizer, device, embedding_name,
-            )
-        """
-        
-        if mode == "Testing":
-            results_df = pd.DataFrame(
-                columns=["Action1_id", "True_Label", "Predicted_Label"]
-            )
-
         for key in dish_group_alignments.groups.keys():
             
             recipe1 = dish_dict[key[0]] 
@@ -209,12 +167,9 @@ class Folds_Train:
 
             recipe_pair_alignment = dish_group_alignments.get_group(key)
 
-            #for node in action_dicts_list1[1:]:
+            #print("recipe1 is", recipe1)
             for node in recipe1["Action_Dicts_List"][1:]:
-
-                if mode == "Training":
-                    optimizer.zero_grad()
-
+                #print(node)
                 # True Action Id
                 action_line = recipe_pair_alignment.loc[
                     recipe_pair_alignment["token1"] == node["Action_id"]
@@ -282,17 +237,6 @@ class Folds_Train:
                         total_loss += loss.item()
                         step += 1
 
-                    elif mode == "Testing":
-
-                        results_dict = {
-                            "Action1_id": node["Action_id"],
-                            "True_Label": true_label,
-                            "Predicted_Label": pred_label,
-                        }
-
-                        # Store the prediction
-                        results_df = results_df.append(results_dict, ignore_index=True)
-
         if mode == "Training" or mode == "Validation":
 
             return correct_predictions, num_actions, total_loss, step
@@ -325,7 +269,8 @@ class Folds_Train:
             torch device where model tensors are saved.
 
         """
-        
+        print("dish_list at beginning of train", len(dish_list),dish_list)
+
         train_loss = 0.0
         step = 0
         correct_predictions = 0
@@ -356,7 +301,7 @@ class Folds_Train:
 
         average_train_loss = train_loss / (step - 1)
         average_train_accuracy = correct_predictions * 100 / num_actions
-
+        print("dish_list at end of train after run_model", len(dish_list),dish_list)
         return average_train_loss, average_train_accuracy
 
     #####################################
@@ -462,7 +407,7 @@ class Folds_Train:
 
 
         """
-
+        print("dish_list at beginning of training_process", len(dish_list),dish_list)
         # initialize running values
         train_loss_list = []  # List of Training loss for every epoch
         valid_loss_list = []  # List of Validation loss for every epoch
@@ -478,21 +423,32 @@ class Folds_Train:
         )  # Stores the best Validation/Training Loss
 
         #print(len(dish_list))
+        #### the following works but I need to change it momentaneamento to match original version
         if fold in range(len(dish_list)):
             test_dish_id = fold  # Validation dish index
         else:
             test_dish_id = 0
+        
+        #### the following works but I need to change it momentaneamente to match original version
 
-        print("test_dish_id",test_dish_id)
-        valid_dish_id = fold - 1 # Test dish index
-        print("valid_dish_id",valid_dish_id)
+        #print("test_dish_id",test_dish_id)
+        #valid_dish_id = fold - 1 # Test dish index
+        #print("valid_dish_id",valid_dish_id)
         train_dish_list = dish_list.copy()
-        test_dish = train_dish_list.pop(test_dish_id)
-        try:
-            valid_dish = train_dish_list.pop(valid_dish_id)
-        except IndexError:
-            valid_dish = train_dish_list.pop(valid_dish_id-1)
 
+        #### changed to match the original
+
+        print("dish_list in training_process function",len(dish_list),dish_list)
+        test_dish = train_dish_list.pop(test_dish_id)
+
+        valid_dish_id=int(-1)
+        valid_dish = train_dish_list.pop(valid_dish_id)
+
+        #try:
+        #    valid_dish = train_dish_list.pop(valid_dish_id)
+        #except IndexError:
+        #    valid_dish = train_dish_list.pop(valid_dish_id-1)
+        
         print("Training on dishes", train_dish_list)
         print("Validating on dish", valid_dish)
         print("Testing will be on dish", test_dish)
@@ -513,7 +469,7 @@ class Folds_Train:
                 optimizer,
                 device,
             )
-
+            print("dish_list at end of training_process after train() ", len(dish_list),dish_list)
             # calculate average validation loss per epoch
             average_valid_loss, average_valid_accuracy = self.valid(
                 valid_dish, embedding_name, emb_model, tokenizer, model, criterion, device
@@ -626,9 +582,10 @@ class Folds_Train:
         print("-------Loading Data-------")
 
         dish_list = os.listdir(folder)
-
+        print("dish_list at beginning of run_folds", len(dish_list), dish_list)
         dish_list = [dish for dish in dish_list if not dish.startswith(".")]
         dish_list.sort() # okay
+
         self.dish_dicts = dict()
         self.gold_alignments = dict()
 
@@ -675,10 +632,6 @@ class Folds_Train:
 
         train_dish_list = dish_list.copy()  # okay
 
-        # test_dish_list = [
-        #        train_dish_list.pop(test_dish_id)
-        #    ]  # train_dish_list contains 9 dish names, test_dish_list contains 1 dish name
-
         if fold in range(len(dish_list)):
             test_dish_id = fold  # Validation dish index
         else:
@@ -707,7 +660,7 @@ class Folds_Train:
             saved_graph_path,
             device,
         )
-
+        print("dish_list in run_folds after training_process", len(dish_list),dish_list)
         end = datetime.now()
         elapsedTime = end - start
         elapsed_duration = divmod(elapsedTime.total_seconds(), 60)
@@ -756,7 +709,7 @@ class Folds_Train:
         total_duration = fold_result_df["Fold_Timelapse_Minutes"].sum()
         total_duration = divmod(total_duration, 60) 
         print(f"Total training time for fold {fold}: {total_duration[0]}h {total_duration[1]}min" )
-
+        print("dish_list in run_folds at the end", len(dish_list),dish_list)
 
 
 
@@ -1003,3 +956,4 @@ else:
          "Incorrect Argument: Model_name should be ['Cosine_similarity', 'Naive', 'Alignment-no-feature', 'Alignment-with-feature']"
      )
    
+
