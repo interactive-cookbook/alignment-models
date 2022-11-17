@@ -11,7 +11,7 @@ Functionality | Output
 *All alignments and their scores for Graph Edit Distance (GED)* | All possible alignments and their corresponding alignment scores, ranked from the best to the worst.
 
 ## Requirements
-You can find all the requirements in the file `requirement.txt`. Please call `requirement.txt --no-depts` when you install the requirements.
+You can find all the requirements in the file `requirement.txt`. Please call `requirement.txt --no-deps` when you install the requirements.
 - Python 3.7
 - Conllu 4.2.2
 - Matplotlib 3.3.2
