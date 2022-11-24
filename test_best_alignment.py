@@ -1,7 +1,5 @@
 """
-Testing functions for the Alignment Model in the GED (Graph Edit Distance) + insertion-case.
-It is needed to calculate the prediction scores between action1 of recipe1 to all the actions2 in recipe2.
-The model does not output only the best alignment, but all the predictions, ranked from the best to the worst.
+Testing functions
 """
 
 # importing libraries
@@ -21,10 +19,10 @@ from naive_model import NaiveModel
 from transformers import BertTokenizer, BertModel
 from flair.data import Sentence
 from flair.embeddings import ELMoEmbeddings
-from constants_insertion import OUTPUT_DIM, LR, EPOCHS, FOLDS, HIDDEN_DIM1, HIDDEN_DIM2, CUDA_DEVICE
+from constants import OUTPUT_DIM, LR, EPOCHS, FOLDS, HIDDEN_DIM1, HIDDEN_DIM2, CUDA_DEVICE
 
 from datetime import datetime
-from constants_insertion import (
+from constants import (
     folder,
     test_folder,
     alignment_file,
@@ -36,7 +34,7 @@ from constants_insertion import (
 )
 from utils import (
     fetch_recipe_test,
-    fetch_dish_test_insertion,
+    fetch_dish_test,
     save_metrics,
     save_checkpoint,
     load_checkpoint,
@@ -157,7 +155,6 @@ class Folds_Test:
 
         """
         
-        #if mode == "Testing":
         mode = "Testing"
 
         results_df = pd.DataFrame(
@@ -177,12 +174,13 @@ class Folds_Test:
 
             #for node in action_dicts_list1[1:]:
             for node in recipe1["Action_Dicts_List"][1:]:
+                #print(node)
 
                 # True Action Id
                 action_line = recipe_pair_alignment.loc[
                     recipe_pair_alignment["token1"] == node["Action_id"]
                 ]
-
+                #print(action_line)
                 if not action_line.empty:
                  
                     # excluding part related to true label --> we evaluate later
@@ -228,28 +226,11 @@ class Folds_Test:
 
                     num_actions += 1
 
-                    # Predicted Action Id --> here it is different between test-versions! (GED, topk, normal, etc.)
+                    # Predicted Action Id
                     pred_label = recipe2["Action_Dicts_List"][torch.argmax(prediction).item()][
                         "Action_id"
                     ]
 
-                    if len(prediction.tolist()[0])>0:
-                       all_labels=torch.topk(prediction, len(prediction.tolist()[0]))
-
-                    # extracting the probabilities of alignment
-                    probabilities= all_labels[0]
-                    probabilities= probabilities[0]
-                    probabilities= probabilities.tolist()
-
-                    all_labels= all_labels[1] #taking only the indices list from topk predictions tensor
-                    all_labels= all_labels[0] #somehow it's a list in list: extracing only one
-                    top_k_label= all_labels.tolist() #converting in final format 
-
-                    predicted_indices_ranking = []
-                    for label in top_k_label:
-                       predicted_indices_ranking.append(recipe2["Action_Dicts_List"][label]["Action_id"])
-                                                
-                 
                     # here is evaluating --> we separate
                     #if true_label == pred_label:
                     #    correct_predictions += 1
@@ -259,10 +240,8 @@ class Folds_Test:
                                 "Recipe1": key[0],
                                 "Action1_id": node["Action_id"],
                                 "Recipe2": key[1],
-                                "Predicted_Label": predicted_indices_ranking, #top_k_label,
-                                "Probabilities": probabilities
+                                "Predicted_Label": pred_label, 
                             }
-
 
                     # Store the prediction
                     results_df = results_df.append(results_dict, ignore_index=True)
@@ -323,7 +302,7 @@ class Folds_Test:
             #print(correct_predictions)
 
             dish_accuracy = correct_predictions * 100 / num_actions
-
+            
             save_predictions(destination_folder, results_df, dish)
 
             accuracy_list.append([correct_predictions, num_actions, dish_accuracy])# accuracy_list is actually 0
@@ -361,6 +340,10 @@ class Folds_Test:
             Alignment model.
         optimizer : Adam optimizer object
             Optimizer.
+        criterion : Cross Entropy Loss Function	
+            Loss Function.	
+        num_epochs : Int	
+            Number of Epochs.
         saved_file_path : String
             Trained Model path.
         saved_metric_path : Sring
@@ -375,6 +358,7 @@ class Folds_Test:
         model, optimizer, _ = load_checkpoint(saved_file_path, model, optimizer, device)
 
         # train_loss_list, valid_loss_list, epoch_list = load_metrics(saved_metric_path, device)
+
 
         accuracy_list = self.test(
             dish_list, embedding_name, emb_model, tokenizer, model, destination_folder, device
@@ -405,17 +389,17 @@ class Folds_Test:
 #####################################
 
     def run_folds_test(
-            self,
-            embedding_name,
-            emb_model,
-            tokenizer,
-            model,
-            optimizer,
-            criterion,
-            num_epochs,
-            num_folds,
-            device,
-            with_feature=True,
+        self,
+        embedding_name,
+        emb_model,
+        tokenizer,
+        model,
+        optimizer,
+        criterion,
+        num_epochs,
+        num_folds,
+        device,
+        with_feature=True,
     ):
         """
         Running 10 fold cross validation for alignment models
@@ -449,7 +433,7 @@ class Folds_Test:
         dish_list = os.listdir(folder)
 
         dish_list = [dish for dish in dish_list if not dish.startswith(".")]
-        dish_list.sort()  # okay
+        dish_list.sort() # okay
 
         train_dish_list = dish_list.copy()
         if fold in range(len(dish_list)):
@@ -458,25 +442,27 @@ class Folds_Test:
             test_dish_id = 0
 
         dish_list_test = [
-            train_dish_list.pop(test_dish_id)
-        ]
+                train_dish_list.pop(test_dish_id)
+            ]
+        print("Testing on dish", dish_list_test)
 
         dish_list_test = [dish for dish in dish_list_test if not dish.startswith(".")]
-        dish_list_test.sort()  # TODO: why though? (see GitHub issue)
+        dish_list_test.sort() # TODO: why though? (see GitHub issue)
 
         self.dish_dicts = dict()
         self.gold_alignments = dict()
 
         for dish in dish_list_test:
-            dish_dict, dish_group_alignments = fetch_dish_test_insertion(dish, folder, recipe_folder_name, emb_model, tokenizer,
-                                                               device, embedding_name)
+        
+            dish_dict, dish_group_alignments = fetch_dish_test(dish, folder, recipe_folder_name, emb_model, tokenizer, device, embedding_name)
+        
             self.dish_dicts[dish] = dish_dict
-
+        
             self.gold_alignments[dish] = dish_group_alignments
 
         print("Data successfully loaded for test dishes ", dish_list_test)
 
-        # fold_result_df = pd.DataFrame(
+        #fold_result_df = pd.DataFrame(
         #    columns=[
         #        "Fold",
         #        "Train_Loss",
@@ -489,7 +475,7 @@ class Folds_Test:
         #        "Test_Dish",
         #        "Fold_Timelapse_Minutes"
         #    ]
-        # )  # , "Test_Dish1_accuracy", "Test_Dish2_accuracy"])
+        #)  # , "Test_Dish1_accuracy", "Test_Dish2_accuracy"])
 
         if with_feature:
             destination_folder = destination_folder1
@@ -498,7 +484,6 @@ class Folds_Test:
             destination_folder = destination_folder2
 
         print("-------Cross Validation Folds-------")
-
 
         start = datetime.now()
 
@@ -597,7 +582,6 @@ class Folds_Test:
     # print(f"Total training time for {num_folds} folds: {total_duration[0]}h {total_duration[1]}min" )
 
     # here I have deleted the evaluation part
-
 
 
 # FUNCTIONS FOR OTHER MODELS: SIMPLE, SIMILARITY, ETC.
