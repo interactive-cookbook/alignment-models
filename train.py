@@ -29,7 +29,7 @@ from naive_model import NaiveModel
 from transformers import BertTokenizer, BertModel
 from flair.data import Sentence
 from flair.embeddings import ELMoEmbeddings
-from constants import OUTPUT_DIM, LR, EPOCHS, FOLDS, HIDDEN_DIM1, HIDDEN_DIM2, CUDA_DEVICE
+from constants import OUTPUT_DIM, LR, MAX_EPOCHS, HIDDEN_DIM1, HIDDEN_DIM2, CUDA_DEVICE, PATIENCE, OPTIMIZER
 
 from datetime import datetime
 from constants import (
@@ -435,6 +435,8 @@ class Folds_Train:
         saved_metric_path,
         saved_graph_path,
         device,
+        patience,
+        scheduler
     ):
         """
         Training Process function
@@ -463,7 +465,9 @@ class Folds_Train:
             Training/Validation accuracy and loss graph path.
         device : object
             torch device where model tensors are saved.
-
+        patience : Int
+            after how many epochs of val accuracy not improving early stopping should be initiated
+        scheduler : Torch learning rate scheduler
 
         """
 
@@ -480,6 +484,8 @@ class Folds_Train:
         best_valid_loss = best_train_loss = float(
             "Inf"
         )  # Stores the best Validation/Training Loss
+        no_improvement_for_num_epochs = 0 # counter for early stopping
+        best_epoch = None
 
         #print(len(dish_list))
         if fold in range(len(dish_list)):
@@ -540,8 +546,10 @@ class Folds_Train:
                 )
             )
 
-            # saving checkpoint
+            # saving checkpoint and early stopping
             if best_valid_accuracy < average_valid_accuracy:
+                no_improvement_for_num_epochs = 0
+                best_epoch = epoch
                 best_valid_accuracy = average_valid_accuracy
                 best_train_accuracy = average_train_accuracy
                 best_valid_loss = average_valid_loss
@@ -561,9 +569,17 @@ class Folds_Train:
                     valid_accuracy_list,
                     epoch_list,
                 )
+            else:
+                no_improvement_for_num_epochs += 1
+                if no_improvement_for_num_epochs >= patience:
+                    print("----------Stopping early at epoch {}------------".format(epoch))
+                    break
 
-        # create_acc_loss_graph(epoch_list, train_loss_list, valid_loss_list)
+            if scheduler:
+                scheduler.step()
 
+
+        # TODO how to read metrics.pt files?
         save_metrics(
             saved_metric_path,
             train_loss_list,
@@ -575,13 +591,23 @@ class Folds_Train:
 
         print("Finished Training!")
 
-        create_acc_loss_graph(saved_metric_path, device, saved_graph_path)
+        # TODO graph should show epoch progress
+        #create_acc_loss_graph(saved_metric_path, device, saved_graph_path)
+        create_acc_loss_graph(epoch_list, train_loss_list, valid_loss_list, train_accuracy_list, valid_accuracy_list, device, saved_graph_path)
+
+        # do more verbose testing with Iris' code for F1, precision, recall (it's enough to get these metrics at the end of training, i.e. from the best model)
+        final_train_accuracy = train_accuracy_list[-1]
 
         return (
             best_train_accuracy,
             best_valid_accuracy,
             best_train_loss,
             best_valid_loss,
+            valid_dish,
+            test_dish,
+            len(epoch_list),
+            best_epoch,
+            final_train_accuracy
         )
 
     #####################################
@@ -595,9 +621,10 @@ class Folds_Train:
         optimizer,
         criterion,
         num_epochs,
-        num_folds,
         device,
+        patience,
         with_feature=True,
+        scheduler=None
     ):
         """
         Running 10 fold cross validation for alignment models --> change this mechanism to one run only
@@ -612,15 +639,16 @@ class Folds_Train:
             Tokenizer.
         model : AlignmentModel object
             Alignment model.
-        optimizer : Adam optimizer object
+        optimizer : Optimizer object
         num_epochs : Int
             Number of Epochs.
-        num_folds : Int
-            Number of Folds.
         device : object
             torch device where model tensors are saved.
         with_feature : boolean; Optional
             Check whether to add features or not. Default value True.
+        patience : Int
+            after how many epochs of val accuracy not improving early stopping should be initiated
+        scheduler : Torch learning rate scheduler
 
         """
 
@@ -652,8 +680,11 @@ class Folds_Train:
                 "Train_Accuracy",
                 "Valid_Loss",
                 "Valid_Accuracy",
+                "Val_Dish",
                 "Test_Dish",
-                "Fold_Timelapse_Minutes"
+                "Fold_Timelapse_Minutes",
+                "Best_Epoch",
+                "Final_Train_Accuracy"
             ]
         )  # , "Test_Dish1_accuracy", "Test_Dish2_accuracy"])
 
@@ -687,7 +718,7 @@ class Folds_Train:
         else:
             test_dish_id = 0
 
-        print("Fold [{}/{}]".format(fold, num_folds))
+        print("Fold [{}/{}]".format(fold, len(dish_list)))
 
         print("-------Training-------")
 
@@ -696,6 +727,11 @@ class Folds_Train:
             valid_accuracy,
             train_loss,
             valid_loss,
+            valid_dish,
+            test_dish,
+            num_epochs_after_early_stopping,
+            best_epoch,
+            final_train_accuracy
         ) = self.training_process(
             train_dish_list,
             embedding_name,
@@ -709,6 +745,8 @@ class Folds_Train:
             saved_metric_path,
             saved_graph_path,
             device,
+            patience,
+            scheduler = scheduler
         )
 
         end = datetime.now()
@@ -723,22 +761,31 @@ class Folds_Train:
  
         try:
             fold_result = {
-                "Fold": fold,
-                "Train_Loss": train_loss,
-                "Train_Accuracy": train_accuracy,
-                "Valid_Loss": valid_loss,
-                "Valid_Accuracy": valid_accuracy,
-                "Test_Dish": train_dish_list[test_dish_id],
-                "Fold_Timelapse_Minutes": elapsed_duration[0]}
+                "Fold" : fold,
+                "Train_Loss" : train_loss,
+                "Train_Accuracy" : train_accuracy,
+                "Valid_Loss" : valid_loss,
+                "Valid_Accuracy" : valid_accuracy,
+                "Val_Dish" : valid_dish,
+                "Test_Dish" : train_dish_list[test_dish_id],
+                "Fold_Timelapse_Minutes" : elapsed_duration[0],
+                "Num_Epochs" : num_epochs_after_early_stopping,
+                "Best_Epoch" : best_epoch,
+                "Final_Train_Accuracy" : final_train_accuracy
+            }
         except IndexError:
             fold_result = {
-                "Fold": fold,
-                "Train_Loss": train_loss,
-                "Train_Accuracy": train_accuracy,
-                "Valid_Loss": valid_loss,
-                "Valid_Accuracy": valid_accuracy,
-                "Test_Dish": train_dish_list[test_dish_id],
-                "Fold_Timelapse_Minutes": elapsed_duration[0]
+                "Fold" : fold,
+                "Train_Loss" : train_loss,
+                "Train_Accuracy" : train_accuracy,
+                "Valid_Loss" : valid_loss,
+                "Valid_Accuracy" : valid_accuracy,
+                "Val_Dish" : valid_dish,
+                "Test_Dish" : train_dish_list[test_dish_id],
+                "Fold_Timelapse_Minutes" : elapsed_duration[0],
+                "Num_Epochs" : num_epochs_after_early_stopping,
+                "Best_Epoch" : best_epoch,
+                "Final_Train_Accuracy" : final_train_accuracy
             }
 
         fold_result_df = fold_result_df.append(fold_result, ignore_index=True)
@@ -747,12 +794,16 @@ class Folds_Train:
 
         print("-------Training Finished-------\n")
 
-        save_result_path = os.path.join(destination_folder, "fold_results_train_"+str(fold)+".tsv")
+        #save_result_path = os.path.join(destination_folder, "fold_results_train_"+str(fold)+".tsv")
+        save_result_path = os.path.join(destination_folder, "fold_results_train.tsv")
 
         # Saving the results
-        fold_result_df.to_csv(save_result_path, sep="\t", index=False, encoding="utf-8")
+        if os.path.exists(save_result_path):
+            fold_result_df.to_csv(save_result_path, sep="\t", index=False, encoding="utf-8", mode="a", header=False)
+        else:
+            fold_result_df.to_csv(save_result_path, sep="\t", index=False, encoding="utf-8")
 
-        print("Fold Results saved in ==>" + save_result_path)
+        print("Fold Results saved in ==> " + save_result_path)
 
         # Print final model statistics
 
@@ -810,8 +861,7 @@ class Folds_Train:
             save_vocabulary(saved_file_path, action_pair_vocabulary)
 
     def run_naive_folds_train( self,
-        model,
-        num_folds
+        model
         ):
         """
         Running 10 fold cross validation for naive baseline
@@ -820,7 +870,6 @@ class Folds_Train:
         ----------
         model : NaiveModel object
             Naive Baseline model
-        num_folds : Int
 
         """
 
@@ -843,7 +892,8 @@ class Folds_Train:
         overall_predictions = 0
         overall_actions = 0 
 
-        for fold in range(num_folds):
+        for fold in range(len(dish_list)):
+            # TODO: no difference between the folds?
 
             start = datetime.now()
 
@@ -852,7 +902,7 @@ class Folds_Train:
             )  # Model saved path
 
             train_dish_list = dish_list.copy()
-            print("Fold [{}/{}]".format(fold + 1, num_folds))
+            print("Fold [{}/{}]".format(fold + 1, len(dish_list)))
 
             print("-------Training-------")
 
@@ -932,15 +982,29 @@ if model_name == "Alignment-with-feature":
          if param.requires_grad:
                  print(name)"""
 
-     optimizer = optim.Adam(model.parameters(), lr=LR)  # optimizer for training
+     # optimizer for training
+     scheduler  = None
+
+     if OPTIMIZER == "Adam":
+         optimizer = optim.Adam(model.parameters(), lr=LR) 
+     elif OPTIMIZER == "DefaultAdam":
+         optimizer =optim.Adam(model.parameters()) # default: lr=0.001 
+     elif OPTIMIZER == "SGD":
+         optimizer = optim.SGD(model.parameters(), lr=0.1) # lr as suggested in example in torch documentation
+         scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.9, verbose=True) # gamma as suggested in example in torch documentation of optimizers
+     elif OPTIMIZER == "RMSprop":
+         optimizer = optim.RMSprop(model.parameters())
+     elif OPTIMIZER == "Adagrad":
+         optimizer = optim.Adagrad(model.parameters(), lr_decay=0.9) # using lr_edcay for comparability with SGD(?)
+             
      criterion = nn.CrossEntropyLoss()  # Loss function
 
      ################ Cross Validation Folds #################
 
-     TT.run_folds_train(
-         embedding_name, 
-         emb_model, tokenizer, model, optimizer, criterion, EPOCHS, FOLDS, device
-     )
+     if scheduler:
+          TT.run_folds_train(embedding_name,emb_model, tokenizer, model, optimizer, criterion, MAX_EPOCHS, device, PATIENCE, scheduler=scheduler)
+     else:
+          TT.run_folds_train(embedding_name,emb_model, tokenizer, model, optimizer, criterion, MAX_EPOCHS, device, PATIENCE, scheduler=scheduler)
 
 elif model_name == "Alignment-no-feature":
 
@@ -962,9 +1026,9 @@ elif model_name == "Alignment-no-feature":
          model,
          optimizer,
          criterion,
-         EPOCHS,
-         FOLDS,
+         MAX_EPOCHS,
          device,
+         PATIENCE,
          False,
      )
 
@@ -988,8 +1052,7 @@ elif model_name == 'Naive':
      ################ Cross Validation Folds #################
         
      TT.run_naive_folds(
-         naive_model,
-         FOLDS
+         naive_model
          )
         
 elif model_name == 'Sequence':
