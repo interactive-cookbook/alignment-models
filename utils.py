@@ -489,6 +489,7 @@ def fetch_dish_test(dish, folder, recipe_folder_name, emb_model, tokenizer, devi
         # if you want to inspect the content of dish_group_alignments
         #for key,item in dish_group_alignments:
         #    print(dish_group_alignments.get_group(key), "\n\n")
+        print("len 492 (pred input) ", len(dish_group_alignments), len(dish_alignments))
 
         return dish_dict, dish_group_alignments
             
@@ -1313,7 +1314,8 @@ def save_predictions(destination_folder, results_df, dish):
 #####################################
 
 
-def create_acc_loss_graph(file_path, device, save_graph_path):
+#def create_acc_loss_graph(file_path, device, save_graph_path):
+def create_acc_loss_graph(epoch_list, train_loss_list, valid_loss_list, train_accuracy_list, valid_accuracy_list, device, save_graph_path):
     """
     Generate Training/Validation Accuracy and Loss Graph
 
@@ -1332,28 +1334,27 @@ def create_acc_loss_graph(file_path, device, save_graph_path):
 
     """
 
-    state_dict = load_metrics(file_path, device)
     fig = plt.figure()
 
     ax1 = plt.subplot2grid((2, 1), (0, 0))
     ax2 = plt.subplot2grid((2, 1), (1, 0), sharex=ax1)
 
     ax1.plot(
-        state_dict["epoch_list"], state_dict["train_loss_list"], label="train_loss"
+        epoch_list, train_loss_list, label="train_loss"
     )
     ax1.plot(
-        state_dict["epoch_list"], state_dict["valid_loss_list"], label="valid_loss"
+        epoch_list, valid_loss_list, label="valid_loss"
     )
     ax1.legend(loc=2)
 
     ax2.plot(
-        state_dict["epoch_list"],
-        state_dict["train_accuracy_list"],
+        epoch_list,
+        train_accuracy_list,
         label="train_accuracy",
     )
     ax2.plot(
-        state_dict["epoch_list"],
-        state_dict["valid_accuracy_list"],
+        epoch_list,
+        valid_accuracy_list,
         label="valid_accuracy",
     )
     ax2.legend(loc=2)
@@ -1363,6 +1364,7 @@ def create_acc_loss_graph(file_path, device, save_graph_path):
     ax1.autoscale()
     ax2.autoscale()
     fig.savefig(save_graph_path, dpi=fig.dpi)
+
     
     
 '''dish_list = os.listdir(folder)

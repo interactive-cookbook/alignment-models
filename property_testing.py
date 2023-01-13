@@ -31,7 +31,7 @@ from datetime import datetime
 from model import AlignmentModel
 from transformers import BertTokenizer, BertModel
 from utils import fetch_recipe, load_checkpoint, save_predictions
-from constants import recipe_folder_name, folder, alignment_file, destination_folder1, OUTPUT_DIM, LR, FOLDS, HIDDEN_DIM1, HIDDEN_DIM2, EPOCHS
+from constants import recipe_folder_name, folder, alignment_file, destination_folder1, OUTPUT_DIM, LR, HIDDEN_DIM1, HIDDEN_DIM2, MAX_EPOCHS
 from training_testing import Folds
 
 device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
@@ -193,7 +193,7 @@ class Property:
 #####################################
 
 
-    def testing_reverse_property(self, num_folds, emb_model, tokenizer, model, optimizer, device):
+    def testing_reverse_property(self, emb_model, tokenizer, model, optimizer, device):
     
         dish_list = os.listdir(folder)
 
@@ -208,7 +208,7 @@ class Property:
         test_dish_id = len(dish_list) - 1
 
         
-        for fold in range(num_folds):
+        for fold in range(len(dish_list)):
             
             saved_file_path = os.path.join(
                 destination_folder1, "model" + str(fold + 1) + ".pt"
@@ -287,7 +287,7 @@ def main():
     
         print('Testing Reverse property....\n')
         
-        p.testing_reverse_property(FOLDS, emb_model, tokenizer, model, optimizer, device)
+        p.testing_reverse_property(emb_model, tokenizer, model, optimizer, device)
         
     elif property_name == 'Transitivity':
         
@@ -316,8 +316,7 @@ def main():
             model,
             optimizer,
             criterion,
-            EPOCHS,
-            FOLDS,
+            MAX_EPOCHS,
             device,
             False,
         )

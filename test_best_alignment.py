@@ -19,7 +19,7 @@ from naive_model import NaiveModel
 from transformers import BertTokenizer, BertModel
 from flair.data import Sentence
 from flair.embeddings import ELMoEmbeddings
-from constants import OUTPUT_DIM, LR, EPOCHS, FOLDS, HIDDEN_DIM1, HIDDEN_DIM2, CUDA_DEVICE
+from constants import OUTPUT_DIM, LR, MAX_EPOCHS, HIDDEN_DIM1, HIDDEN_DIM2, CUDA_DEVICE
 
 from datetime import datetime
 from constants import (
@@ -245,6 +245,7 @@ class Folds_Test:
 
                     # Store the prediction
                     results_df = results_df.append(results_dict, ignore_index=True)
+        print("num actions: ", num_actions)
 
 
         return correct_predictions, num_actions, results_df
@@ -305,7 +306,32 @@ class Folds_Test:
             
             save_predictions(destination_folder, results_df, dish)
 
-            accuracy_list.append([correct_predictions, num_actions, dish_accuracy])# accuracy_list is actually 0
+            
+            """
+            # do evaluation with the same functions as in evaluate_predictions.py
+            # TODO: add this paragraph in train.py
+
+            # Notes: this paragraph should work; currently there is an error bc there are action in the recipe files that don't have an alignment in the alignment files which results in different lengths for gold and pred lists
+
+            from sklearn.metrics import precision_recall_fscore_support, accuracy_score
+            goldfile = os.path.join(folder, dish, alignment_file) # (abovementioned seld.gold_alignments seems to be missing column "token2" which would contain the gold data)
+
+            # print(pd.read_csv(goldfile, sep="\t", encoding="utf-8").sort_values(by=["file1", "token1"]))
+            # print(results_df)
+
+            gold = pd.read_csv(goldfile, sep="\t", encoding="utf-8").sort_values(by=["file1", "token1"])#["token2"]
+            pred = results_df.sort_values(by=["Recipe1", "Action1_id"])#["Predicted_Label"]
+
+            print("len's 322 (gold,pred): ", len(gold), len(pred))
+            gold.to_csv("gold.tsv", encoding="utf-8", index=False)
+            pred.to_csv("pred.tsv", encoding="utf-8", index=False)
+
+            sk_accuracy = accuracy_score(gold,pred)
+            sk_prec, sk_recall, sk_f1, _ = precision_recall_fscore_support(gold , pred, average='weighted')
+
+            accuracy_list.append([dish, correct_predictions, num_actions, dish_accuracy, sk_accuracy, sk_prec, sk_recall, sk_f1])
+            """
+            accuracy_list.append([dish, correct_predictions, num_actions, dish_accuracy, 0, 0, 0, 0])
 
         return accuracy_list
 
@@ -340,9 +366,9 @@ class Folds_Test:
             Alignment model.
         optimizer : Adam optimizer object
             Optimizer.
-        criterion : Cross Entropy Loss Function	
-            Loss Function.	
-        num_epochs : Int	
+        criterion : Cross Entropy Loss Function 
+            Loss Function.  
+        num_epochs : Int    
             Number of Epochs.
         saved_file_path : String
             Trained Model path.
@@ -370,11 +396,12 @@ class Folds_Test:
         model.eval()
 
         for i, accuracy_line in enumerate(accuracy_list):
+            # accuracy line: dish, correct_predictions, num_actions, dish_accuracy, sk_accuracy, sk_prec, sk_recall, sk_f1
 
-            dish_accuracy = accuracy_line[2]
+            dish_accuracy = accuracy_line[3]
 
-            total_correct_predictions += accuracy_line[0]
-            total_actions += accuracy_line[1]
+            total_correct_predictions += accuracy_line[1]
+            total_actions += accuracy_line[2]
 
             #print("Accuracy on dish {} : {:.2f}".format(dish_list[i], dish_accuracy))
 
@@ -397,7 +424,6 @@ class Folds_Test:
         optimizer,
         criterion,
         num_epochs,
-        num_folds,
         device,
         with_feature=True,
     ):
@@ -417,8 +443,6 @@ class Folds_Test:
         optimizer : Adam optimizer object
         num_epochs : Int
             Number of Epochs.
-        num_folds : Int
-            Number of Folds.
         device : object
             torch device where model tensors are saved.
         with_feature : boolean; Optional
@@ -433,7 +457,7 @@ class Folds_Test:
         dish_list = os.listdir(folder)
 
         dish_list = [dish for dish in dish_list if not dish.startswith(".")]
-        dish_list.sort() # okay
+        dish_list.sort() # sorting here has become important as we determine which dish is test_dish and valid_dish from the fold index
 
         train_dish_list = dish_list.copy()
         if fold in range(len(dish_list)):
@@ -447,7 +471,7 @@ class Folds_Test:
         print("Testing on dish", dish_list_test)
 
         dish_list_test = [dish for dish in dish_list_test if not dish.startswith(".")]
-        dish_list_test.sort() # TODO: why though? (see GitHub issue)
+        dish_list_test.sort() # TODO: why?
 
         self.dish_dicts = dict()
         self.gold_alignments = dict()
@@ -455,6 +479,8 @@ class Folds_Test:
         for dish in dish_list_test:
         
             dish_dict, dish_group_alignments = fetch_dish_test(dish, folder, recipe_folder_name, emb_model, tokenizer, device, embedding_name)
+            #dish_dict: Keys: recipe names. Values: dictionaries with keys "Embedding_Vectors", "Vector_Lookup_Lists", "Action_Dicts_List"
+            #dish_group_alignments: pd.DataFrame of alignment file
         
             self.dish_dicts[dish] = dish_dict
         
@@ -462,20 +488,19 @@ class Folds_Test:
 
         print("Data successfully loaded for test dishes ", dish_list_test)
 
-        #fold_result_df = pd.DataFrame(
-        #    columns=[
-        #        "Fold",
-        #        "Train_Loss",
-        #        "Train_Accuracy",
-        #        "Valid_Loss",
-        #        "Valid_Accuracy",
-        #        "Test_Accuracy",
-        #        "Correct_Predictions",
-        #        "Num_Actions",
-        #        "Test_Dish",
-        #        "Fold_Timelapse_Minutes"
-        #    ]
-        #)  # , "Test_Dish1_accuracy", "Test_Dish2_accuracy"])
+        fold_result_df = pd.DataFrame(
+            columns=[
+                "Fold",
+                "Test_Dish",
+                "Accuracy1",
+                "Accuracy2",
+                "F1",
+                "Precision",
+                "Recall",
+                "Correct_Predictions",
+                "Num_Actions"
+            ]
+        )
 
         if with_feature:
             destination_folder = destination_folder1
@@ -502,12 +527,12 @@ class Folds_Test:
         else:
             test_dish_id = 0
 
-        print("Fold [{}/{}]".format(fold, num_folds))
+        print("Fold [{}/{}]".format(fold, len(dish_list)))
 
         print("-------Testing-------")
 
         (
-            test_accuracy_list,
+            test_accuracy_list, # list of lists with the following values: dish, correct_predictions, num_actions, dish_accuracy, sk_accuracy, sk_prec, sk_recall, sk_f1
             test_accuracy,
             total_correct_predictions,
             total_actions,
@@ -551,37 +576,30 @@ class Folds_Test:
         # "Test_Dish1_accuracy" : test_accuracy_list[0][2],
         # "Test_Dish2_accuracy" : test_accuracy_list[1][2]}
         # except IndexError:
-        #    fold_result = {
-        #        "Fold": fold + 1,
-        #        "Train_Loss": train_loss,
-        #        "Train_Accuracy": train_accuracy,
-        #        "Valid_Loss": valid_loss,
-        #        "Valid_Accuracy": valid_accuracy,
-        #        "Test_Accuracy": test_accuracy,
-        #        "Correct_Predictions": total_correct_predictions,
-        #        "Num_Actions": total_actions,
-        #        "Test_Dish": dish_list[0],
-        #        "Fold_Timelapse_Minutes": elapsed_duration[0]
-        #    }
-
-        # fold_result_df = fold_result_df.append(fold_result, ignore_index=True)
+        for line in test_accuracy_list:
+            fold_result = {
+                "Fold": fold + 1,
+                "Test_Dish" : line[0],
+                "Accuracy1" : line[3],
+                "Accuracy2" : line[4],
+                "F1" : line[7],
+                "Precision" : line[5],
+                "Recall": line[6],
+                "Correct_Predictions" : line[1],
+                "Num_Actions" : line[2]}
+            fold_result_df = fold_result_df.append(fold_result, ignore_index=True)
 
         print("--------------")
 
-    # save_result_path = os.path.join(destination_folder, "fold_results.tsv")
+        save_result_path = os.path.join(destination_folder, "fold_results_test.tsv")
 
-    # Saving the results
-    # fold_result_df.to_csv(save_result_path, sep="\t", index=False, encoding="utf-8")
+        # Saving the results
+        if os.path.exists(save_result_path):
+            fold_result_df.to_csv(save_result_path, sep="\t", index=False, encoding="utf-8", header=False, mode="a")
+        else: 
+            fold_result_df.to_csv(save_result_path, sep="\t", index=False, encoding="utf-8")
 
-    # print("Fold Results saved in ==>" + save_result_path)
-
-    # Print final model statistics
-
-    # total_duration = fold_result_df["Fold_Timelapse_Minutes"].sum()
-    # total_duration = divmod(total_duration, 60)
-    # print(f"Total training time for {num_folds} folds: {total_duration[0]}h {total_duration[1]}min" )
-
-    # here I have deleted the evaluation part
+        print("Fold Results saved in ==>" + save_result_path)
 
 
 # FUNCTIONS FOR OTHER MODELS: SIMPLE, SIMILARITY, ETC.
@@ -722,11 +740,11 @@ class Folds_Test:
                _, parsed_recipe2, action_pairs = model.generate_action_pairs(recipe_pair_alignment, recipe1_filename, recipe2_filename)
                
                correct_predictions, num_actions, results_df = model.fetch_aligned_actions(action_pairs, 
-                                                                                          vocab, 
-                                                                                          parsed_recipe2,
-                                                                                          correct_predictions,
-                                                                                          num_actions,
-                                                                                          results_df)
+                   vocab, 
+                   parsed_recipe2,
+                   correct_predictions,
+                   num_actions,
+                   results_df)
                
             total_correct_predictions += correct_predictions
             total_actions += num_actions
@@ -757,8 +775,7 @@ class Folds_Test:
 
 
     def run_naive_folds_test( self,
-        model,
-        num_folds
+        model
         ):
         """
         Running 10 fold cross validation for naive baseline
@@ -767,7 +784,6 @@ class Folds_Test:
         ----------
         model : NaiveModel object
             Naive Baseline model
-        num_folds : Int
 
         """
 
@@ -793,7 +809,7 @@ class Folds_Test:
         overall_predictions = 0
         overall_actions = 0 
 
-        for fold in range(num_folds):
+        for fold in range(len(dish_list_test)):
 
             start = datetime.now()
 
@@ -812,7 +828,7 @@ class Folds_Test:
 
                 test_dish_id = len(dish_list_test) - 1
 
-            print("Fold [{}/{}]".format(fold + 1, num_folds))
+            print("Fold [{}/{}]".format(fold + 1, len(dish_list_test)))
 
             print("-------Testing-------")
 
@@ -907,7 +923,7 @@ if model_name == "Alignment-with-feature":
 
      TT.run_folds_test(
          embedding_name, 
-         emb_model, tokenizer, model, optimizer, criterion, EPOCHS, FOLDS, device
+         emb_model, tokenizer, model, optimizer, criterion, MAX_EPOCHS, device
      )
 
 elif model_name == "Alignment-no-feature":
@@ -930,8 +946,7 @@ elif model_name == "Alignment-no-feature":
          model,
          optimizer,
          criterion,
-         EPOCHS,
-         FOLDS,
+         MAX_EPOCHS,
          device,
          False,
      )
@@ -956,8 +971,7 @@ elif model_name == 'Naive':
      ################ Cross Validation Folds #################
         
      TT.run_naive_folds(
-         naive_model,
-         FOLDS
+         naive_model
          )
         
 elif model_name == 'Sequence':

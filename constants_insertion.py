@@ -24,8 +24,7 @@ HIDDEN_DIM1 = 128  # Hidden dimension 1
 HIDDEN_DIM2 = 32  # Hidden dimension 2
 OUTPUT_DIM = 1  # Classifier output_dim
 LR = 0.0001  # Learning rate for optimizer
-EPOCHS = 70  # Training Epochs
-FOLDS = 10  # Cross Validation Folds
+MAX_EPOCHS = 70  # Training Epochs
 CUDA_DEVICE = "cuda:0"  # GPU 
 
 #####################################

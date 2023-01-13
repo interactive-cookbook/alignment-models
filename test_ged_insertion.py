@@ -21,7 +21,7 @@ from naive_model import NaiveModel
 from transformers import BertTokenizer, BertModel
 from flair.data import Sentence
 from flair.embeddings import ELMoEmbeddings
-from constants_insertion import OUTPUT_DIM, LR, EPOCHS, FOLDS, HIDDEN_DIM1, HIDDEN_DIM2, CUDA_DEVICE
+from constants_insertion import OUTPUT_DIM, LR, MAX_EPOCHS, HIDDEN_DIM1, HIDDEN_DIM2, CUDA_DEVICE
 
 from datetime import datetime
 from constants_insertion import (
@@ -413,7 +413,6 @@ class Folds_Test:
             optimizer,
             criterion,
             num_epochs,
-            num_folds,
             device,
             with_feature=True,
     ):
@@ -433,8 +432,6 @@ class Folds_Test:
         optimizer : Adam optimizer object
         num_epochs : Int
             Number of Epochs.
-        num_folds : Int
-            Number of Folds.
         device : object
             torch device where model tensors are saved.
         with_feature : boolean; Optional
@@ -517,7 +514,7 @@ class Folds_Test:
         else:
             test_dish_id = 0
 
-        print("Fold [{}/{}]".format(fold, num_folds))
+        print("Fold [{}/{}]".format(fold, len(dish_list)))
 
         print("-------Testing-------")
 
@@ -594,7 +591,7 @@ class Folds_Test:
 
     # total_duration = fold_result_df["Fold_Timelapse_Minutes"].sum()
     # total_duration = divmod(total_duration, 60)
-    # print(f"Total training time for {num_folds} folds: {total_duration[0]}h {total_duration[1]}min" )
+    # print(f"Total training time for {len(dish_list)} folds: {total_duration[0]}h {total_duration[1]}min" )
 
     # here I have deleted the evaluation part
 
@@ -773,8 +770,7 @@ class Folds_Test:
 
 
     def run_naive_folds_test( self,
-        model,
-        num_folds
+        model
         ):
         """
         Running 10 fold cross validation for naive baseline
@@ -783,7 +779,6 @@ class Folds_Test:
         ----------
         model : NaiveModel object
             Naive Baseline model
-        num_folds : Int
 
         """
 
@@ -809,7 +804,7 @@ class Folds_Test:
         overall_predictions = 0
         overall_actions = 0 
 
-        for fold in range(num_folds):
+        for fold in range(len(dish_list_test)):
 
             start = datetime.now()
 
@@ -828,7 +823,7 @@ class Folds_Test:
 
                 test_dish_id = len(dish_list_test) - 1
 
-            print("Fold [{}/{}]".format(fold + 1, num_folds))
+            print("Fold [{}/{}]".format(fold + 1, len(dish_list_test)))
 
             print("-------Testing-------")
 
@@ -923,7 +918,7 @@ if model_name == "Alignment-with-feature":
 
      TT.run_folds_test(
          embedding_name, 
-         emb_model, tokenizer, model, optimizer, criterion, EPOCHS, FOLDS, device
+         emb_model, tokenizer, model, optimizer, criterion, MAX_EPOCHS, device
      )
 
 elif model_name == "Alignment-no-feature":
@@ -946,8 +941,7 @@ elif model_name == "Alignment-no-feature":
          model,
          optimizer,
          criterion,
-         EPOCHS,
-         FOLDS,
+         MAX_EPOCHS,
          device,
          False,
      )
@@ -972,8 +966,7 @@ elif model_name == 'Naive':
      ################ Cross Validation Folds #################
         
      TT.run_naive_folds(
-         naive_model,
-         FOLDS
+         naive_model
          )
         
 elif model_name == 'Sequence':
