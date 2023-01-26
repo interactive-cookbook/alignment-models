@@ -31,7 +31,7 @@ from datetime import datetime
 from model import AlignmentModel
 from transformers import BertTokenizer, BertModel
 from utils import fetch_recipe, load_checkpoint, save_predictions
-from constants import recipe_folder_name, folder, alignment_file, destination_folder1, OUTPUT_DIM, LR, HIDDEN_DIM1, HIDDEN_DIM2, MAX_EPOCHS
+from constants import recipe_folder_name, folder, alignment_file, destination_folder1, OUTPUT_DIM, LR, HIDDEN_DIM1, HIDDEN_DIM2, DROPOUT0, DROPOUT1, DROPOUT2, MAX_EPOCHS
 from training_testing import Folds
 
 device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
@@ -274,7 +274,7 @@ def main():
                 "hidden_size"
             ]  # BERT embedding dimension
         
-    model = AlignmentModel(embedding_dim, HIDDEN_DIM1, HIDDEN_DIM2, OUTPUT_DIM, device).to(
+    model = AlignmentModel(embedding_dim, HIDDEN_DIM1, HIDDEN_DIM2, OUTPUT_DIM, DROPOUT0, DROPOUT1, DROPOUT2, device).to(
                 device
             )  # Out Alignment Model with features
     

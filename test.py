@@ -19,7 +19,7 @@ from naive_model import NaiveModel
 from transformers import BertTokenizer, BertModel
 from flair.data import Sentence
 from flair.embeddings import ELMoEmbeddings
-from constants import OUTPUT_DIM, LR, MAX_EPOCHS, HIDDEN_DIM1, HIDDEN_DIM2, CUDA_DEVICE
+from constants import OUTPUT_DIM, LR, MAX_EPOCHS, HIDDEN_DIM1, HIDDEN_DIM2, DROPOUT0, DROPOUT1, DROPOUT2, CUDA_DEVICE
 
 from datetime import datetime
 from constants import (
@@ -873,7 +873,7 @@ TT = Folds_Test()  # calling the Training class
 
 if model_name == "Alignment-with-feature":
 
-     model = AlignmentModel(embedding_dim, HIDDEN_DIM1, HIDDEN_DIM2, OUTPUT_DIM, device).to(
+     model = AlignmentModel(embedding_dim, HIDDEN_DIM1, HIDDEN_DIM2, OUTPUT_DIM, DROPOUT0, DROPOUT1, DROPOUT2, device).to(
          device
      )  # Out Alignment Model with features
 
@@ -895,7 +895,7 @@ if model_name == "Alignment-with-feature":
 elif model_name == "Alignment-no-feature":
 
      model = AlignmentModel(
-         embedding_dim, HIDDEN_DIM1, HIDDEN_DIM2, OUTPUT_DIM, device, False
+         embedding_dim, HIDDEN_DIM1, HIDDEN_DIM2, OUTPUT_DIM, DROPOUT0, DROPOUT1, DROPOUT2, device, False
      ).to(
          device
      )  # Out Alignment Model w/o features

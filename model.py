@@ -1,4 +1,5 @@
-# Author : Debanjali Biswas
+# original author : Debanjali Biswas
+# changes by: Theresa Schmidt
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -218,7 +219,7 @@ class Encoder(nn.Module):
 # Linear Classifier to generate probability of alignment between an action from Recipe1 and an action from Recipe2
 class Scorer(nn.Module):
     def __init__(
-        self, feature_dim, embedding_dim, hidden_dim1, hidden_dim2, output_dim, device
+        self, feature_dim, embedding_dim, hidden_dim1, hidden_dim2, output_dim, dropout0, dropout1, dropout2, device
     ):
         """
         Contructor
@@ -235,6 +236,12 @@ class Scorer(nn.Module):
             Hidden dimension for MLP layer 2 in scorer.
         output_dim : int
             Output dimension of MLP in Scorer (always 1).
+        dropout0 : float
+            Dropout-rate between encoding and hidden layer 1.
+        dropout1 : float
+            Dropout-rate between hidden layer 1 and hidden layer 2.
+        dropout2 : float
+            Dropout-rate after hidden layer 2.
         device : object
             torch device where model tensors are saved.
         with_feature : boolean
@@ -252,10 +259,13 @@ class Scorer(nn.Module):
         self.linear_classifier = nn.Sequential(
             nn.Linear(self.embedding_dim * feature_dim, hidden_dim1),  # Linear layer1
             nn.Sigmoid(),
+            nn.Dropout(dropout0)
             nn.Linear(hidden_dim1, hidden_dim2),  # Linear layer1
             nn.Sigmoid(),
+            nn.Dropout(dropout1)
             nn.Linear(hidden_dim2, output_dim),  # Linear layer1
             nn.Sigmoid(),
+            nn.Dropout(dropout2)
         ).to(
             self.device
         )  # MLP structure
@@ -297,7 +307,7 @@ class Scorer(nn.Module):
 # Alignment model to predict which action from Recipe2 aligns (including none) with a particular action (Action1) from Recipe1
 class AlignmentModel(nn.Module):
     def __init__(
-        self, embedding_dim, hidden_dim1, hidden_dim2, output_dim, device, with_feature=True
+        self, embedding_dim, hidden_dim1, hidden_dim2, output_dim, dropout0, dropout1, dropout2, device, with_feature=True
     ):
         """
         Alignment Model
@@ -312,6 +322,12 @@ class AlignmentModel(nn.Module):
             Hidden dimension for MLP layer 2 in scorer.
         output_dim : int
             Output dimension of MLP in Scorer (always 1).
+        dropout0 : float
+            Dropout-rate between encoding and hidden layer 1.
+        dropout1 : float
+            Dropout-rate between hidden layer 1 and hidden layer 2.
+        dropout2 : float
+            Dropout-rate after hidden layer 2.
         device : object
             torch device where model tensors are saved.
         with_feature : boolean; Optional
@@ -339,6 +355,9 @@ class AlignmentModel(nn.Module):
             hidden_dim1,
             hidden_dim2,
             output_dim,
+            dropout0,
+            dropout1,
+            dropout2,
             device,
         )  # Classifier class object
 

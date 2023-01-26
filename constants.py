@@ -21,13 +21,16 @@ Constants and File Paths
 
 # Model Constants
 
-HIDDEN_DIM1 = 1024  # Hidden dimension 1
-HIDDEN_DIM2 = 1024  # Hidden dimension 2
+HIDDEN_DIM1 = 1024  # Scorer hidden dimension 1
+HIDDEN_DIM2 = 1024  # Scorer hidden dimension 2
 OUTPUT_DIM = 1  # Classifier output_dim
+DROPOUT0 = 0.5 # Dropout-rate between encoding and hidden layer 1
+DROPOUT1 = 0.5 # Dropout-rate between hidden layer 1 and hidden layer 2
+DROPOUT2 = 0.5 # Dropout-rate after hidden layer 2
 LR = 0.00001  # Learning rate for Adam optimizer
 MAX_EPOCHS = 1  # Training Epochs
 CUDA_DEVICE = "cuda:2"  # GPU 
-PATIENCE = 15
+PATIENCE = 250
 OPTIMIZER = "Adam" # one of the following: "Adam" (used in the original model; uses LR), "DefaultAdam" (uses default lr), "SGD" (uses default lr and exponential lr scheduler), "RMSprop" (uses default lr), "Adagrad" (uses default lr)
 #####################################
 
@@ -47,6 +50,6 @@ prediction_file = "prediction.tsv"  # Testing results
 # Data file paths and names
 
 folder = "../fine-tuning/data"  # Dataset folder
-test_folder = "./test" # Folder with test data
+test_folder = "../fine-tuning/data" # Folder with the gold data for evaluation
 recipe_folder_name = "recipes"  # Folder containing recipes
 alignment_file = "alignments.tsv"  # Alignment file
